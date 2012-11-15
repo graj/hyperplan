@@ -239,9 +239,9 @@
 			children = (
 				419896BA1654DE9800690FBF /* Model */,
 				419896951654DBF500690FBF /* HPConstants.h */,
-				419896941654DBE100690FBF /* Timeline View */,
 				4198968A1654DBB000690FBF /* HPAppDelegate.h */,
 				4198968B1654DBB000690FBF /* HPAppDelegate.m */,
+				419896941654DBE100690FBF /* Timeline View */,
 				419896891654DB4600690FBF /* Navigation */,
 				4198967F1654DB4200690FBF /* HPViewController.h */,
 				419896801654DB4200690FBF /* HPViewController.m */,
