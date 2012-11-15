@@ -31,6 +31,8 @@
 		419896B31654DC1500690FBF /* splitCellButtonRight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 419896A31654DC1500690FBF /* splitCellButtonRight@2x.png */; };
 		419896B41654DC1500690FBF /* splitCellButtonLeft-pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 419896A41654DC1500690FBF /* splitCellButtonLeft-pressed@2x.png */; };
 		419896B51654DC1500690FBF /* splitCellButtonRight-pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 419896A51654DC1500690FBF /* splitCellButtonRight-pressed@2x.png */; };
+		419896B91654DE8500690FBF /* Task.m in Sources */ = {isa = PBXBuildFile; fileRef = 419896B81654DE8500690FBF /* Task.m */; };
+		419896BD1654DF5100690FBF /* HPTimelineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 419896BC1654DF5100690FBF /* HPTimelineViewController.m */; };
 		419F12CC1648D76600128B26 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 419F12CB1648D76600128B26 /* UIKit.framework */; };
 		419F12CE1648D76600128B26 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 419F12CD1648D76600128B26 /* Foundation.framework */; };
 		419F12D01648D76600128B26 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 419F12CF1648D76600128B26 /* CoreGraphics.framework */; };
@@ -88,6 +90,10 @@
 		419896A31654DC1500690FBF /* splitCellButtonRight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splitCellButtonRight@2x.png"; sourceTree = "<group>"; };
 		419896A41654DC1500690FBF /* splitCellButtonLeft-pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splitCellButtonLeft-pressed@2x.png"; sourceTree = "<group>"; };
 		419896A51654DC1500690FBF /* splitCellButtonRight-pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splitCellButtonRight-pressed@2x.png"; sourceTree = "<group>"; };
+		419896B71654DE8500690FBF /* Task.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Task.h; path = hyperplan/Task.h; sourceTree = "<group>"; };
+		419896B81654DE8500690FBF /* Task.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Task.m; path = hyperplan/Task.m; sourceTree = "<group>"; };
+		419896BB1654DF5100690FBF /* HPTimelineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPTimelineViewController.h; sourceTree = "<group>"; };
+		419896BC1654DF5100690FBF /* HPTimelineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPTimelineViewController.m; sourceTree = "<group>"; };
 		419F12C71648D76600128B26 /* hyperplan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hyperplan.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		419F12CB1648D76600128B26 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		419F12CD1648D76600128B26 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -158,6 +164,8 @@
 			isa = PBXGroup;
 			children = (
 				419896931654DBD800690FBF /* Item */,
+				419896BB1654DF5100690FBF /* HPTimelineViewController.h */,
+				419896BC1654DF5100690FBF /* HPTimelineViewController.m */,
 			);
 			name = "Timeline View";
 			sourceTree = "<group>";
@@ -183,6 +191,17 @@
 				419896A51654DC1500690FBF /* splitCellButtonRight-pressed@2x.png */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		419896BA1654DE9800690FBF /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				416FC86B164BCC8000B060E4 /* Model.xcdatamodeld */,
+				419896B71654DE8500690FBF /* Task.h */,
+				419896B81654DE8500690FBF /* Task.m */,
+			);
+			name = Model;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		419F12BC1648D76600128B26 = {
@@ -218,6 +237,7 @@
 		419F12D11648D76600128B26 /* hyperplan */ = {
 			isa = PBXGroup;
 			children = (
+				419896BA1654DE9800690FBF /* Model */,
 				419896951654DBF500690FBF /* HPConstants.h */,
 				419896941654DBE100690FBF /* Timeline View */,
 				4198968A1654DBB000690FBF /* HPAppDelegate.h */,
@@ -226,7 +246,6 @@
 				4198967F1654DB4200690FBF /* HPViewController.h */,
 				419896801654DB4200690FBF /* HPViewController.m */,
 				419F12E31648D76600128B26 /* MainStoryboard.storyboard */,
-				416FC86B164BCC8000B060E4 /* Model.xcdatamodeld */,
 				419896B61654DC1B00690FBF /* Resources */,
 				419F12D21648D76600128B26 /* Supporting Files */,
 			);
@@ -313,7 +332,7 @@
 			attributes = {
 				CLASSPREFIX = HP;
 				LastUpgradeCheck = 0450;
-				ORGANIZATIONNAME = "sohu-inc";
+				ORGANIZATIONNAME = "Sohu Inc.";
 			};
 			buildConfigurationList = 419F12C11648D76600128B26 /* Build configuration list for PBXProject "hyperplan" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -401,6 +420,8 @@
 				4198968C1654DBB000690FBF /* HPAppDelegate.m in Sources */,
 				419896911654DBD200690FBF /* HPItemBubble.m in Sources */,
 				419896921654DBD200690FBF /* HPItemIndicator.m in Sources */,
+				419896B91654DE8500690FBF /* Task.m in Sources */,
+				419896BD1654DF5100690FBF /* HPTimelineViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -596,7 +617,8 @@
 				416FC86C164BCC8000B060E4 /* Model.xcdatamodel */,
 			);
 			currentVersion = 416FC86C164BCC8000B060E4 /* Model.xcdatamodel */;
-			path = Model.xcdatamodeld;
+			name = Model.xcdatamodeld;
+			path = hyperplan/Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
