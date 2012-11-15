@@ -1,13 +1,15 @@
 //
-//  HPViewController.h
-//  hyperplan
+//  ViewController.h
+//  hyper-plan-testfield
 //
-//  Created by wuhaotian on 12-11-6.
-//  Copyright (c) 2012年 sohu-inc. All rights reserved.
+//  Created by Phil on 11/1/12.
+//  Copyright (c) 2012 Sohu Inc.. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
+#import "HPPopupMenu.h"
+#import "HPNavigationBar.h"
 
-@interface HPViewController : UIViewController
+@interface ViewController : UIViewController <HPNavigationBarDelegate>
 
 @end

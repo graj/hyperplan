@@ -7,17 +7,39 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		416FC86D164BCC8000B060E4 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 416FC86B164BCC8000B060E4 /* Model.xcdatamodeld */; };
+		416FC86E164BCC8000B060E4 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 416FC86B164BCC8000B060E4 /* Model.xcdatamodeld */; };
+		419896851654DB4300690FBF /* HPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 419896801654DB4200690FBF /* HPViewController.m */; };
+		419896861654DB4300690FBF /* HPNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 419896821654DB4200690FBF /* HPNavigationBar.m */; };
+		419896871654DB4300690FBF /* HPPopupMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 419896841654DB4200690FBF /* HPPopupMenu.m */; };
+		4198968C1654DBB000690FBF /* HPAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4198968B1654DBB000690FBF /* HPAppDelegate.m */; };
+		419896911654DBD200690FBF /* HPItemBubble.m in Sources */ = {isa = PBXBuildFile; fileRef = 4198968E1654DBD200690FBF /* HPItemBubble.m */; };
+		419896921654DBD200690FBF /* HPItemIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 419896901654DBD200690FBF /* HPItemIndicator.m */; };
+		419896A61654DC1500690FBF /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 419896961654DC1500690FBF /* icon.png */; };
+		419896A71654DC1500690FBF /* navbar-background.png in Resources */ = {isa = PBXBuildFile; fileRef = 419896971654DC1500690FBF /* navbar-background.png */; };
+		419896A81654DC1500690FBF /* navbar-background-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 419896981654DC1500690FBF /* navbar-background-2.png */; };
+		419896A91654DC1500690FBF /* navbar-btn-add.png in Resources */ = {isa = PBXBuildFile; fileRef = 419896991654DC1500690FBF /* navbar-btn-add.png */; };
+		419896AA1654DC1500690FBF /* navbar-btn-menu.png in Resources */ = {isa = PBXBuildFile; fileRef = 4198969A1654DC1500690FBF /* navbar-btn-menu.png */; };
+		419896AB1654DC1500690FBF /* axis.png in Resources */ = {isa = PBXBuildFile; fileRef = 4198969B1654DC1500690FBF /* axis.png */; };
+		419896AC1654DC1500690FBF /* axis-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 4198969C1654DC1500690FBF /* axis-2.png */; };
+		419896AD1654DC1500690FBF /* menu-btn-pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4198969D1654DC1500690FBF /* menu-btn-pressed@2x.png */; };
+		419896AE1654DC1500690FBF /* menu-btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4198969E1654DC1500690FBF /* menu-btn@2x.png */; };
+		419896AF1654DC1500690FBF /* bubble@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4198969F1654DC1500690FBF /* bubble@2x.png */; };
+		419896B01654DC1500690FBF /* indicator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 419896A01654DC1500690FBF /* indicator@2x.png */; };
+		419896B11654DC1500690FBF /* popupmenu-hollow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 419896A11654DC1500690FBF /* popupmenu-hollow@2x.png */; };
+		419896B21654DC1500690FBF /* splitCellButtonLeft@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 419896A21654DC1500690FBF /* splitCellButtonLeft@2x.png */; };
+		419896B31654DC1500690FBF /* splitCellButtonRight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 419896A31654DC1500690FBF /* splitCellButtonRight@2x.png */; };
+		419896B41654DC1500690FBF /* splitCellButtonLeft-pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 419896A41654DC1500690FBF /* splitCellButtonLeft-pressed@2x.png */; };
+		419896B51654DC1500690FBF /* splitCellButtonRight-pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 419896A51654DC1500690FBF /* splitCellButtonRight-pressed@2x.png */; };
 		419F12CC1648D76600128B26 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 419F12CB1648D76600128B26 /* UIKit.framework */; };
 		419F12CE1648D76600128B26 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 419F12CD1648D76600128B26 /* Foundation.framework */; };
 		419F12D01648D76600128B26 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 419F12CF1648D76600128B26 /* CoreGraphics.framework */; };
 		419F12D61648D76600128B26 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 419F12D41648D76600128B26 /* InfoPlist.strings */; };
 		419F12D81648D76600128B26 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 419F12D71648D76600128B26 /* main.m */; };
-		419F12DC1648D76600128B26 /* HPAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 419F12DB1648D76600128B26 /* HPAppDelegate.m */; };
 		419F12DE1648D76600128B26 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 419F12DD1648D76600128B26 /* Default.png */; };
 		419F12E01648D76600128B26 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 419F12DF1648D76600128B26 /* Default@2x.png */; };
 		419F12E21648D76600128B26 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 419F12E11648D76600128B26 /* Default-568h@2x.png */; };
 		419F12E51648D76600128B26 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 419F12E31648D76600128B26 /* MainStoryboard.storyboard */; };
-		419F12E81648D76600128B26 /* HPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 419F12E71648D76600128B26 /* HPViewController.m */; };
 		419F12F01648D76600128B26 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 419F12EF1648D76600128B26 /* SenTestingKit.framework */; };
 		419F12F11648D76600128B26 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 419F12CB1648D76600128B26 /* UIKit.framework */; };
 		419F12F21648D76600128B26 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 419F12CD1648D76600128B26 /* Foundation.framework */; };
@@ -36,6 +58,36 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		416FC86C164BCC8000B060E4 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		4198967F1654DB4200690FBF /* HPViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPViewController.h; sourceTree = "<group>"; };
+		419896801654DB4200690FBF /* HPViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPViewController.m; sourceTree = "<group>"; };
+		419896811654DB4200690FBF /* HPNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPNavigationBar.h; sourceTree = "<group>"; };
+		419896821654DB4200690FBF /* HPNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPNavigationBar.m; sourceTree = "<group>"; };
+		419896831654DB4200690FBF /* HPPopupMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPPopupMenu.h; sourceTree = "<group>"; };
+		419896841654DB4200690FBF /* HPPopupMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPPopupMenu.m; sourceTree = "<group>"; };
+		4198968A1654DBB000690FBF /* HPAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPAppDelegate.h; sourceTree = "<group>"; };
+		4198968B1654DBB000690FBF /* HPAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPAppDelegate.m; sourceTree = "<group>"; };
+		4198968D1654DBD200690FBF /* HPItemBubble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPItemBubble.h; sourceTree = "<group>"; };
+		4198968E1654DBD200690FBF /* HPItemBubble.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPItemBubble.m; sourceTree = "<group>"; };
+		4198968F1654DBD200690FBF /* HPItemIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPItemIndicator.h; sourceTree = "<group>"; };
+		419896901654DBD200690FBF /* HPItemIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPItemIndicator.m; sourceTree = "<group>"; };
+		419896951654DBF500690FBF /* HPConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPConstants.h; sourceTree = "<group>"; };
+		419896961654DC1500690FBF /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
+		419896971654DC1500690FBF /* navbar-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navbar-background.png"; sourceTree = "<group>"; };
+		419896981654DC1500690FBF /* navbar-background-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navbar-background-2.png"; sourceTree = "<group>"; };
+		419896991654DC1500690FBF /* navbar-btn-add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navbar-btn-add.png"; sourceTree = "<group>"; };
+		4198969A1654DC1500690FBF /* navbar-btn-menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navbar-btn-menu.png"; sourceTree = "<group>"; };
+		4198969B1654DC1500690FBF /* axis.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = axis.png; sourceTree = "<group>"; };
+		4198969C1654DC1500690FBF /* axis-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "axis-2.png"; sourceTree = "<group>"; };
+		4198969D1654DC1500690FBF /* menu-btn-pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu-btn-pressed@2x.png"; sourceTree = "<group>"; };
+		4198969E1654DC1500690FBF /* menu-btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu-btn@2x.png"; sourceTree = "<group>"; };
+		4198969F1654DC1500690FBF /* bubble@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bubble@2x.png"; sourceTree = "<group>"; };
+		419896A01654DC1500690FBF /* indicator@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "indicator@2x.png"; sourceTree = "<group>"; };
+		419896A11654DC1500690FBF /* popupmenu-hollow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "popupmenu-hollow@2x.png"; sourceTree = "<group>"; };
+		419896A21654DC1500690FBF /* splitCellButtonLeft@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splitCellButtonLeft@2x.png"; sourceTree = "<group>"; };
+		419896A31654DC1500690FBF /* splitCellButtonRight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splitCellButtonRight@2x.png"; sourceTree = "<group>"; };
+		419896A41654DC1500690FBF /* splitCellButtonLeft-pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splitCellButtonLeft-pressed@2x.png"; sourceTree = "<group>"; };
+		419896A51654DC1500690FBF /* splitCellButtonRight-pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splitCellButtonRight-pressed@2x.png"; sourceTree = "<group>"; };
 		419F12C71648D76600128B26 /* hyperplan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hyperplan.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		419F12CB1648D76600128B26 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		419F12CD1648D76600128B26 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -44,14 +96,10 @@
 		419F12D51648D76600128B26 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		419F12D71648D76600128B26 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		419F12D91648D76600128B26 /* hyperplan-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "hyperplan-Prefix.pch"; sourceTree = "<group>"; };
-		419F12DA1648D76600128B26 /* HPAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPAppDelegate.h; sourceTree = "<group>"; };
-		419F12DB1648D76600128B26 /* HPAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HPAppDelegate.m; sourceTree = "<group>"; };
 		419F12DD1648D76600128B26 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		419F12DF1648D76600128B26 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		419F12E11648D76600128B26 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		419F12E41648D76600128B26 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
-		419F12E61648D76600128B26 /* HPViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPViewController.h; sourceTree = "<group>"; };
-		419F12E71648D76600128B26 /* HPViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HPViewController.m; sourceTree = "<group>"; };
 		419F12EE1648D76600128B26 /* hyperplanTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = hyperplanTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		419F12EF1648D76600128B26 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		419F12F71648D76600128B26 /* hyperplanTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "hyperplanTests-Info.plist"; sourceTree = "<group>"; };
@@ -84,6 +132,59 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		419896891654DB4600690FBF /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				419896811654DB4200690FBF /* HPNavigationBar.h */,
+				419896821654DB4200690FBF /* HPNavigationBar.m */,
+				419896831654DB4200690FBF /* HPPopupMenu.h */,
+				419896841654DB4200690FBF /* HPPopupMenu.m */,
+			);
+			name = Navigation;
+			sourceTree = "<group>";
+		};
+		419896931654DBD800690FBF /* Item */ = {
+			isa = PBXGroup;
+			children = (
+				4198968D1654DBD200690FBF /* HPItemBubble.h */,
+				4198968E1654DBD200690FBF /* HPItemBubble.m */,
+				4198968F1654DBD200690FBF /* HPItemIndicator.h */,
+				419896901654DBD200690FBF /* HPItemIndicator.m */,
+			);
+			name = Item;
+			sourceTree = "<group>";
+		};
+		419896941654DBE100690FBF /* Timeline View */ = {
+			isa = PBXGroup;
+			children = (
+				419896931654DBD800690FBF /* Item */,
+			);
+			name = "Timeline View";
+			sourceTree = "<group>";
+		};
+		419896B61654DC1B00690FBF /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				419896961654DC1500690FBF /* icon.png */,
+				419896971654DC1500690FBF /* navbar-background.png */,
+				419896981654DC1500690FBF /* navbar-background-2.png */,
+				419896991654DC1500690FBF /* navbar-btn-add.png */,
+				4198969A1654DC1500690FBF /* navbar-btn-menu.png */,
+				4198969B1654DC1500690FBF /* axis.png */,
+				4198969C1654DC1500690FBF /* axis-2.png */,
+				4198969D1654DC1500690FBF /* menu-btn-pressed@2x.png */,
+				4198969E1654DC1500690FBF /* menu-btn@2x.png */,
+				4198969F1654DC1500690FBF /* bubble@2x.png */,
+				419896A01654DC1500690FBF /* indicator@2x.png */,
+				419896A11654DC1500690FBF /* popupmenu-hollow@2x.png */,
+				419896A21654DC1500690FBF /* splitCellButtonLeft@2x.png */,
+				419896A31654DC1500690FBF /* splitCellButtonRight@2x.png */,
+				419896A41654DC1500690FBF /* splitCellButtonLeft-pressed@2x.png */,
+				419896A51654DC1500690FBF /* splitCellButtonRight-pressed@2x.png */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		419F12BC1648D76600128B26 = {
 			isa = PBXGroup;
 			children = (
@@ -117,11 +218,16 @@
 		419F12D11648D76600128B26 /* hyperplan */ = {
 			isa = PBXGroup;
 			children = (
-				419F12DA1648D76600128B26 /* HPAppDelegate.h */,
-				419F12DB1648D76600128B26 /* HPAppDelegate.m */,
+				419896951654DBF500690FBF /* HPConstants.h */,
+				419896941654DBE100690FBF /* Timeline View */,
+				4198968A1654DBB000690FBF /* HPAppDelegate.h */,
+				4198968B1654DBB000690FBF /* HPAppDelegate.m */,
+				419896891654DB4600690FBF /* Navigation */,
+				4198967F1654DB4200690FBF /* HPViewController.h */,
+				419896801654DB4200690FBF /* HPViewController.m */,
 				419F12E31648D76600128B26 /* MainStoryboard.storyboard */,
-				419F12E61648D76600128B26 /* HPViewController.h */,
-				419F12E71648D76600128B26 /* HPViewController.m */,
+				416FC86B164BCC8000B060E4 /* Model.xcdatamodeld */,
+				419896B61654DC1B00690FBF /* Resources */,
 				419F12D21648D76600128B26 /* Supporting Files */,
 			);
 			path = hyperplan;
@@ -237,6 +343,22 @@
 				419F12E01648D76600128B26 /* Default@2x.png in Resources */,
 				419F12E21648D76600128B26 /* Default-568h@2x.png in Resources */,
 				419F12E51648D76600128B26 /* MainStoryboard.storyboard in Resources */,
+				419896A61654DC1500690FBF /* icon.png in Resources */,
+				419896A71654DC1500690FBF /* navbar-background.png in Resources */,
+				419896A81654DC1500690FBF /* navbar-background-2.png in Resources */,
+				419896A91654DC1500690FBF /* navbar-btn-add.png in Resources */,
+				419896AA1654DC1500690FBF /* navbar-btn-menu.png in Resources */,
+				419896AB1654DC1500690FBF /* axis.png in Resources */,
+				419896AC1654DC1500690FBF /* axis-2.png in Resources */,
+				419896AD1654DC1500690FBF /* menu-btn-pressed@2x.png in Resources */,
+				419896AE1654DC1500690FBF /* menu-btn@2x.png in Resources */,
+				419896AF1654DC1500690FBF /* bubble@2x.png in Resources */,
+				419896B01654DC1500690FBF /* indicator@2x.png in Resources */,
+				419896B11654DC1500690FBF /* popupmenu-hollow@2x.png in Resources */,
+				419896B21654DC1500690FBF /* splitCellButtonLeft@2x.png in Resources */,
+				419896B31654DC1500690FBF /* splitCellButtonRight@2x.png in Resources */,
+				419896B41654DC1500690FBF /* splitCellButtonLeft-pressed@2x.png in Resources */,
+				419896B51654DC1500690FBF /* splitCellButtonRight-pressed@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -272,8 +394,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				419F12D81648D76600128B26 /* main.m in Sources */,
-				419F12DC1648D76600128B26 /* HPAppDelegate.m in Sources */,
-				419F12E81648D76600128B26 /* HPViewController.m in Sources */,
+				416FC86D164BCC8000B060E4 /* Model.xcdatamodeld in Sources */,
+				419896851654DB4300690FBF /* HPViewController.m in Sources */,
+				419896861654DB4300690FBF /* HPNavigationBar.m in Sources */,
+				419896871654DB4300690FBF /* HPPopupMenu.m in Sources */,
+				4198968C1654DBB000690FBF /* HPAppDelegate.m in Sources */,
+				419896911654DBD200690FBF /* HPItemBubble.m in Sources */,
+				419896921654DBD200690FBF /* HPItemIndicator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,6 +409,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				419F12FD1648D76600128B26 /* hyperplanTests.m in Sources */,
+				416FC86E164BCC8000B060E4 /* Model.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -448,6 +576,7 @@
 				419F13021648D76600128B26 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		419F13031648D76600128B26 /* Build configuration list for PBXNativeTarget "hyperplanTests" */ = {
 			isa = XCConfigurationList;
@@ -456,8 +585,22 @@
 				419F13051648D76600128B26 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		416FC86B164BCC8000B060E4 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				416FC86C164BCC8000B060E4 /* Model.xcdatamodel */,
+			);
+			currentVersion = 416FC86C164BCC8000B060E4 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 419F12BE1648D76600128B26 /* Project object */;
 }

@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HPPopupMenu.h"
+#import "HPNavigationBar.h"
 
 @interface HPAppDelegate : UIResponder <UIApplicationDelegate>
 
