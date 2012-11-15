@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-*.xcodeproj
-=======
-
 .DS_Store
->>>>>>> initial commit
+
+*.xcuserstate
