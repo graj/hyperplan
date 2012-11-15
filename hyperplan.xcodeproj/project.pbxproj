@@ -237,15 +237,14 @@
 		419F12D11648D76600128B26 /* hyperplan */ = {
 			isa = PBXGroup;
 			children = (
-				419896BA1654DE9800690FBF /* Model */,
 				419896951654DBF500690FBF /* HPConstants.h */,
-				419896941654DBE100690FBF /* Timeline View */,
 				4198968A1654DBB000690FBF /* HPAppDelegate.h */,
 				4198968B1654DBB000690FBF /* HPAppDelegate.m */,
-				419896891654DB4600690FBF /* Navigation */,
 				4198967F1654DB4200690FBF /* HPViewController.h */,
 				419896801654DB4200690FBF /* HPViewController.m */,
-				419F12E31648D76600128B26 /* MainStoryboard.storyboard */,
+				419896BA1654DE9800690FBF /* Model */,
+				419896941654DBE100690FBF /* Timeline View */,
+				419896891654DB4600690FBF /* Navigation */,
 				419896B61654DC1B00690FBF /* Resources */,
 				419F12D21648D76600128B26 /* Supporting Files */,
 			);
@@ -255,6 +254,7 @@
 		419F12D21648D76600128B26 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				419F12E31648D76600128B26 /* MainStoryboard.storyboard */,
 				419F12D31648D76600128B26 /* hyperplan-Info.plist */,
 				419F12D41648D76600128B26 /* InfoPlist.strings */,
 				419F12D71648D76600128B26 /* main.m */,
