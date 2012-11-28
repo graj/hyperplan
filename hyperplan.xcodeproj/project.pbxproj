@@ -35,6 +35,7 @@
 		41758896166637A5002541CD /* MagicalRecord+Setup.m in Sources */ = {isa = PBXBuildFile; fileRef = 41758878166637A5002541CD /* MagicalRecord+Setup.m */; };
 		41758897166637A5002541CD /* MagicalRecord+ShorthandSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 4175887A166637A5002541CD /* MagicalRecord+ShorthandSupport.m */; };
 		41758898166637A5002541CD /* MagicalRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 4175887C166637A5002541CD /* MagicalRecord.m */; };
+		4175889B16663B90002541CD /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4175889A16663B90002541CD /* CoreData.framework */; };
 		419896851654DB4300690FBF /* HPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 419896801654DB4200690FBF /* HPViewController.m */; };
 		419896861654DB4300690FBF /* HPNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 419896821654DB4200690FBF /* HPNavigationBar.m */; };
 		419896871654DB4300690FBF /* HPPopupMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 419896841654DB4200690FBF /* HPPopupMenu.m */; };
@@ -142,6 +143,7 @@
 		4175887C166637A5002541CD /* MagicalRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MagicalRecord.m; sourceTree = "<group>"; };
 		4175887D166637A5002541CD /* MagicalRecordShorthand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MagicalRecordShorthand.h; sourceTree = "<group>"; };
 		4175887E166637A5002541CD /* CoreData+MagicalRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CoreData+MagicalRecord.h"; sourceTree = "<group>"; };
+		4175889A16663B90002541CD /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		4198967F1654DB4200690FBF /* HPViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPViewController.h; sourceTree = "<group>"; };
 		419896801654DB4200690FBF /* HPViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPViewController.m; sourceTree = "<group>"; };
 		419896811654DB4200690FBF /* HPNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPNavigationBar.h; sourceTree = "<group>"; };
@@ -201,7 +203,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4A96DE7C16663B79003F10F3 /* CoreData.framework in Frameworks */,
+				4175889B16663B90002541CD /* CoreData.framework in Frameworks */,
 				419F12CC1648D76600128B26 /* UIKit.framework in Frameworks */,
 				419F12CE1648D76600128B26 /* Foundation.framework in Frameworks */,
 				419F12D01648D76600128B26 /* CoreGraphics.framework in Frameworks */,
@@ -392,6 +394,7 @@
 		419F12BC1648D76600128B26 = {
 			isa = PBXGroup;
 			children = (
+				4175889A16663B90002541CD /* CoreData.framework */,
 				41758843166637A5002541CD /* MagicalRecord */,
 				419F12D11648D76600128B26 /* hyperplan */,
 				419F12F51648D76600128B26 /* hyperplanTests */,
