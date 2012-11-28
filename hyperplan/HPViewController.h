@@ -10,6 +10,6 @@
 #import "HPPopupMenu.h"
 #import "HPNavigationBar.h"
 
-@interface ViewController : UIViewController <HPNavigationBarDelegate>
+@interface HPViewController : UIViewController <HPNavigationBarDelegate>
 
 @end

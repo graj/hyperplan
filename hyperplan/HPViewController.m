@@ -13,9 +13,9 @@
 #import "QuartzCore/CALayer.h"
 
 #define NAV_FRAME CGRectMake(0, 0, 320, 44)
-#define MAIN_FRAME CGRectMake(0, 44, 320, 416)
+#define MAIN_FRAME CGRectMake(0, 0, 320, 460)
 
-@implementation ViewController
+@implementation HPViewController
 
 HPNavigationBar * navigationBar;
 HPTimelineViewController * timelineViewController;
@@ -34,10 +34,10 @@ HPTimelineViewController * timelineViewController;
     [self.view addSubview:navigationBar];
     
     /* add HPTimelineViewController */
-//    timelineViewController = [[HPTimelineViewController alloc] init];
-//    [timelineViewController.view setFrame:MAIN_FRAME];
-//    [self.view addSubview:timelineViewController.view];
-//    [timelineViewController initContents];
+    timelineViewController = [[HPTimelineViewController alloc] init];
+    [timelineViewController.view setFrame:MAIN_FRAME];
+    [self.view addSubview:timelineViewController.view];
+    [timelineViewController initContents];
 }
 
 - (void)didReceiveMemoryWarning
