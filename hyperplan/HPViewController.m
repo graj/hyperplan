@@ -34,10 +34,10 @@ HPTimelineViewController * timelineViewController;
     [self.view addSubview:navigationBar];
     
     /* add HPTimelineViewController */
-    timelineViewController = [[HPTimelineViewController alloc] init];
-    [timelineViewController.view setFrame:MAIN_FRAME];
-    [self.view addSubview:timelineViewController.view];
-    [timelineViewController initContents];
+//    timelineViewController = [[HPTimelineViewController alloc] init];
+//    [timelineViewController.view setFrame:MAIN_FRAME];
+//    [self.view addSubview:timelineViewController.view];
+//    [timelineViewController initContents];
 }
 
 - (void)didReceiveMemoryWarning
