@@ -13,7 +13,7 @@
 #import "QuartzCore/CALayer.h"
 
 #define NAV_FRAME CGRectMake(0, 0, 320, 44)
-#define MAIN_FRAME CGRectMake(0, 0, 320, 460)
+#define MAIN_FRAME CGRectMake(0,44, 320, 416)
 
 @implementation HPViewController
 

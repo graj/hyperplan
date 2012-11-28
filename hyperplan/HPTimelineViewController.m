@@ -12,7 +12,7 @@
 #import "HPConstants.h"
 
 #define AXIS_IMG [UIImage imageNamed:@"axis-2"]
-#define AXIS_FRAME CGRectMake(320/5, 44, 15, 430)
+#define AXIS_FRAME CGRectMake(320/5, 0, 15, 474)
 
 #define BUBBLE_OFFSET_X (90)
 
@@ -22,7 +22,7 @@
 #define SAMPLE_BUBBLE4_FRAME CGRectMake(BUBBLE_OFFSET_X, 520, 0, 0)
 
 #define INDICATOR_OFFSET_Y (14)
-#define INDICATOR_X (320/5)
+#define INDICATOR_X axis.center.x
 
 UIScrollView * scrollView;
 UIImageView * axis;
@@ -54,7 +54,7 @@ HPItemIndicator * indicator1, * indicator2, * indicator3, * indicator4;
     [self.view addSubview:axis];
     
     /* set up scroll view */
-    scrollView = [[UIScrollView alloc] initWithFrame:[self.view frame]];
+    scrollView = [[UIScrollView alloc] initWithFrame:[self.view bounds]];
     scrollView.backgroundColor = MAIN_BG_COLOR;
     scrollView.contentSize = CGSizeMake(320, 640);
     [self.view addSubview:scrollView];
