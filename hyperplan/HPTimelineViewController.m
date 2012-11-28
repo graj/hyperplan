@@ -10,6 +10,7 @@
 #import "HPItemBubble.h"
 #import "HPItemIndicator.h"
 #import "HPConstants.h"
+#import "Task.h"
 
 #define AXIS_IMG [UIImage imageNamed:@"axis-2"]
 #define AXIS_FRAME CGRectMake(320/5, 0, 15, 474)
@@ -67,6 +68,9 @@ HPItemIndicator * indicator1, * indicator2, * indicator3, * indicator4;
     /* add indicators for the above items */
     indicator1 = [HPItemIndicator indicatorAt:CGPointMake(INDICATOR_X, 20+60+INDICATOR_OFFSET_Y)];
     [scrollView addSubview:indicator1];
+    
+    NSLog(@"%@",[[Task findAll] objectAtIndex:0]);
+    
 }
 
 @end

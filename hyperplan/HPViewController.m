@@ -11,6 +11,8 @@
 #import "HPNavigationBar.h"
 #import "HPTimelineViewController.h"
 #import "QuartzCore/CALayer.h"
+#import "Task.h"
+#import "CoreData+MagicalRecord.h"
 
 #define NAV_FRAME CGRectMake(0, 0, 320, 44)
 #define MAIN_FRAME CGRectMake(0,44, 320, 416)
@@ -37,7 +39,15 @@ HPTimelineViewController * timelineViewController;
     timelineViewController = [[HPTimelineViewController alloc] init];
     [timelineViewController.view setFrame:MAIN_FRAME];
     [self.view addSubview:timelineViewController.view];
+    
+    Task * t = [Task createEntity];
+    t.content = @"操统报告";
+    t.time = [NSDate date];
+    t.title = @"操统报告";
+    t.state = @(1);
+
     [timelineViewController initContents];
+
 }
 
 - (void)didReceiveMemoryWarning
