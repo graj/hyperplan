@@ -73,6 +73,7 @@
 		419F12F21648D76600128B26 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 419F12CD1648D76600128B26 /* Foundation.framework */; };
 		419F12FA1648D76600128B26 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 419F12F81648D76600128B26 /* InfoPlist.strings */; };
 		419F12FD1648D76600128B26 /* hyperplanTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 419F12FC1648D76600128B26 /* hyperplanTests.m */; };
+		4A96DE7C16663B79003F10F3 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A96DE7B16663B79003F10F3 /* CoreData.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -192,6 +193,7 @@
 		419F12F91648D76600128B26 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		419F12FB1648D76600128B26 /* hyperplanTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hyperplanTests.h; sourceTree = "<group>"; };
 		419F12FC1648D76600128B26 /* hyperplanTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = hyperplanTests.m; sourceTree = "<group>"; };
+		4A96DE7B16663B79003F10F3 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -199,6 +201,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4A96DE7C16663B79003F10F3 /* CoreData.framework in Frameworks */,
 				419F12CC1648D76600128B26 /* UIKit.framework in Frameworks */,
 				419F12CE1648D76600128B26 /* Foundation.framework in Frameworks */,
 				419F12D01648D76600128B26 /* CoreGraphics.framework in Frameworks */,
@@ -409,6 +412,7 @@
 		419F12CA1648D76600128B26 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4A96DE7B16663B79003F10F3 /* CoreData.framework */,
 				419F12CB1648D76600128B26 /* UIKit.framework */,
 				419F12CD1648D76600128B26 /* Foundation.framework */,
 				419F12CF1648D76600128B26 /* CoreGraphics.framework */,

@@ -7,6 +7,29 @@
 //
 
 #import "HPTimelineViewController.h"
+#import "HPItemBubble.h"
+#import "HPItemIndicator.h"
+#import "HPConstants.h"
+
+#define AXIS_IMG [UIImage imageNamed:@"axis-2"]
+#define AXIS_FRAME CGRectMake(320/5, 44, 15, 430)
+
+#define BUBBLE_OFFSET_X (90)
+
+#define SAMPLE_BUBBLE1_FRAME CGRectMake(BUBBLE_OFFSET_X, 20 + 60, 0, 0)
+#define SAMPLE_BUBBLE2_FRAME CGRectMake(BUBBLE_OFFSET_X, 20, 0, 0)
+#define SAMPLE_BUBBLE3_FRAME CGRectMake(BUBBLE_OFFSET_X, 20 + 60 + 120, 0, 0)
+#define SAMPLE_BUBBLE4_FRAME CGRectMake(BUBBLE_OFFSET_X, 520, 0, 0)
+
+#define INDICATOR_OFFSET_Y (14)
+#define INDICATOR_X (320/5)
+
+UIScrollView * scrollView;
+UIImageView * axis;
+
+HPItemBubble * bubble1, * bubble2, * bubble3, * bubble4;
+HPItemIndicator * indicator1, * indicator2, * indicator3, * indicator4;
+
 
 @interface HPTimelineViewController ()
 
@@ -23,16 +46,27 @@
     return self;
 }
 
-- (void)viewDidLoad
+- (void)initContents
 {
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    /* set up axis */
+    axis = [[UIImageView alloc] initWithImage:AXIS_IMG];
+    axis.frame = AXIS_FRAME;
+    [self.view addSubview:axis];
+    
+    /* set up scroll view */
+    scrollView = [[UIScrollView alloc] initWithFrame:[self.view frame]];
+    scrollView.backgroundColor = MAIN_BG_COLOR;
+    scrollView.contentSize = CGSizeMake(320, 640);
+    [self.view addSubview:scrollView];
+    
+    /* add some sample items */
+    NSDate * date1 = [NSDate date];
+    bubble1 = [[HPItemBubble alloc] initWithContent:@"概率统计期中考试" andTime:date1 andFrame:SAMPLE_BUBBLE1_FRAME];
+    [scrollView addSubview:bubble1];
+    
+    /* add indicators for the above items */
+    indicator1 = [HPItemIndicator indicatorAt:CGPointMake(INDICATOR_X, 20+60+INDICATOR_OFFSET_Y)];
+    [scrollView addSubview:indicator1];
 }
 
 @end

@@ -51,7 +51,7 @@ UILabel * labelTime;
     return self;
 }
 
-- (id)initWithContent:(NSString *)content andTime:(NSString *)time andFrame:(CGRect)frame
+- (id)initWithContent:(NSString *)content andTime:(NSDate *)time andFrame:(CGRect)frame
 {
     /* self-adaptive frame set-up */
     bool max_width = NO;    //TODO: refactor this
@@ -88,7 +88,7 @@ UILabel * labelTime;
         [self addSubview:labelTitle];
         
         labelTime = [[UILabel alloc] initWithFrame:LABEL_TIME_FRAME];
-        labelTime.text = self.time;
+        labelTime.text = [self.time description];
         labelTime.textColor = LABEL_TIME_COLOR;
         labelTime.font = LABEL_TIME_FONT;
         labelTime.backgroundColor = CLEAR_COLOR;
@@ -100,8 +100,29 @@ UILabel * labelTime;
 /* Convenient constructor */
 + (id)bubble:(NSString *)content atTime:(NSDate *)time andFrame:(CGRect)frame
 {
-    HPItemBubble * bubble = [[HPItemBubble alloc] initWithContent:content andTime:[NSDate description] andFrame:frame];
+    HPItemBubble * bubble = [[HPItemBubble alloc] initWithContent:content andTime:time andFrame:frame];
     return bubble;
+}
+
+- (NSInteger)getAbsoluteTime
+{
+    return [self.time timeIntervalSinceNow];
+}
+
+typedef enum HPItemBubbleScaleType : NSUInteger {
+    HPItemBubbleScaleExponential,
+    HPItemBubbleScaleLinear
+} HPItemBubbleScaleType;
+
+/* Exponential or linear */
+- (NSInteger)calculateYOffsetForScale:(HPItemBubbleScaleType)scale
+{
+    if (scale == HPItemBubbleScaleExponential) {
+        
+    }
+    else if (scale == HPItemBubbleScaleLinear) {
+        
+    }
 }
 
 @end

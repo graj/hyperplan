@@ -42,3 +42,5 @@
 
 #define MAIN_VIEW_TEXTURE [UIColor underPageBackgroundColor]
 #define LIGHT_MASK_COLOR [UIColor colorWithHue:69/360 saturation:0.03 brightness:0.97 alpha:0.5]
+
+#define MAIN_BG_COLOR (LIGHT_MASK_COLOR)

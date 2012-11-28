@@ -11,13 +11,13 @@
 @interface HPItemBubble : UIView
 {
     NSString * _content;
-    NSString * _time;
+    NSDate * _time;
 }
 
 @property (nonatomic, strong) NSString * content;
-@property (nonatomic, strong) NSString * time;
+@property (nonatomic, strong) NSDate * time;
 
-- (id)initWithContent:(NSString *)content andTime:(NSString *)time andFrame:(CGRect)frame;
+- (id)initWithContent:(NSString *)content andTime:(NSDate *)time andFrame:(CGRect)frame;
 + (id)bubble:(NSString *)content atTime:(NSDate *)time andFrame:(CGRect)frame;
 
 @end

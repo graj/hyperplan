@@ -10,4 +10,6 @@
 
 @interface HPTimelineViewController : UIViewController
 
+- (void)initContents;
+
 @end
