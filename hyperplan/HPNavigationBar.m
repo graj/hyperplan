@@ -9,6 +9,7 @@
 #import "HPConstants.h"
 #import "HPNavigationBar.h"
 #import "HPAppDelegate.h"
+#import "Task.h"
 
 #define NAV_BG_COLOR (WHITE_COLOR)
 #define NAV_BG_IMG [UIImage imageNamed:@"navbar-background-2"]
@@ -83,24 +84,7 @@ bool toggleMenu;
 
         //TODO: replace the dummy text with KVO or delegate methods
         /* set up hint labels */
-        hintUpper = [[UILabel alloc] initWithFrame:NAV_HINT_UPPER_FRAME];
-        hintUpper.text = @"2天后：操统实习小测";
-        hintUpper.font = NAV_HINT_FONT;
-        hintUpper.textColor = NAV_HINT_COLOR;
-        hintUpper.shadowColor = NAV_HINT_SHADOW_COLOR;
-        hintUpper.shadowOffset = NAV_HINT_SHADOW_OFFSET;
-        hintUpper.backgroundColor = CLEAR_COLOR;
-        [self addSubview:hintUpper];
-        
-        hintLower = [[UILabel alloc] initWithFrame:NAV_HINT_LOWER_FRAME];
-        hintLower.text = @"本周：4  | 本月：12";
-        hintLower.font = NAV_HINT_FONT;
-        hintLower.textColor = NAV_HINT_COLOR;
-        hintLower.shadowColor = NAV_HINT_SHADOW_COLOR;
-        hintLower.shadowOffset = NAV_HINT_SHADOW_OFFSET;
-        hintLower.backgroundColor = CLEAR_COLOR;
-        [self addSubview:hintLower];
-        
+        [self updateNavigationBarHints];
     }
     return self;
 }
@@ -154,6 +138,48 @@ bool toggleMenu;
 - (UIWindow *)getContext
 {
     return ((HPAppDelegate *)([UIApplication sharedApplication].delegate)).window;
+}
+
+#pragma mark - Dynamically update navigation bar hints
+
+- (void)updateNavigationBarHints
+{
+    Task * nearestTask = [Task findFirstWithPredicate:[NSPredicate predicateWithFormat:@"state == %d", HPTaskStateDue] sortedBy:@"time" ascending:YES];
+    NSString * hintUpperText;
+    
+    if (nearestTask) {
+        NSInteger days = [nearestTask.time timeIntervalSinceNow] / 3600 / 24;
+        hintUpperText = [NSString stringWithFormat:@"%d天后：%@", days, nearestTask.title];
+    }
+    else {
+        hintUpperText = @"没有未完成的任务";
+    }
+    
+    hintUpper = [[UILabel alloc] initWithFrame:NAV_HINT_UPPER_FRAME];
+    hintUpper.text = hintUpperText;
+    hintUpper.font = NAV_HINT_FONT;
+    hintUpper.textColor = NAV_HINT_COLOR;
+    hintUpper.shadowColor = NAV_HINT_SHADOW_COLOR;
+    hintUpper.shadowOffset = NAV_HINT_SHADOW_OFFSET;
+    hintUpper.backgroundColor = CLEAR_COLOR;
+    [self addSubview:hintUpper];
+    
+    NSArray * allTasks = [Task findAllWithPredicate:[NSPredicate predicateWithFormat:@"state == %d", HPTaskStateDue]];
+    int weekCount = [[allTasks filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(Task * task, NSDictionary * bindings) {
+        return [task.time timeIntervalSinceNow] < 86400 * 7;
+    }]] count];
+    int monthCount = [[allTasks filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(Task * task, NSDictionary * bindings) {
+        return [task.time timeIntervalSinceNow] < 86400 * 30;
+    }]] count];
+    
+    hintLower = [[UILabel alloc] initWithFrame:NAV_HINT_LOWER_FRAME];
+    hintLower.text = [NSString stringWithFormat:@"本周：%d  | 本月：%d", weekCount, monthCount];
+    hintLower.font = NAV_HINT_FONT;
+    hintLower.textColor = NAV_HINT_COLOR;
+    hintLower.shadowColor = NAV_HINT_SHADOW_COLOR;
+    hintLower.shadowOffset = NAV_HINT_SHADOW_OFFSET;
+    hintLower.backgroundColor = CLEAR_COLOR;
+    [self addSubview:hintLower];
 }
 
 @end

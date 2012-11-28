@@ -44,3 +44,28 @@
 #define LIGHT_MASK_COLOR [UIColor colorWithHue:69/360 saturation:0.03 brightness:0.97 alpha:0.5]
 
 #define MAIN_BG_COLOR (LIGHT_MASK_COLOR)
+
+
+/*
+ * Enums
+ */
+
+/* associate with Task.h */
+typedef enum HPTaskStateType : NSInteger {
+    HPTaskStateDue,
+    HPTaskStateFinished,
+    HPTaskStateMissed
+} HPTaskStateType;
+
+/* The scale for calculating bubble y offsets */
+typedef enum HPItemBubbleScaleType : NSUInteger {
+    HPItemBubbleScaleExponential,
+    HPItemBubbleScaleLinear
+} HPItemBubbleScaleType;
+
+/* The mode for representing time */
+typedef enum HPTaskTimeRepMode : NSUInteger {
+    HPTaskTimeRepDateOnly,
+    HPTaskTimeRepDateAndTime,
+    HPTaskTimeRepCompactDateAndTime
+} HPTaskTimeRepMode;

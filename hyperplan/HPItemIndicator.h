@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HPItemBubble.h"
 
 @interface HPItemIndicator : UIView
 {
@@ -15,6 +16,9 @@
 
 @property (nonatomic, assign) NSInteger number;
 
+// Should be deprecated
 + (id)indicatorAt:(CGPoint)center;
+
++ (id)indicatorForBubble:(HPItemBubble *)bubble;
 
 @end

@@ -15,37 +15,14 @@
 #define AXIS_IMG [UIImage imageNamed:@"axis-2"]
 #define AXIS_FRAME CGRectMake(320/5, 0, 15, 474)
 
-#define BUBBLE_OFFSET_X (90)
-
-#define SAMPLE_BUBBLE1_FRAME CGRectMake(BUBBLE_OFFSET_X, 20 + 60, 0, 0)
-#define SAMPLE_BUBBLE2_FRAME CGRectMake(BUBBLE_OFFSET_X, 20, 0, 0)
-#define SAMPLE_BUBBLE3_FRAME CGRectMake(BUBBLE_OFFSET_X, 20 + 60 + 120, 0, 0)
-#define SAMPLE_BUBBLE4_FRAME CGRectMake(BUBBLE_OFFSET_X, 520, 0, 0)
-
-#define INDICATOR_OFFSET_Y (14)
-#define INDICATOR_X axis.center.x
-
 UIScrollView * scrollView;
 UIImageView * axis;
-
-HPItemBubble * bubble1, * bubble2, * bubble3, * bubble4;
-HPItemIndicator * indicator1, * indicator2, * indicator3, * indicator4;
-
 
 @interface HPTimelineViewController ()
 
 @end
 
 @implementation HPTimelineViewController
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 - (void)initContents
 {
@@ -60,17 +37,15 @@ HPItemIndicator * indicator1, * indicator2, * indicator3, * indicator4;
     scrollView.contentSize = CGSizeMake(320, 640);
     [self.view addSubview:scrollView];
     
-    /* add some sample items */
-    NSDate * date1 = [NSDate date];
-    bubble1 = [[HPItemBubble alloc] initWithContent:@"概率统计期中考试" andTime:date1 andFrame:SAMPLE_BUBBLE1_FRAME];
-    [scrollView addSubview:bubble1];
-    
-    /* add indicators for the above items */
-    indicator1 = [HPItemIndicator indicatorAt:CGPointMake(INDICATOR_X, 20+60+INDICATOR_OFFSET_Y)];
-    [scrollView addSubview:indicator1];
-    
-    NSLog(@"%@",[[Task findAll] objectAtIndex:0]);
-    
+    /* add items */
+    [[Task findAllSortedBy:@"time" ascending:YES] enumerateObjectsUsingBlock:
+     ^(Task * task, NSUInteger idx, BOOL *stop) {
+         HPItemBubble * bubble = [HPItemBubble bubbleWithTask:task];
+         HPItemIndicator * indicator = [HPItemIndicator indicatorForBubble:bubble];
+         // should dynamically update scrollView's contentSize here.
+         [scrollView addSubview:bubble];
+         [scrollView addSubview:indicator];
+    }];
 }
 
 @end

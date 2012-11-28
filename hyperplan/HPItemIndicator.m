@@ -15,6 +15,8 @@
 #define INDICATOR_IMAGE_FRAME CGRectMake(0, 0, 32, 32)
 #define INDICATOR_LABEL_FRAME CGRectMake(9, 9, 14, 14)
 
+#define INDICATOR_OFFSET_Y (14)
+#define INDICATOR_X (71.5) //axis.center.x
 
 @implementation HPItemIndicator
 
@@ -58,6 +60,13 @@ UILabel * label;
     return indicator;
 }
 
++ (id)indicatorForBubble:(HPItemBubble *)bubble
+{
+    HPItemIndicator * indicator = [[HPItemIndicator alloc] initWithFrame:INDICATOR_DEFAULT_FRAME];
+    indicator.center = CGPointMake(INDICATOR_X, bubble.frame.origin.y + INDICATOR_OFFSET_Y);
+    
+    return indicator;
+}
 
 
 @end

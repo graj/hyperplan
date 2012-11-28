@@ -26,8 +26,9 @@ HPTimelineViewController * timelineViewController;
 
 - (void)viewDidLoad
 {
-
     [super viewDidLoad];
+    [self initTestData];
+    
     self.view.backgroundColor = MAIN_VIEW_TEXTURE;
 
     /* set up navigation bar */
@@ -40,19 +41,7 @@ HPTimelineViewController * timelineViewController;
     [timelineViewController.view setFrame:MAIN_FRAME];
     [self.view addSubview:timelineViewController.view];
     
-    Task * t = [Task createEntity];
-    t.content = @"操统报告";
-    t.time = [NSDate date];
-    t.title = @"操统报告";
-    t.state = @(1);
-
     [timelineViewController initContents];
-
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
 }
 
 
@@ -76,6 +65,27 @@ HPTimelineViewController * timelineViewController;
 - (void)splitButtonPressed:(NSInteger)index
 {
     NSLog(@"split button %d pressed FROM viewController", index);
+}
+
+#pragma mark - Model methods
+
+- (void) addTaskTitled:(NSString *)title withContent:(NSString *)content atTime:(NSDate *)time andState:(HPTaskStateType)state
+{
+    Task * t = [Task createEntity];
+    t.title = title;
+    t.content = content;
+    t.time = time;
+    t.state = @(state);
+    [[NSManagedObjectContext defaultContext] save];
+}
+
+- (void)initTestData
+{
+    [self addTaskTitled:@"操统实习报告" withContent:@"操统实习报告，Lab4报告，小测" atTime:[[NSDate date] dateByAddingTimeInterval:86400]  andState:HPTaskStateDue];
+    [self addTaskTitled:@"毛概论文" withContent:@"毛概论文三篇" atTime:[[NSDate date] dateByAddingTimeInterval:172800] andState:HPTaskStateDue];
+    [self addTaskTitled:@"Web作业" withContent:@"第十次" atTime:[[NSDate date] dateByAddingTimeInterval:259200] andState:HPTaskStateDue];
+    [self addTaskTitled:@"一周后" withContent:@"" atTime:[[NSDate date] dateByAddingTimeInterval:86400 * 8] andState:HPTaskStateDue];
+    [self addTaskTitled:@"一个月后" withContent:@"" atTime:[[NSDate date] dateByAddingTimeInterval:86400 * 32] andState:HPTaskStateDue];
 }
 
 @end
