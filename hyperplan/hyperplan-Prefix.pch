@@ -3,8 +3,7 @@
 //
 
 #import <Availability.h>
-#import "CoreData+MagicalRecord.h"
-#define MR_SHORTHAND
+
 
 #ifndef __IPHONE_5_0
 #warning "This project uses features only available in iOS SDK 5.0 and later."
@@ -13,4 +12,6 @@
 #ifdef __OBJC__
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
+#define MR_SHORTHAND
+#import "CoreData+MagicalRecord.h"
 #endif
