@@ -42,7 +42,7 @@ UIImageView * axis;
      ^(Task * task, NSUInteger idx, BOOL *stop) {
          HPItemBubble * bubble = [HPItemBubble bubbleWithTask:task];
          HPItemIndicator * indicator = [HPItemIndicator indicatorForBubble:bubble];
-         // should dynamically update scrollView's contentSize here.
+         //TODO: should dynamically update scrollView's contentSize here.
          [scrollView addSubview:bubble];
          [scrollView addSubview:indicator];
     }];

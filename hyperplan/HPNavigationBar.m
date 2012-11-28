@@ -82,7 +82,7 @@ bool toggleMenu;
         title.text = @"截止日";
         title.font = [UIFont fontWithName:@"Heiti SC" size:16];
 
-        //TODO: replace the dummy text with KVO or delegate methods
+        //TODO: do this on database update
         /* set up hint labels */
         [self updateNavigationBarHints];
     }

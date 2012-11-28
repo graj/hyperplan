@@ -69,3 +69,16 @@ typedef enum HPTaskTimeRepMode : NSUInteger {
     HPTaskTimeRepDateAndTime,
     HPTaskTimeRepCompactDateAndTime
 } HPTaskTimeRepMode;
+
+
+/*
+ * Time related
+ */
+
+/* useful time interval in seconds */
+#define HOUR (3600)
+#define HDAY (43200)
+#define DAY (86400)
+#define WEEK (DAY * 7)
+#define MONTH (DAY * 30)
+#define YEAR (DAY * 365)
