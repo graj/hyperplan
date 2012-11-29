@@ -74,6 +74,7 @@
 		419F12FA1648D76600128B26 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 419F12F81648D76600128B26 /* InfoPlist.strings */; };
 		419F12FD1648D76600128B26 /* hyperplanTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 419F12FC1648D76600128B26 /* hyperplanTests.m */; };
 		4A96DE8816663E9A003F10F3 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A96DE8716663E9A003F10F3 /* CoreData.framework */; };
+		4A96DE8B1666F387003F10F3 /* Task+Layout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A96DE8A1666F387003F10F3 /* Task+Layout.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -194,6 +195,8 @@
 		419F12FB1648D76600128B26 /* hyperplanTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hyperplanTests.h; sourceTree = "<group>"; };
 		419F12FC1648D76600128B26 /* hyperplanTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = hyperplanTests.m; sourceTree = "<group>"; };
 		4A96DE8716663E9A003F10F3 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		4A96DE891666F387003F10F3 /* Task+Layout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Task+Layout.h"; path = "hyperplan/Task+Layout.h"; sourceTree = "<group>"; };
+		4A96DE8A1666F387003F10F3 /* Task+Layout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Task+Layout.m"; path = "hyperplan/Task+Layout.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -382,6 +385,8 @@
 			isa = PBXGroup;
 			children = (
 				416FC86B164BCC8000B060E4 /* Model.xcdatamodeld */,
+				4A96DE891666F387003F10F3 /* Task+Layout.h */,
+				4A96DE8A1666F387003F10F3 /* Task+Layout.m */,
 				419896B71654DE8500690FBF /* Task.h */,
 				419896B81654DE8500690FBF /* Task.m */,
 			);
@@ -635,6 +640,7 @@
 				41758896166637A5002541CD /* MagicalRecord+Setup.m in Sources */,
 				41758897166637A5002541CD /* MagicalRecord+ShorthandSupport.m in Sources */,
 				41758898166637A5002541CD /* MagicalRecord.m in Sources */,
+				4A96DE8B1666F387003F10F3 /* Task+Layout.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

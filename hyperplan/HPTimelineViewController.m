@@ -11,6 +11,7 @@
 #import "HPItemIndicator.h"
 #import "HPConstants.h"
 #import "Task.h"
+#import "Task+Layout.h"
 
 #define AXIS_IMG [UIImage imageNamed:@"axis-2"]
 #define AXIS_FRAME CGRectMake(320/5, 0, 15, 474)
@@ -33,19 +34,32 @@ UIImageView * axis;
     
     /* set up scroll view */
     scrollView = [[UIScrollView alloc] initWithFrame:[self.view bounds]];
-    scrollView.backgroundColor = MAIN_BG_COLOR;
+//    scrollView.backgroundColor = MAIN_BG_COLOR;
     scrollView.contentSize = CGSizeMake(320, 640);
     [self.view addSubview:scrollView];
     
     /* add items */
+    __block CGFloat maxHeight = 0;
     [[Task findAllSortedBy:@"time" ascending:YES] enumerateObjectsUsingBlock:
      ^(Task * task, NSUInteger idx, BOOL *stop) {
          HPItemBubble * bubble = [HPItemBubble bubbleWithTask:task];
+         
+         /* set up bubble's frame */
+         CGRect frame = bubble.frame;
+         frame.origin.y = [task YOffsetForScale:HPItemBubbleScaleExponential];
+         maxHeight = MAX(maxHeight, frame.origin.y);
+         [bubble setFrame:frame];
+         
+         /* initializing the indicator requires bubble's frame */
          HPItemIndicator * indicator = [HPItemIndicator indicatorForBubble:bubble];
+         
+         /* dynamically set up scrollView's content size */
+         scrollView.contentSize = CGSizeMake(scrollView.contentSize.width, maxHeight + 80);
          //TODO: should dynamically update scrollView's contentSize here.
          [scrollView addSubview:bubble];
          [scrollView addSubview:indicator];
     }];
 }
+
 
 @end

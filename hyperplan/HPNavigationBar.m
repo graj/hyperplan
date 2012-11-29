@@ -145,11 +145,18 @@ bool toggleMenu;
 - (void)updateNavigationBarHints
 {
     Task * nearestTask = [Task findFirstWithPredicate:[NSPredicate predicateWithFormat:@"state == %d", HPTaskStateDue] sortedBy:@"time" ascending:YES];
+    NSString * timePart;
     NSString * hintUpperText;
     
     if (nearestTask) {
-        NSInteger days = [nearestTask.time timeIntervalSinceNow] / 3600 / 24;
-        hintUpperText = [NSString stringWithFormat:@"%d天后：%@", days, nearestTask.title];
+        CGFloat days = [nearestTask.time timeIntervalSinceNow] / 3600 / 24;
+        if (days < 1) {
+            timePart = [NSString stringWithFormat:@"%.0f小时后", days * 24];
+        }
+        else {
+            timePart = [NSString stringWithFormat:@"%d天后",  (int)days];
+        }
+        hintUpperText = [NSString stringWithFormat:@"%@：%@", timePart, nearestTask.title];
     }
     else {
         hintUpperText = @"没有未完成的任务";

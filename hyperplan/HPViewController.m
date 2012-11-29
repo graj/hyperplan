@@ -10,11 +10,10 @@
 #import "HPViewController.h"
 #import "HPNavigationBar.h"
 #import "HPTimelineViewController.h"
-#import "QuartzCore/CALayer.h"
 #import "Task.h"
 #import "CoreData+MagicalRecord.h"
 
-#define NAV_FRAME CGRectMake(0, 0, 320, 44)
+#define NAV_FRAME CGRectMake(0, 0, 320, 47)
 #define MAIN_FRAME CGRectMake(0,44, 320, 416)
 
 @implementation HPViewController
@@ -31,17 +30,17 @@ HPTimelineViewController * timelineViewController;
     
     self.view.backgroundColor = MAIN_VIEW_TEXTURE;
 
-    /* set up navigation bar */
-    navigationBar = [[HPNavigationBar alloc] initWithFrame:NAV_FRAME];
-    navigationBar.delegate = self;
-    [self.view addSubview:navigationBar];
-    
     /* add HPTimelineViewController */
     timelineViewController = [[HPTimelineViewController alloc] init];
     [timelineViewController.view setFrame:MAIN_FRAME];
     [self.view addSubview:timelineViewController.view];
     
     [timelineViewController initContents];
+    
+    /* set up navigation bar */
+    navigationBar = [[HPNavigationBar alloc] initWithFrame:NAV_FRAME];
+    navigationBar.delegate = self;
+    [self.view addSubview:navigationBar];
 }
 
 
@@ -81,11 +80,14 @@ HPTimelineViewController * timelineViewController;
 
 - (void)initTestData
 {
-    [self addTaskTitled:@"操统实习报告" withContent:@"操统实习报告，Lab4报告，小测" atTime:[[NSDate date] dateByAddingTimeInterval:86400]  andState:HPTaskStateDue];
-    [self addTaskTitled:@"毛概论文" withContent:@"毛概论文三篇" atTime:[[NSDate date] dateByAddingTimeInterval:172800] andState:HPTaskStateDue];
-    [self addTaskTitled:@"Web作业" withContent:@"第十次" atTime:[[NSDate date] dateByAddingTimeInterval:259200] andState:HPTaskStateDue];
-    [self addTaskTitled:@"一周后" withContent:@"" atTime:[[NSDate date] dateByAddingTimeInterval:86400 * 8] andState:HPTaskStateDue];
-    [self addTaskTitled:@"一个月后" withContent:@"" atTime:[[NSDate date] dateByAddingTimeInterval:86400 * 32] andState:HPTaskStateDue];
+    [self addTaskTitled:@"Web作业" withContent:@"第十次" atTime:[[NSDate date] dateByAddingTimeInterval:DAY] andState:HPTaskStateDue];
+    [self addTaskTitled:@"毛概论文" withContent:@"毛概论文三篇" atTime:[[NSDate date] dateByAddingTimeInterval:DAY*4] andState:HPTaskStateDue];
+    [self addTaskTitled:@"操统实习报告" withContent:@"操统实习报告，Lab4报告，小测" atTime:[[NSDate date] dateByAddingTimeInterval:DAY*4+HOUR*4]  andState:HPTaskStateDue];
+    [self addTaskTitled:@"数理作业" withContent:@"P559 14(2 4 5)" atTime:[[NSDate date] dateByAddingTimeInterval:DAY*5]  andState:HPTaskStateDue];
+    [self addTaskTitled:@"操统实习小测" withContent:@"" atTime:[[NSDate date] dateByAddingTimeInterval:DAY*7]  andState:HPTaskStateDue];
+    [self addTaskTitled:@"一周后" withContent:@"" atTime:[[NSDate date] dateByAddingTimeInterval:DAY*8] andState:HPTaskStateDue];
+    [self addTaskTitled:@"操统实习课堂报告" withContent:@"" atTime:[[NSDate date] dateByAddingTimeInterval:DAY*15]  andState:HPTaskStateDue];
+    [self addTaskTitled:@"一个月后" withContent:@"" atTime:[[NSDate date] dateByAddingTimeInterval:DAY*32] andState:HPTaskStateDue];
 }
 
 @end

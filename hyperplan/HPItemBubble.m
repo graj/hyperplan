@@ -22,15 +22,9 @@
 #define BUBBLE_OFFSET_X (90)
 
 
-#define LABEL_TITLE_FRAME CGRectMake(BUBBLE_MARGIN_LEFT,    \
-                                     BUBBLE_MARGIN_TOP,     \
-                                     TITLE_SIZE.width,     \
-                                     TITLE_SIZE.height)
-
-#define LABEL_TIME_FRAME CGRectMake(BUBBLE_MARGIN_LEFT,     \
-                                    BUBBLE_MARGIN_TOP + TITLE_SIZE.height + 6,     \
-                                    TIME_SIZE.width,     \
-                                    TIME_SIZE.height)
+#define LABEL_TITLE_FRAME CGRectMake(BUBBLE_MARGIN_LEFT, BUBBLE_MARGIN_TOP, TITLE_SIZE.width, TITLE_SIZE.height)
+#define LABEL_TIME_FRAME CGRectMake(BUBBLE_MARGIN_LEFT, BUBBLE_MARGIN_TOP + TITLE_SIZE.height + 6,     \
+                                    TIME_SIZE.width, TIME_SIZE.height)
 
 #define LABEL_TITLE_COLOR BLACK_COLOR
 #define LABEL_TIME_COLOR DARK_GREY_COLOR
@@ -53,6 +47,10 @@ UILabel * labelTitle;
 UILabel * labelTime;
 NSString * dateString;
 
+UIPanGestureRecognizer * panGestureRecognizer;
+UILongPressGestureRecognizer * longPressRecognizer;
+UITapGestureRecognizer * tapGestureRecognizer;
+
 #pragma mark Lifecycle
 
 - (id)initWithTask:(Task *)task
@@ -62,6 +60,15 @@ NSString * dateString;
         self.content = task.content;
         self.time = task.time;
         self.state = [task.state integerValue];
+        _editMode = NO;
+        
+        longPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressed:)];
+        [self addGestureRecognizer:longPressRecognizer];
+        
+        tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(outerTapped:)];
+        tapGestureRecognizer.numberOfTapsRequired = 1;
+        
+        panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(dragged:)];
         
         [self initLayout];
         
@@ -83,7 +90,7 @@ NSString * dateString;
     CGRect frame;
     
     /* self-adaptive frame set-up */
-    bool max_width = NO;    //TODO: refactor this
+    bool max_width = NO;    //REFACTOR:
     frame.size.width = TITLE_SIZE.width + BUBBLE_MARGIN_LEFT + BUBBLE_MARGIN_RIGHT + SHADOW_WIDTH;
     frame.size.height = TITLE_SIZE.height * 2 + BUBBLE_MARGIN_TOP + BUBBLE_MARGIN_BOTTOM;
     
@@ -97,7 +104,7 @@ NSString * dateString;
     
     /* set up position */
     frame.origin.x = BUBBLE_OFFSET_X;
-    frame.origin.y = [self calculateYOffsetForScale:HPItemBubbleScaleExponential];
+    frame.origin.y = 0;
     self.frame = frame;
 
     /* set up background */
@@ -126,28 +133,6 @@ NSString * dateString;
     [self addSubview:labelTime];
 }
 
-- (NSInteger)getAbsoluteTime
-{
-    return [self.time timeIntervalSinceNow];
-}
-
-
-static int y = -40;
-
-- (NSInteger)calculateYOffsetForScale:(HPItemBubbleScaleType)scale
-{
-    if (scale == HPItemBubbleScaleExponential) {
-        //TODO:
-        y += 60;
-        return y;
-    }
-    else if (scale == HPItemBubbleScaleLinear) {
-        
-    }
-    
-    return 0;
-}
-
 - (NSString *)timeRepWithMode:(HPTaskTimeRepMode)mode
 {
     NSDateFormatter * df = [[NSDateFormatter alloc] init];
@@ -168,5 +153,71 @@ static int y = -40;
 
     return @"";
 }
+
+#pragma mark - Controls
+
+- (void)longPressed:(id)sender
+{
+    /* cancel edit mode for any previous pressed bubble */
+    [self.superview.subviews enumerateObjectsUsingBlock:^(id item, NSUInteger idx, BOOL * stop) {
+        if (![item isEqual:self] && [item isKindOfClass:[HPItemBubble class]] && [item editMode]) {
+//            [item cancelEditMode];
+            *stop = YES;
+        }
+    }];
+    
+    [self enableEditMode];
+}
+
+- (void)outerTapped:(id)sender
+{
+    [self cancelEditMode];
+}
+
+- (void)dragged:(id)sender
+{
+    NSLog(@"@@");
+}
+
+#pragma mark - Edit Mode
+
+- (void)enableEditMode
+{
+    _editMode = YES;
+    [self.indicatorRef enableEditMode];
+    [UIView beginAnimations:@"Enter edit mode" context:nil];
+    [UIView setAnimationDuration:0.2];
+    self.alpha = 0.75;
+    self.transform = CGAffineTransformMakeScale(1.05, 1.05);
+    [UIView commitAnimations];
+    
+    /* register dragging gesture recognizer */
+    [self addGestureRecognizer:panGestureRecognizer];
+    
+    /* register tap recognizer for superview to detact canceling edit mode */
+    if (self.superview) {
+        [self.superview addGestureRecognizer:tapGestureRecognizer];
+    }
+}
+
+- (void)cancelEditMode
+{
+    _editMode = NO;
+    [self.indicatorRef cancelEditMode];
+    [UIView beginAnimations:@"Exit edit mode" context:nil];
+    [UIView setAnimationDuration:0.2];
+    self.alpha = 1;
+    self.transform = CGAffineTransformIdentity;
+    [UIView commitAnimations];
+    
+    /* remove dragging gesture recognizer */
+    [self removeGestureRecognizer:panGestureRecognizer];
+    
+    /* remove tap recognizer from superview */
+    if (self.superview) {
+        [self.superview removeGestureRecognizer:tapGestureRecognizer];
+    }
+}
+
 
 @end

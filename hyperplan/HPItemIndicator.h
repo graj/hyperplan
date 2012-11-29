@@ -21,4 +21,7 @@
 
 + (id)indicatorForBubble:(HPItemBubble *)bubble;
 
+- (void)enableEditMode;
+- (void)cancelEditMode;
+
 @end

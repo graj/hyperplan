@@ -65,8 +65,19 @@ UILabel * label;
     HPItemIndicator * indicator = [[HPItemIndicator alloc] initWithFrame:INDICATOR_DEFAULT_FRAME];
     indicator.center = CGPointMake(INDICATOR_X, bubble.frame.origin.y + INDICATOR_OFFSET_Y);
     
+    [bubble setIndicatorRef:indicator];
+    
     return indicator;
 }
 
+- (void)enableEditMode
+{
+    self.alpha = 0.75;
+}
+
+- (void)cancelEditMode
+{
+    self.alpha = 1;
+}
 
 @end
