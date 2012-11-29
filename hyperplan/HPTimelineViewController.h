@@ -7,8 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HPItemBubble.h"
 
 @interface HPTimelineViewController : UIViewController
+{
+    HPItemBubble * _currentActiveBubble;
+}
 
 - (void)initContents;
 

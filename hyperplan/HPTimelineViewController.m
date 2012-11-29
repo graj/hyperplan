@@ -17,14 +17,15 @@
 #define AXIS_IMG [UIImage imageNamed:@"axis-2"]
 #define AXIS_FRAME CGRectMake(320/5, 0, 15, 474)
 
-UIScrollView * scrollView;
-UIImageView * axis;
-
 @interface HPTimelineViewController ()
 
 @end
 
 @implementation HPTimelineViewController
+{
+    UIScrollView * scrollView;
+    UIImageView * axis;
+}
 
 - (void)initContents
 {
@@ -38,6 +39,7 @@ UIImageView * axis;
 //    scrollView.backgroundColor = MAIN_BG_COLOR;
     scrollView.contentSize = CGSizeMake(320, 640);
     [self.view addSubview:scrollView];
+    
     
     /* add items */
     __block CGFloat maxHeight = 0;
@@ -65,6 +67,5 @@ UIImageView * axis;
          [scrollView addSubview:indicator];
     }];
 }
-
 
 @end

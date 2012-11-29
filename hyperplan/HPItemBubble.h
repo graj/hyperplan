@@ -24,9 +24,11 @@
 @property (nonatomic, readonly) BOOL editMode;
 @property (nonatomic, retain) HPItemIndicator * indicatorRef;
 @property (nonatomic, retain) UIScrollView * scrollViewRef;
+@property (atomic, assign) CGFloat scrollSpeed;
 
 /* Preferred constructors: in consist with the data model */
 - (id)initWithTask:(Task *)task;
 + (id)bubbleWithTask:(Task *)task;
+
 
 @end

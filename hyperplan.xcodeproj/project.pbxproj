@@ -368,11 +368,11 @@
 		419896941654DBE100690FBF /* Timeline View */ = {
 			isa = PBXGroup;
 			children = (
+				419896931654DBD800690FBF /* Item */,
 				41F57DA2166788A300E6850E /* HPBubbleGroupViewController.h */,
 				41F57DA3166788A300E6850E /* HPBubbleGroupViewController.m */,
 				41F57DA616678AB100E6850E /* HPBubbleGroupView.h */,
 				41F57DA716678AB100E6850E /* HPBubbleGroupView.m */,
-				419896931654DBD800690FBF /* Item */,
 				419896BB1654DF5100690FBF /* HPTimelineViewController.h */,
 				419896BC1654DF5100690FBF /* HPTimelineViewController.m */,
 			);

@@ -8,25 +8,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "hyperplan/HPItemBubble.m"
-         timestampString = "375889285.548986"
+         timestampString = "375895469.033551"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "131"
-         endingLineNumber = "131"
+         startingLineNumber = "133"
+         endingLineNumber = "133"
          landmarkName = "-initLayout"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "hyperplan/HPItemBubble.m"
-         timestampString = "375890586.313692"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "228"
-         endingLineNumber = "228"
-         landmarkName = "-cancelEditMode"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

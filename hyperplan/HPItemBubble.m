@@ -51,6 +51,8 @@
 
     UIPanGestureRecognizer * panGestureRecognizer;
     UILongPressGestureRecognizer * longPressRecognizer;
+    
+    NSThread * scrollThread;
 }
 
 #pragma mark Lifecycle
@@ -131,6 +133,9 @@
     labelTime.font = LABEL_TIME_FONT;
     labelTime.backgroundColor = CLEAR_COLOR;
     [self addSubview:labelTime];
+    
+    /* set up KVO for scrolling speed */
+    [self addObserver:self forKeyPath:@"scrollSpeed" options:(NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld) context:NULL];
 }
 
 
@@ -144,13 +149,6 @@
         return;
     }
     else if (((UIGestureRecognizer *)sender).state == UIGestureRecognizerStateBegan) {
-        /* cancel edit mode for any previous pressed bubble */
-        [self.scrollViewRef.subviews enumerateObjectsUsingBlock:^(id item, NSUInteger idx, BOOL * stop) {
-            if (![item isEqual:self] && [item isKindOfClass:[HPItemBubble class]] && [item editMode]) {
-                [item cancelEditMode];
-                *stop = YES;
-            }
-        }];
         [self enableEditMode];
     }
 }
@@ -184,11 +182,17 @@ static int contentLastYOffset;
     self.indicatorRef.center = CGPointMake(self.indicatorRef.center.x, indicatorLastYOffset + dp.y);
     
     /* TODO: dragging policy */
-    if (pgr.state == UIGestureRecognizerStateChanged && self.center.y > SCROLLING_DOWN_THRESHOLD) {
-        /* scroll the scrollView if touch point get close to the view bounds */
-//        contentLastYOffset += dp.y / abs(dp.y);
-//        self.center = CGPointMake(self.center.x, self.center.y + dp.y / abs(dp.y));
-//        [self.scrollViewRef setContentOffset:CGPointMake(0, contentLastYOffset) animated:NO];
+    if (pgr.state == UIGestureRecognizerStateChanged) {
+        // FIXME: corret the condition below - dynamically expand content size
+        if (self.center.y - self.scrollViewRef.contentOffset.y > SCROLLING_DOWN_THRESHOLD) {
+            self.scrollSpeed = 1.;
+        }
+        else {
+            self.scrollSpeed = 0;
+        }
+    }
+    if (pgr.state == UIGestureRecognizerStateEnded) {
+        self.scrollSpeed = 0;
     }
 }
 
@@ -198,13 +202,7 @@ static int contentLastYOffset;
 {
     NSLog(@"Enabling edit mode");
     [self.scrollViewRef setScrollEnabled:NO];
-    
-    /* move self from scrollView to its parent view for decouple the coordinates correlation */
-//    NSLog(@"%f, %f, %f, %f", self.frame.origin.x, self.frame.origin.y, self.frame.size.height, self.frame.size.width);
-//    UIView * retainedSuperView = [self.scrollViewRef superview];
-//    [self removeFromSuperview];
-//    [retainedSuperView addSubview:self];
-    
+        
     _editMode = YES;
     [self.indicatorRef enableEditMode];
     [UIView beginAnimations:@"Enter edit mode" context:nil];
@@ -222,11 +220,7 @@ static int contentLastYOffset;
 {
     NSLog(@"Canceling edit mode");
     [self.scrollViewRef setScrollEnabled:YES];
-    
-    /* put self back into scrollView */
-//    [self removeFromSuperview];
-//    [self.scrollViewRef addSubview:self];
-    
+        
     _editMode = NO;
     [self.indicatorRef cancelEditMode];
     [UIView beginAnimations:@"Exit edit mode" context:nil];
@@ -234,6 +228,43 @@ static int contentLastYOffset;
     self.alpha = 1;
     self.transform = CGAffineTransformIdentity;
     [UIView commitAnimations];
+}
+
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if (![keyPath isEqualToString:@"scrollSpeed"])
+        return;
+    CGFloat old = [change[NSKeyValueChangeOldKey] floatValue];
+    CGFloat new = [change[NSKeyValueChangeNewKey] floatValue];
+    if (old == 0 && new != 0) {
+        NSLog(@"running scrolling thread...");
+        /* create thread for scrolling */
+        scrollThread = [[NSThread alloc] initWithTarget:self selector:@selector(scrollThreadRoutine) object:nil];
+        [scrollThread start];
+    }
+    else if (old != 0 && new == 0) {
+        NSLog(@"pausing scrolling thread...");
+        [scrollThread cancel];
+    }
+}
+
+- (void)scrollThreadRoutine
+{
+    while (1) {
+        CGFloat speed = self.scrollSpeed;
+        NSTimeInterval delay = 0.03 / speed;
+        [NSThread sleepForTimeInterval:delay];
+        
+        [self performSelectorOnMainThread:@selector(scroll) withObject:nil waitUntilDone:NO];
+    }
+}
+
+- (void)scroll
+{
+    NSLog(@"contentOffset: %f, %f", self.scrollViewRef.contentOffset.x, self.scrollViewRef.contentOffset.y);
+    self.scrollViewRef.contentOffset = CGPointMake(self.scrollViewRef.contentOffset.x, self.scrollViewRef.contentOffset.y + 3);
+    self.center = CGPointMake(self.center.x, self.center.y + 3);
 }
 
 #pragma mark - UIGestureRecognizerDelegate methods
