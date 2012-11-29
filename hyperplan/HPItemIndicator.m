@@ -72,12 +72,18 @@ UILabel * label;
 
 - (void)enableEditMode
 {
-    self.alpha = 0.75;
+    [UIView beginAnimations:@"cancel edit mode" context:nil];
+    [UIView setAnimationDuration:0.2];
+    self.transform = CGAffineTransformMakeScale(0.4, 0.4);
+    [UIView commitAnimations];    
 }
 
 - (void)cancelEditMode
 {
-    self.alpha = 1;
+    [UIView beginAnimations:@"cancel edit mode" context:nil];
+    [UIView setAnimationDuration:0.2];
+    self.transform = CGAffineTransformIdentity;
+    [UIView commitAnimations];
 }
 
 @end

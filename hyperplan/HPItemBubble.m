@@ -159,7 +159,7 @@
 
 - (void)longPressed:(id)sender
 {
-    if (((UIGestureRecognizer *)sender).state != UIGestureRecognizerStateBegan)
+    if (((UIGestureRecognizer *)sender).state == UIGestureRecognizerStateEnded)
         return;
     
     NSLog(@"Long-pressed");
@@ -172,6 +172,11 @@
         }
     }];
     
+    /* remove long press gesture recognizer */
+    if ([self.gestureRecognizers containsObject:longPressRecognizer]) {
+        [self removeGestureRecognizer:longPressRecognizer];
+    }
+    
     [self enableEditMode];
 }
 
@@ -183,7 +188,21 @@
 
 - (void)dragged:(id)sender
 {
-    NSLog(@"@@");
+    /* Lock scrollView */
+    if (((UIGestureRecognizer *)sender).state == UIGestureRecognizerStateBegan) {
+        if (self.superview && [self.superview isKindOfClass:[UIScrollView class]]) {
+            [((UIScrollView *)self.superview) setUserInteractionEnabled:NO];
+        }
+    }
+    else if (((UIGestureRecognizer *)sender).state == UIGestureRecognizerStateEnded) {
+        if (self.superview && [self.superview isKindOfClass:[UIScrollView class]]) {
+            [((UIScrollView *)self.superview) setUserInteractionEnabled:YES];
+        }
+    }
+    UIPanGestureRecognizer * pgr = (UIPanGestureRecognizer *)sender;
+    CGPoint dp = [pgr translationInView:self.superview];
+    
+    self.center = CGPointMake(self.center.x, dp.y);
 }
 
 #pragma mark - Edit Mode
@@ -229,6 +248,9 @@
     if (self.superview && self.superview.gestureRecognizers) {
         [self.superview removeGestureRecognizer:tapGestureRecognizer];
     }
+    
+    /* re-add long press recognizer */
+    [self addGestureRecognizer:longPressRecognizer];
 }
 
 
