@@ -42,5 +42,25 @@
     return [self.time timeIntervalSinceNow];
 }
 
+- (NSString *)timeRepWithMode:(HPTaskTimeRepMode)mode
+{
+    NSDateFormatter * df = [[NSDateFormatter alloc] init];
+    
+    //FIXME: need to correct the formats
+    if (mode == HPTaskTimeRepDateOnly) {
+        [df setDateStyle:NSDateFormatterMediumStyle];
+        return [df stringFromDate:self.time];
+    }
+    else if (mode == HPTaskTimeRepDateAndTime) {
+        [df setDateStyle:NSDateFormatterLongStyle];
+        return [df stringFromDate:self.time];
+    }
+    else if (mode == HPTaskTimeRepCompactDateAndTime) {
+        [df setDateStyle:NSDateFormatterShortStyle];
+        return [df stringFromDate:self.time];
+    }
+    
+    return @"";
+}
 
 @end

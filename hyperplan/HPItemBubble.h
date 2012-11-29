@@ -12,18 +12,12 @@
 
 @interface HPItemBubble : UIView <UIGestureRecognizerDelegate>
 {
-    NSString * _title;
-    NSString * _content;
-    NSDate * _time;
-    HPTaskStateType _state;
+    Task * _task;
     BOOL _editMode;
     id _indicatorRef;
 }
 
-@property (nonatomic, retain) NSString * title;
-@property (nonatomic, strong) NSString * content;
-@property (nonatomic, strong) NSDate * time;
-@property (nonatomic, assign) HPTaskStateType state;
+@property (nonatomic, retain) Task * task;
 @property (nonatomic, readonly) BOOL editMode;
 @property (nonatomic, retain) id indicatorRef;
 

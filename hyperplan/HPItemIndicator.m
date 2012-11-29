@@ -9,6 +9,7 @@
 #import "HPConstants.h"
 #import "HPItemIndicator.h"
 #import "QuartzCore/CALayer.h"
+#import "HPItemBubbleStack.h"
 
 #define INDICATOR_IMAGE [UIImage imageNamed:@"indicator"]
 #define INDICATOR_DEFAULT_FRAME CGRectMake(0, 0, 32, 32)
@@ -61,12 +62,14 @@
     return indicator;
 }
 
-+ (id)indicatorForBubble:(HPItemBubble *)bubble
++ (id)indicatorForBubble:(UIView *)bubble
 {
     HPItemIndicator * indicator = [[HPItemIndicator alloc] initWithFrame:INDICATOR_DEFAULT_FRAME];
     indicator.center = CGPointMake(INDICATOR_X, bubble.frame.origin.y + INDICATOR_OFFSET_Y);
-    
-    [bubble setIndicatorRef:indicator];
+ 
+    if ([bubble respondsToSelector:@selector(setIndicatorRef:)]) {
+        [bubble performSelector:@selector(setIndicatorRef:) withObject:indicator];
+    }
     
     return indicator;
 }

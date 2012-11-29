@@ -19,7 +19,7 @@
 // Should be deprecated
 + (id)indicatorAt:(CGPoint)center;
 
-+ (id)indicatorForBubble:(HPItemBubble *)bubble;
++ (id)indicatorForBubble:(UIView *)bubble;
 
 - (void)enableEditMode;
 - (void)cancelEditMode;

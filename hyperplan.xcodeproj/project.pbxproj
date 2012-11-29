@@ -75,6 +75,7 @@
 		419F12FD1648D76600128B26 /* hyperplanTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 419F12FC1648D76600128B26 /* hyperplanTests.m */; };
 		4A96DE8816663E9A003F10F3 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A96DE8716663E9A003F10F3 /* CoreData.framework */; };
 		4A96DE8B1666F387003F10F3 /* Task+Layout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A96DE8A1666F387003F10F3 /* Task+Layout.m */; };
+		4A96DE8E16676745003F10F3 /* HPItemBubbleStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A96DE8D16676745003F10F3 /* HPItemBubbleStack.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -197,6 +198,8 @@
 		4A96DE8716663E9A003F10F3 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		4A96DE891666F387003F10F3 /* Task+Layout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Task+Layout.h"; path = "hyperplan/Task+Layout.h"; sourceTree = "<group>"; };
 		4A96DE8A1666F387003F10F3 /* Task+Layout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Task+Layout.m"; path = "hyperplan/Task+Layout.m"; sourceTree = "<group>"; };
+		4A96DE8C16676745003F10F3 /* HPItemBubbleStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPItemBubbleStack.h; sourceTree = "<group>"; };
+		4A96DE8D16676745003F10F3 /* HPItemBubbleStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPItemBubbleStack.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -342,6 +345,8 @@
 			children = (
 				4198968D1654DBD200690FBF /* HPItemBubble.h */,
 				4198968E1654DBD200690FBF /* HPItemBubble.m */,
+				4A96DE8C16676745003F10F3 /* HPItemBubbleStack.h */,
+				4A96DE8D16676745003F10F3 /* HPItemBubbleStack.m */,
 				4198968F1654DBD200690FBF /* HPItemIndicator.h */,
 				419896901654DBD200690FBF /* HPItemIndicator.m */,
 			);
@@ -641,6 +646,7 @@
 				41758897166637A5002541CD /* MagicalRecord+ShorthandSupport.m in Sources */,
 				41758898166637A5002541CD /* MagicalRecord.m in Sources */,
 				4A96DE8B1666F387003F10F3 /* Task+Layout.m in Sources */,
+				4A96DE8E16676745003F10F3 /* HPItemBubbleStack.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

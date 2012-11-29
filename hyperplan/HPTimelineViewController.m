@@ -8,6 +8,7 @@
 
 #import "HPTimelineViewController.h"
 #import "HPItemBubble.h"
+#import "HPItemBubbleStack.h"
 #import "HPItemIndicator.h"
 #import "HPConstants.h"
 #import "Task.h"
@@ -43,6 +44,7 @@ UIImageView * axis;
     [[Task findAllSortedBy:@"time" ascending:YES] enumerateObjectsUsingBlock:
      ^(Task * task, NSUInteger idx, BOOL *stop) {
          HPItemBubble * bubble = [HPItemBubble bubbleWithTask:task];
+//         HPItemBubbleStack * bubble = [HPItemBubbleStack bubbleStackWithTasks:@[task]];
          
          /* set up bubble's frame */
          CGRect frame = bubble.frame;

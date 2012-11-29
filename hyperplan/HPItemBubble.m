@@ -9,6 +9,7 @@
 #import "HPConstants.h"
 #import "HPItemBubble.h"
 #import "Task.h"    
+#import "Task+Layout.h"
 
 /* decided by the png's shadow width */
 #define BUBBLE_BG_IMG [UIImage imageNamed:@"bubble"]
@@ -34,8 +35,8 @@
 #define LABEL_TIME_FONT [UIFont fontWithName:@"STHeitiSC-Light" size:LABEL_TIME_FONT_SIZE]
 
 #define TEXT_SIZE(string, font) [(string) sizeWithFont:(font)]
-#define TITLE_SIZE TEXT_SIZE(self.title, LABEL_TITLE_FONT)
-#define TIME_SIZE TEXT_SIZE([self.time description], LABEL_TIME_FONT)
+#define TITLE_SIZE TEXT_SIZE(self.task.title, LABEL_TITLE_FONT)
+#define TIME_SIZE TEXT_SIZE([self.task.time description], LABEL_TIME_FONT)
 
 #define SHADOW_WIDTH (5)
 
@@ -54,13 +55,10 @@
 
 #pragma mark Lifecycle
 
-- (id)initWithTask:(Task *)task
+- (id)initWithTask:(Task *)theTask
 {
     if (self = [super init]) {
-        self.title = task.title;
-        self.content = task.content;
-        self.time = task.time;
-        self.state = [task.state integerValue];
+        self.task = theTask;
         _editMode = NO;
         
         longPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressed:)];
@@ -118,14 +116,14 @@
     
     /* set up title label */
     labelTitle = [[UILabel alloc] initWithFrame:LABEL_TITLE_FRAME];
-    labelTitle.text = self.title;
+    labelTitle.text = self.task.title;
     labelTitle.textColor = LABEL_TITLE_COLOR;
     labelTitle.font = LABEL_TITLE_FONT;
     labelTitle.backgroundColor = CLEAR_COLOR;
     [self addSubview:labelTitle];
     
     /* set up time label */
-    dateString = [self timeRepWithMode:HPTaskTimeRepDateAndTime];
+    dateString = [self.task timeRepWithMode:HPTaskTimeRepDateAndTime];
     labelTime = [[UILabel alloc] initWithFrame:LABEL_TIME_FRAME];
     labelTime.text = dateString;
     labelTime.textColor = LABEL_TIME_COLOR;
@@ -134,26 +132,7 @@
     [self addSubview:labelTime];
 }
 
-- (NSString *)timeRepWithMode:(HPTaskTimeRepMode)mode
-{
-    NSDateFormatter * df = [[NSDateFormatter alloc] init];
-    
-    //FIXME: need to correct the formats
-    if (mode == HPTaskTimeRepDateOnly) {
-        [df setDateStyle:NSDateFormatterMediumStyle];
-        return [df stringFromDate:self.time];
-    }
-    else if (mode == HPTaskTimeRepDateAndTime) {
-        [df setDateStyle:NSDateFormatterLongStyle];
-        return [df stringFromDate:self.time];
-    }
-    else if (mode == HPTaskTimeRepCompactDateAndTime) {
-        [df setDateStyle:NSDateFormatterShortStyle];
-        return [df stringFromDate:self.time];
-    }
 
-    return @"";
-}
 
 #pragma mark - Controls
 

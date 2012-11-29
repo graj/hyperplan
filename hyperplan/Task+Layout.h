@@ -12,5 +12,6 @@
 @interface Task (Layout)
 
 - (CGFloat)YOffsetForScale:(HPItemBubbleScaleType)scale;
+- (NSString *)timeRepWithMode:(HPTaskTimeRepMode)mode;
 
 @end
