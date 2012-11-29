@@ -13,7 +13,7 @@
 #define DEBUG_BG_COLOR [UIColor greenColor]
 
 /*
- * IOS Hardcoded properties (use non-retina resolution when coding)
+ * iOS Hardcoded properties (use non-retina resolution when coding)
  */
 
 #define SCREEN_WIDTH (320)
