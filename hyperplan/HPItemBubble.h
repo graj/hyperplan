@@ -10,16 +10,20 @@
 #import "Task.h"
 #import "HPConstants.h"
 
+@class HPItemIndicator;
+
 @interface HPItemBubble : UIView <UIGestureRecognizerDelegate>
 {
     Task * _task;
     BOOL _editMode;
-    id _indicatorRef;
+    HPItemIndicator * _indicatorRef;
+    UIScrollView * _scrollViewRef;
 }
 
 @property (nonatomic, retain) Task * task;
 @property (nonatomic, readonly) BOOL editMode;
-@property (nonatomic, retain) id indicatorRef;
+@property (nonatomic, retain) HPItemIndicator * indicatorRef;
+@property (nonatomic, retain) UIScrollView * scrollViewRef;
 
 /* Preferred constructors: in consist with the data model */
 - (id)initWithTask:(Task *)task;

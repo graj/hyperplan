@@ -8,6 +8,7 @@
 
 #import "HPConstants.h"
 #import "HPItemBubble.h"
+#import "HPItemIndicator.h"
 #import "Task.h"    
 #import "Task+Layout.h"
 
@@ -50,7 +51,6 @@
 
     UIPanGestureRecognizer * panGestureRecognizer;
     UILongPressGestureRecognizer * longPressRecognizer;
-    UITapGestureRecognizer * tapGestureRecognizer;
 }
 
 #pragma mark Lifecycle
@@ -62,12 +62,13 @@
         _editMode = NO;
         
         longPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressed:)];
+        longPressRecognizer.delegate = self;
+        longPressRecognizer.minimumPressDuration = 0.1;
         [self addGestureRecognizer:longPressRecognizer];
         
-        tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(outerTapped:)];
-        tapGestureRecognizer.numberOfTapsRequired = 1;
-        
         panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(dragged:)];
+        panGestureRecognizer.delegate = self;
+        [self addGestureRecognizer:panGestureRecognizer];
         
         [self initLayout];
         
@@ -134,61 +135,75 @@
 
 
 
-#pragma mark - Controls
+#pragma mark - Control Callbacks
 
 - (void)longPressed:(id)sender
 {
-    if (((UIGestureRecognizer *)sender).state == UIGestureRecognizerStateEnded)
+    if (((UIGestureRecognizer *)sender).state == UIGestureRecognizerStateEnded) {
+        [self cancelEditMode];
         return;
-    
-    NSLog(@"Long-pressed");
-    /* cancel edit mode for any previous pressed bubble */
-    [self.superview.subviews enumerateObjectsUsingBlock:^(id item, NSUInteger idx, BOOL * stop) {
-        if (![item isEqual:self] && [item isKindOfClass:[HPItemBubble class]] && [item editMode]) {
-            NSLog(@"canceling previous edit mode...");
-            [item cancelEditMode];
-            *stop = YES;
-        }
-    }];
-    
-    /* remove long press gesture recognizer */
-    if ([self.gestureRecognizers containsObject:longPressRecognizer]) {
-        [self removeGestureRecognizer:longPressRecognizer];
     }
-    
-    [self enableEditMode];
+    else if (((UIGestureRecognizer *)sender).state == UIGestureRecognizerStateBegan) {
+        /* cancel edit mode for any previous pressed bubble */
+        [self.scrollViewRef.subviews enumerateObjectsUsingBlock:^(id item, NSUInteger idx, BOOL * stop) {
+            if (![item isEqual:self] && [item isKindOfClass:[HPItemBubble class]] && [item editMode]) {
+                [item cancelEditMode];
+                *stop = YES;
+            }
+        }];
+        [self enableEditMode];
+    }
 }
 
 - (void)outerTapped:(id)sender
 {
-    NSLog(@"Cancel-area touched");
     [self cancelEditMode];
 }
 
+static int bubbleLastYOffset;
+static int indicatorLastYOffset;
+static int contentLastYOffset;
+
+#define SCROLLING_DOWN_THRESHOLD 360
+#define SCROLLING_UP_THRESHOLD 40
+
 - (void)dragged:(id)sender
 {
-    /* Lock scrollView */
-    if (((UIGestureRecognizer *)sender).state == UIGestureRecognizerStateBegan) {
-        if (self.superview && [self.superview isKindOfClass:[UIScrollView class]]) {
-            [((UIScrollView *)self.superview) setUserInteractionEnabled:NO];
-        }
-    }
-    else if (((UIGestureRecognizer *)sender).state == UIGestureRecognizerStateEnded) {
-        if (self.superview && [self.superview isKindOfClass:[UIScrollView class]]) {
-            [((UIScrollView *)self.superview) setUserInteractionEnabled:YES];
-        }
-    }
     UIPanGestureRecognizer * pgr = (UIPanGestureRecognizer *)sender;
-    CGPoint dp = [pgr translationInView:self.superview];
     
-    self.center = CGPointMake(self.center.x, dp.y);
+    /* Lock scrollView */
+    if (pgr.state == UIGestureRecognizerStateBegan) {
+        bubbleLastYOffset = self.center.y;
+        indicatorLastYOffset = self.indicatorRef.center.y;
+    }
+
+    CGPoint dp = [pgr translationInView:self.scrollViewRef];
+    
+    /* move the bubble and indicator */
+    self.center = CGPointMake(self.center.x, bubbleLastYOffset + dp.y);
+    self.indicatorRef.center = CGPointMake(self.indicatorRef.center.x, indicatorLastYOffset + dp.y);
+    
+    /* TODO: dragging policy */
+    if (pgr.state == UIGestureRecognizerStateChanged && self.center.y > SCROLLING_DOWN_THRESHOLD) {
+        /* scroll the scrollView if touch point get close to the view bounds */
+//        contentLastYOffset += dp.y / abs(dp.y);
+//        self.center = CGPointMake(self.center.x, self.center.y + dp.y / abs(dp.y));
+//        [self.scrollViewRef setContentOffset:CGPointMake(0, contentLastYOffset) animated:NO];
+    }
 }
 
-#pragma mark - Edit Mode
+#pragma mark - Edit Mode Related
 
 - (void)enableEditMode
 {
     NSLog(@"Enabling edit mode");
+    [self.scrollViewRef setScrollEnabled:NO];
+    
+    /* move self from scrollView to its parent view for decouple the coordinates correlation */
+//    NSLog(@"%f, %f, %f, %f", self.frame.origin.x, self.frame.origin.y, self.frame.size.height, self.frame.size.width);
+//    UIView * retainedSuperView = [self.scrollViewRef superview];
+//    [self removeFromSuperview];
+//    [retainedSuperView addSubview:self];
     
     _editMode = YES;
     [self.indicatorRef enableEditMode];
@@ -198,18 +213,20 @@
     self.transform = CGAffineTransformMakeScale(1.05, 1.05);
     [UIView commitAnimations];
     
-    /* register dragging gesture recognizer */
-    [self addGestureRecognizer:panGestureRecognizer];
-    
-    /* register tap recognizer for superview to detact canceling edit mode */
-    if (self.superview) {
-        [self.superview addGestureRecognizer:tapGestureRecognizer];
-    }
+    /* bring to front */
+    [self.scrollViewRef bringSubviewToFront:self];
+    [self.scrollViewRef bringSubviewToFront:self.indicatorRef];
 }
 
 - (void)cancelEditMode
 {
     NSLog(@"Canceling edit mode");
+    [self.scrollViewRef setScrollEnabled:YES];
+    
+    /* put self back into scrollView */
+//    [self removeFromSuperview];
+//    [self.scrollViewRef addSubview:self];
+    
     _editMode = NO;
     [self.indicatorRef cancelEditMode];
     [UIView beginAnimations:@"Exit edit mode" context:nil];
@@ -217,20 +234,23 @@
     self.alpha = 1;
     self.transform = CGAffineTransformIdentity;
     [UIView commitAnimations];
-    
-    /* remove dragging gesture recognizer */
-    if ([self.gestureRecognizers containsObject:panGestureRecognizer]) {
-        [self removeGestureRecognizer:panGestureRecognizer];
-    }
-    
-    /* remove tap recognizer from superview */
-    if (self.superview && self.superview.gestureRecognizers) {
-        [self.superview removeGestureRecognizer:tapGestureRecognizer];
-    }
-    
-    /* re-add long press recognizer */
-    [self addGestureRecognizer:longPressRecognizer];
 }
 
+#pragma mark - UIGestureRecognizerDelegate methods
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
+        shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    return YES;
+}
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+{
+    if (gestureRecognizer == panGestureRecognizer)
+        return self.editMode;
+    else if (gestureRecognizer == longPressRecognizer)
+        return !self.editMode;
+    return YES;
+}
 
 @end
