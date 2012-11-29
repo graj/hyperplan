@@ -74,6 +74,7 @@
 		419F12FA1648D76600128B26 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 419F12F81648D76600128B26 /* InfoPlist.strings */; };
 		419F12FD1648D76600128B26 /* hyperplanTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 419F12FC1648D76600128B26 /* hyperplanTests.m */; };
 		41F57DA4166788A300E6850E /* HPBubbleGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F57DA3166788A300E6850E /* HPBubbleGroupViewController.m */; };
+		41F57DA816678AB100E6850E /* HPBubbleGroupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F57DA716678AB100E6850E /* HPBubbleGroupView.m */; };
 		4A96DE8816663E9A003F10F3 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A96DE8716663E9A003F10F3 /* CoreData.framework */; };
 		4A96DE8B1666F387003F10F3 /* Task+Layout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A96DE8A1666F387003F10F3 /* Task+Layout.m */; };
 		4A96DE8E16676745003F10F3 /* HPItemBubbleStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A96DE8D16676745003F10F3 /* HPItemBubbleStack.m */; };
@@ -198,6 +199,8 @@
 		419F12FC1648D76600128B26 /* hyperplanTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = hyperplanTests.m; sourceTree = "<group>"; };
 		41F57DA2166788A300E6850E /* HPBubbleGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPBubbleGroupViewController.h; sourceTree = "<group>"; };
 		41F57DA3166788A300E6850E /* HPBubbleGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPBubbleGroupViewController.m; sourceTree = "<group>"; };
+		41F57DA616678AB100E6850E /* HPBubbleGroupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPBubbleGroupView.h; sourceTree = "<group>"; };
+		41F57DA716678AB100E6850E /* HPBubbleGroupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPBubbleGroupView.m; sourceTree = "<group>"; };
 		4A96DE8716663E9A003F10F3 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		4A96DE891666F387003F10F3 /* Task+Layout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Task+Layout.h"; path = "hyperplan/Task+Layout.h"; sourceTree = "<group>"; };
 		4A96DE8A1666F387003F10F3 /* Task+Layout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Task+Layout.m"; path = "hyperplan/Task+Layout.m"; sourceTree = "<group>"; };
@@ -352,8 +355,6 @@
 				4A96DE8D16676745003F10F3 /* HPItemBubbleStack.m */,
 				4198968F1654DBD200690FBF /* HPItemIndicator.h */,
 				419896901654DBD200690FBF /* HPItemIndicator.m */,
-				41F57DA2166788A300E6850E /* HPBubbleGroupViewController.h */,
-				41F57DA3166788A300E6850E /* HPBubbleGroupViewController.m */,
 			);
 			name = Item;
 			sourceTree = "<group>";
@@ -361,6 +362,10 @@
 		419896941654DBE100690FBF /* Timeline View */ = {
 			isa = PBXGroup;
 			children = (
+				41F57DA2166788A300E6850E /* HPBubbleGroupViewController.h */,
+				41F57DA3166788A300E6850E /* HPBubbleGroupViewController.m */,
+				41F57DA616678AB100E6850E /* HPBubbleGroupView.h */,
+				41F57DA716678AB100E6850E /* HPBubbleGroupView.m */,
 				419896931654DBD800690FBF /* Item */,
 				419896BB1654DF5100690FBF /* HPTimelineViewController.h */,
 				419896BC1654DF5100690FBF /* HPTimelineViewController.m */,
@@ -653,6 +658,7 @@
 				4A96DE8B1666F387003F10F3 /* Task+Layout.m in Sources */,
 				4A96DE8E16676745003F10F3 /* HPItemBubbleStack.m in Sources */,
 				41F57DA4166788A300E6850E /* HPBubbleGroupViewController.m in Sources */,
+				41F57DA816678AB100E6850E /* HPBubbleGroupView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
