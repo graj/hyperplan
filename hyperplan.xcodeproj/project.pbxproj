@@ -75,6 +75,8 @@
 		419F12FD1648D76600128B26 /* hyperplanTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 419F12FC1648D76600128B26 /* hyperplanTests.m */; };
 		41F57DA4166788A300E6850E /* HPBubbleGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F57DA3166788A300E6850E /* HPBubbleGroupViewController.m */; };
 		41F57DA816678AB100E6850E /* HPBubbleGroupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F57DA716678AB100E6850E /* HPBubbleGroupView.m */; };
+		41F57DAF1667B64800E6850E /* StyleMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F57DAE1667B64800E6850E /* StyleMapper.m */; };
+		41F57DB21667B67300E6850E /* StyleInjection.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F57DB11667B67300E6850E /* StyleInjection.m */; };
 		4A96DE8816663E9A003F10F3 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A96DE8716663E9A003F10F3 /* CoreData.framework */; };
 		4A96DE8B1666F387003F10F3 /* Task+Layout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A96DE8A1666F387003F10F3 /* Task+Layout.m */; };
 		4A96DE8E16676745003F10F3 /* HPItemBubbleStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A96DE8D16676745003F10F3 /* HPItemBubbleStack.m */; };
@@ -201,6 +203,10 @@
 		41F57DA3166788A300E6850E /* HPBubbleGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPBubbleGroupViewController.m; sourceTree = "<group>"; };
 		41F57DA616678AB100E6850E /* HPBubbleGroupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPBubbleGroupView.h; sourceTree = "<group>"; };
 		41F57DA716678AB100E6850E /* HPBubbleGroupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPBubbleGroupView.m; sourceTree = "<group>"; };
+		41F57DAD1667B64800E6850E /* StyleMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StyleMapper.h; path = StyleInjection/StyleMapper.h; sourceTree = "<group>"; };
+		41F57DAE1667B64800E6850E /* StyleMapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StyleMapper.m; path = StyleInjection/StyleMapper.m; sourceTree = "<group>"; };
+		41F57DB01667B67300E6850E /* StyleInjection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StyleInjection.h; path = StyleInjection/StyleInjection.h; sourceTree = "<group>"; };
+		41F57DB11667B67300E6850E /* StyleInjection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StyleInjection.m; path = StyleInjection/StyleInjection.m; sourceTree = "<group>"; };
 		4A96DE8716663E9A003F10F3 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		4A96DE891666F387003F10F3 /* Task+Layout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Task+Layout.h"; path = "hyperplan/Task+Layout.h"; sourceTree = "<group>"; };
 		4A96DE8A1666F387003F10F3 /* Task+Layout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Task+Layout.m"; path = "hyperplan/Task+Layout.m"; sourceTree = "<group>"; };
@@ -413,6 +419,7 @@
 			isa = PBXGroup;
 			children = (
 				41758843166637A5002541CD /* MagicalRecord */,
+				41F57DA91667A74000E6850E /* StyleInjection */,
 				419F12D11648D76600128B26 /* hyperplan */,
 				419F12F51648D76600128B26 /* hyperplanTests */,
 				419F12CA1648D76600128B26 /* Frameworks */,
@@ -490,6 +497,18 @@
 				419F12F81648D76600128B26 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		41F57DA91667A74000E6850E /* StyleInjection */ = {
+			isa = PBXGroup;
+			children = (
+				41F57DAD1667B64800E6850E /* StyleMapper.h */,
+				41F57DAE1667B64800E6850E /* StyleMapper.m */,
+				41F57DB01667B67300E6850E /* StyleInjection.h */,
+				41F57DB11667B67300E6850E /* StyleInjection.m */,
+			);
+			name = StyleInjection;
+			path = hyperplan;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -659,6 +678,8 @@
 				4A96DE8E16676745003F10F3 /* HPItemBubbleStack.m in Sources */,
 				41F57DA4166788A300E6850E /* HPBubbleGroupViewController.m in Sources */,
 				41F57DA816678AB100E6850E /* HPBubbleGroupView.m in Sources */,
+				41F57DAF1667B64800E6850E /* StyleMapper.m in Sources */,
+				41F57DB21667B67300E6850E /* StyleInjection.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
