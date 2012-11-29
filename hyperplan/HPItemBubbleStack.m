@@ -34,8 +34,8 @@
 #define LABEL_TIME_FONT [UIFont fontWithName:@"STHeitiSC-Light" size:LABEL_TIME_FONT_SIZE]
 
 #define TEXT_SIZE(string, font) [(string) sizeWithFont:(font)]
-#define TITLE_SIZE TEXT_SIZE(labelTitle.text, LABEL_TITLE_FONT)
-#define TIME_SIZE TEXT_SIZE(labelTime.text, LABEL_TIME_FONT)
+#define TITLE_SIZE TEXT_SIZE(titleString, LABEL_TITLE_FONT)
+#define TIME_SIZE TEXT_SIZE(dateString, LABEL_TIME_FONT)
 
 #define SHADOW_WIDTH (5)
 
@@ -50,6 +50,7 @@
     UILabel * labelTitle;
     UILabel * labelTime;
     NSString * dateString;
+    NSString * titleString;
 }
 
 #pragma mark Lifecycle
@@ -78,31 +79,7 @@
 - (void)initLayout
 {
     CGRect frame;
-    
-    /* set up background */
-    self.backgroundColor = CLEAR_COLOR;
-    // The cell image must be named "***@2x.png", otherwise will be regarded as half resolution.
-    backgroundImage = [BUBBLE_BG_IMG resizableImageWithCapInsets:UIEdgeInsetsMake(20, 16, 12, 12) resizingMode:UIImageResizingModeTile];
-    backgroundImageView = [[UIImageView alloc] initWithImage:backgroundImage];
-    backgroundImageView.frame = CGRectMake(0, 0, frame.size.width, frame.size.height);
-    [self addSubview:backgroundImageView];
-    
-    /* set up title label */
-    labelTitle = [[UILabel alloc] initWithFrame:LABEL_TITLE_FRAME];
-    labelTitle.text = FIRST_TASK.title ;
-    labelTitle.textColor = LABEL_TITLE_COLOR;
-    labelTitle.font = LABEL_TITLE_FONT;
-    labelTitle.backgroundColor = CLEAR_COLOR;
-    [self addSubview:labelTitle];
-    
-    /* set up time label */
-    dateString = [FIRST_TASK timeRepWithMode:HPTaskTimeRepDateAndTime];
-    labelTime = [[UILabel alloc] initWithFrame:LABEL_TIME_FRAME];
-    labelTime.text = dateString;
-    labelTime.textColor = LABEL_TIME_COLOR;
-    labelTime.font = LABEL_TIME_FONT;
-    labelTime.backgroundColor = CLEAR_COLOR;
-    [self addSubview:labelTime];
+    titleString = [FIRST_TASK.title stringByAppendingString:@" ..."];
     
     /* self-adaptive frame set-up */
     bool max_width = NO;    //REFACTOR:
@@ -121,6 +98,31 @@
     frame.origin.x = BUBBLE_OFFSET_X;
     frame.origin.y = 0;
     self.frame = frame;
+    
+    /* set up background */
+    self.backgroundColor = CLEAR_COLOR;
+    // The cell image must be named "***@2x.png", otherwise will be regarded as half resolution.
+    backgroundImage = [BUBBLE_BG_IMG resizableImageWithCapInsets:UIEdgeInsetsMake(20, 16, 12, 12) resizingMode:UIImageResizingModeTile];
+    backgroundImageView = [[UIImageView alloc] initWithImage:backgroundImage];
+    backgroundImageView.frame = CGRectMake(0, 0, frame.size.width, frame.size.height);
+    [self addSubview:backgroundImageView];
+    
+    /* set up title label */
+    labelTitle = [[UILabel alloc] initWithFrame:LABEL_TITLE_FRAME];
+    labelTitle.text = titleString;
+    labelTitle.textColor = LABEL_TITLE_COLOR;
+    labelTitle.font = LABEL_TITLE_FONT;
+    labelTitle.backgroundColor = CLEAR_COLOR;
+    [self addSubview:labelTitle];
+    
+    /* set up time label */
+    dateString = [FIRST_TASK timeRepWithMode:HPTaskTimeRepDateAndTime];
+    labelTime = [[UILabel alloc] initWithFrame:LABEL_TIME_FRAME];
+    labelTime.text = dateString;
+    labelTime.textColor = LABEL_TIME_COLOR;
+    labelTime.font = LABEL_TIME_FONT;
+    labelTime.backgroundColor = CLEAR_COLOR;
+    [self addSubview:labelTime];
 }
 
 - (void)longPressed:(id)sender

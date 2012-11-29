@@ -43,8 +43,8 @@ UIImageView * axis;
     __block CGFloat maxHeight = 0;
     [[Task findAllSortedBy:@"time" ascending:YES] enumerateObjectsUsingBlock:
      ^(Task * task, NSUInteger idx, BOOL *stop) {
-         HPItemBubble * bubble = [HPItemBubble bubbleWithTask:task];
-//         HPItemBubbleStack * bubble = [HPItemBubbleStack bubbleStackWithTasks:@[task]];
+//         HPItemBubble * bubble = [HPItemBubble bubbleWithTask:task];
+         HPItemBubbleStack * bubble = [HPItemBubbleStack bubbleStackWithTasks:@[task]];
          
          /* set up bubble's frame */
          CGRect frame = bubble.frame;
