@@ -40,16 +40,17 @@
 #define SHADOW_WIDTH (5)
 
 @implementation HPItemBubble
+{
+    UIImageView * backgroundImageView;
+    UIImage * backgroundImage;
+    UILabel * labelTitle;
+    UILabel * labelTime;
+    NSString * dateString;
 
-UIImageView * backgroundImageView;
-UIImage * backgroundImage;
-UILabel * labelTitle;
-UILabel * labelTime;
-NSString * dateString;
-
-UIPanGestureRecognizer * panGestureRecognizer;
-UILongPressGestureRecognizer * longPressRecognizer;
-UITapGestureRecognizer * tapGestureRecognizer;
+    UIPanGestureRecognizer * panGestureRecognizer;
+    UILongPressGestureRecognizer * longPressRecognizer;
+    UITapGestureRecognizer * tapGestureRecognizer;
+}
 
 #pragma mark Lifecycle
 
@@ -64,6 +65,11 @@ UITapGestureRecognizer * tapGestureRecognizer;
         
         longPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressed:)];
         [self addGestureRecognizer:longPressRecognizer];
+        
+        tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(outerTapped:)];
+        tapGestureRecognizer.numberOfTapsRequired = 1;
+        
+        panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(dragged:)];
         
         [self initLayout];
         
@@ -195,13 +201,10 @@ UITapGestureRecognizer * tapGestureRecognizer;
     [UIView commitAnimations];
     
     /* register dragging gesture recognizer */
-    panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(dragged:)];
     [self addGestureRecognizer:panGestureRecognizer];
     
     /* register tap recognizer for superview to detact canceling edit mode */
     if (self.superview) {
-        tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(outerTapped:)];
-        tapGestureRecognizer.numberOfTapsRequired = 1;
         [self.superview addGestureRecognizer:tapGestureRecognizer];
     }
 }
