@@ -65,11 +65,6 @@ UITapGestureRecognizer * tapGestureRecognizer;
         longPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressed:)];
         [self addGestureRecognizer:longPressRecognizer];
         
-        tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(outerTapped:)];
-        tapGestureRecognizer.numberOfTapsRequired = 1;
-        
-        panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(dragged:)];
-        
         [self initLayout];
         
         return self;
@@ -200,10 +195,13 @@ UITapGestureRecognizer * tapGestureRecognizer;
     [UIView commitAnimations];
     
     /* register dragging gesture recognizer */
-//    [self addGestureRecognizer:panGestureRecognizer];
+    panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(dragged:)];
+    [self addGestureRecognizer:panGestureRecognizer];
     
     /* register tap recognizer for superview to detact canceling edit mode */
     if (self.superview) {
+        tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(outerTapped:)];
+        tapGestureRecognizer.numberOfTapsRequired = 1;
         [self.superview addGestureRecognizer:tapGestureRecognizer];
     }
 }
@@ -220,10 +218,12 @@ UITapGestureRecognizer * tapGestureRecognizer;
     [UIView commitAnimations];
     
     /* remove dragging gesture recognizer */
-//    [self removeGestureRecognizer:panGestureRecognizer];
+    if ([self.gestureRecognizers containsObject:panGestureRecognizer]) {
+        [self removeGestureRecognizer:panGestureRecognizer];
+    }
     
     /* remove tap recognizer from superview */
-    if (self.superview) {
+    if (self.superview && self.superview.gestureRecognizers) {
         [self.superview removeGestureRecognizer:tapGestureRecognizer];
     }
 }
