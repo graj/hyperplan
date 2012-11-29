@@ -19,9 +19,10 @@
 #define INDICATOR_X (71.5) //axis.center.x
 
 @implementation HPItemIndicator
-
-UIImageView * backgroundView;
-UILabel * label;
+{
+    UIImageView * backgroundView;
+    UILabel * label;
+}
 
 /*
  * DO NOT USE CALayer or Quartz2D drawing, they will make scrolling laggy.

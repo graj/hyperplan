@@ -17,9 +17,10 @@
 #define MAIN_FRAME CGRectMake(0,44, 320, 416)
 
 @implementation HPViewController
-
-HPNavigationBar * navigationBar;
-HPTimelineViewController * timelineViewController;
+{
+    HPNavigationBar * navigationBar;
+    HPTimelineViewController * timelineViewController;
+}
 
 #pragma mark Lifecycle
 

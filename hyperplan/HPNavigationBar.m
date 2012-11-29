@@ -32,15 +32,16 @@
 
 
 @implementation HPNavigationBar
-
-UIImageView * backgroundImage;
-UILabel * title;
-UILabel * hintUpper;
-UILabel * hintLower;
-UIButton * btnMenu;
-UIButton * btnAdd;
-HPPopupMenu * popupMenu;
-bool toggleMenu;
+{
+    UIImageView * backgroundImage;
+    UILabel * title;
+    UILabel * hintUpper;
+    UILabel * hintLower;
+    UIButton * btnMenu;
+    UIButton * btnAdd;
+    HPPopupMenu * popupMenu;
+    bool toggleMenu;
+}
 
 #pragma mark Lifecycle
 

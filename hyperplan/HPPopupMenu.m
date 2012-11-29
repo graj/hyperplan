@@ -52,13 +52,14 @@
 
 
 @implementation HPPopupMenu
-
-UITableView * tableView;
-UIImageView * photoFrame;
-NSArray * itemTitles;
-UIButton * splitCellLeftBtn;
-UIButton * splitCellRightBtn;
-UIButton * bigHiddenButton;
+{
+    UITableView * tableView;
+    UIImageView * photoFrame;
+    NSArray * itemTitles;
+    UIButton * splitCellLeftBtn;
+    UIButton * splitCellRightBtn;
+    UIButton * bigHiddenButton;
+}
 
 #pragma mark Lifecycle
 
