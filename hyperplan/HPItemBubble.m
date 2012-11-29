@@ -158,10 +158,15 @@ UITapGestureRecognizer * tapGestureRecognizer;
 
 - (void)longPressed:(id)sender
 {
+    if (((UIGestureRecognizer *)sender).state != UIGestureRecognizerStateBegan)
+        return;
+    
+    NSLog(@"Long-pressed");
     /* cancel edit mode for any previous pressed bubble */
     [self.superview.subviews enumerateObjectsUsingBlock:^(id item, NSUInteger idx, BOOL * stop) {
         if (![item isEqual:self] && [item isKindOfClass:[HPItemBubble class]] && [item editMode]) {
-//            [item cancelEditMode];
+            NSLog(@"canceling previous edit mode...");
+            [item cancelEditMode];
             *stop = YES;
         }
     }];
@@ -171,6 +176,7 @@ UITapGestureRecognizer * tapGestureRecognizer;
 
 - (void)outerTapped:(id)sender
 {
+    NSLog(@"Cancel-area touched");
     [self cancelEditMode];
 }
 
@@ -183,6 +189,8 @@ UITapGestureRecognizer * tapGestureRecognizer;
 
 - (void)enableEditMode
 {
+    NSLog(@"Enabling edit mode");
+    
     _editMode = YES;
     [self.indicatorRef enableEditMode];
     [UIView beginAnimations:@"Enter edit mode" context:nil];
@@ -192,7 +200,7 @@ UITapGestureRecognizer * tapGestureRecognizer;
     [UIView commitAnimations];
     
     /* register dragging gesture recognizer */
-    [self addGestureRecognizer:panGestureRecognizer];
+//    [self addGestureRecognizer:panGestureRecognizer];
     
     /* register tap recognizer for superview to detact canceling edit mode */
     if (self.superview) {
@@ -202,6 +210,7 @@ UITapGestureRecognizer * tapGestureRecognizer;
 
 - (void)cancelEditMode
 {
+    NSLog(@"Canceling edit mode");
     _editMode = NO;
     [self.indicatorRef cancelEditMode];
     [UIView beginAnimations:@"Exit edit mode" context:nil];
@@ -211,7 +220,7 @@ UITapGestureRecognizer * tapGestureRecognizer;
     [UIView commitAnimations];
     
     /* remove dragging gesture recognizer */
-    [self removeGestureRecognizer:panGestureRecognizer];
+//    [self removeGestureRecognizer:panGestureRecognizer];
     
     /* remove tap recognizer from superview */
     if (self.superview) {
