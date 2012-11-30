@@ -11,6 +11,7 @@
 #import "HPItemIndicator.h"
 #import "Task.h"    
 #import "Task+Layout.h"
+#import <QuartzCore/QuartzCore.h>
 
 /* decided by the png's shadow width */
 #define BUBBLE_BG_IMG [UIImage imageNamed:@"bubble"]
@@ -53,9 +54,10 @@
     UILongPressGestureRecognizer * longPressRecognizer;
     
     NSThread * scrollThread;
+    BOOL scrollThreadShouldScroll;
 }
 
-#pragma mark Lifecycle
+#pragma mark - Lifecycle
 
 - (id)initWithTask:(Task *)theTask
 {
@@ -65,7 +67,7 @@
         
         longPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressed:)];
         longPressRecognizer.delegate = self;
-        longPressRecognizer.minimumPressDuration = 0.1;
+        longPressRecognizer.minimumPressDuration = 0.5;
         [self addGestureRecognizer:longPressRecognizer];
         
         panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(dragged:)];
@@ -73,6 +75,11 @@
         [self addGestureRecognizer:panGestureRecognizer];
         
         [self initLayout];
+        
+        
+        /* set up KVO for scrolling speed */
+        [self addObserver:self forKeyPath:@"scrollSpeed" options:(NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld) context:NULL];
+        scrollThreadShouldScroll = NO;
         
         return self;
     }
@@ -133,11 +140,7 @@
     labelTime.font = LABEL_TIME_FONT;
     labelTime.backgroundColor = CLEAR_COLOR;
     [self addSubview:labelTime];
-    
-    /* set up KVO for scrolling speed */
-    [self addObserver:self forKeyPath:@"scrollSpeed" options:(NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld) context:NULL];
 }
-
 
 
 #pragma mark - Control Callbacks
@@ -146,7 +149,6 @@
 {
     if (((UIGestureRecognizer *)sender).state == UIGestureRecognizerStateEnded) {
         [self cancelEditMode];
-        return;
     }
     else if (((UIGestureRecognizer *)sender).state == UIGestureRecognizerStateBegan) {
         [self enableEditMode];
@@ -158,42 +160,40 @@
     [self cancelEditMode];
 }
 
-static int bubbleLastYOffset;
-static int indicatorLastYOffset;
-static int contentLastYOffset;
-
-#define SCROLLING_DOWN_THRESHOLD 360
-#define SCROLLING_UP_THRESHOLD 40
+#define SCROLLING_DOWN_THRESHOLD (340)
+#define SCROLLING_UP_THRESHOLD (80)
+#define INDICATOR_OFFSET_Y (14)
 
 - (void)dragged:(id)sender
 {
     UIPanGestureRecognizer * pgr = (UIPanGestureRecognizer *)sender;
     
-    /* Lock scrollView */
     if (pgr.state == UIGestureRecognizerStateBegan) {
-        bubbleLastYOffset = self.center.y;
-        indicatorLastYOffset = self.indicatorRef.center.y;
-    }
-
-    CGPoint dp = [pgr translationInView:self.scrollViewRef];
-    
-    /* move the bubble and indicator */
-    self.center = CGPointMake(self.center.x, bubbleLastYOffset + dp.y);
-    self.indicatorRef.center = CGPointMake(self.indicatorRef.center.x, indicatorLastYOffset + dp.y);
-    
-    /* TODO: dragging policy */
-    if (pgr.state == UIGestureRecognizerStateChanged) {
-        // FIXME: corret the condition below - dynamically expand content size
-        if (self.center.y - self.scrollViewRef.contentOffset.y > SCROLLING_DOWN_THRESHOLD) {
-            self.scrollSpeed = 1.;
-        }
-        else {
-            self.scrollSpeed = 0;
-        }
+        return;
     }
     if (pgr.state == UIGestureRecognizerStateEnded) {
         self.scrollSpeed = 0;
+        return;
     }
+    
+    CGPoint tp = [pgr locationInView:self.superview.superview];
+    
+    if (tp.y > SCROLLING_DOWN_THRESHOLD) {
+        self.scrollSpeed = (tp.y - SCROLLING_DOWN_THRESHOLD) / 10;
+    }
+    else if (tp.y < SCROLLING_UP_THRESHOLD && self.scrollViewRef.contentOffset.y > 0) {
+        self.scrollSpeed = (tp.y - SCROLLING_UP_THRESHOLD) / 10;
+    }
+    else {
+        self.scrollSpeed = 0;
+    }
+    
+    // FIXME: should dynamically expand / shrink the content size
+    /* Move the bubble and indicator along with the finger */
+    CGFloat newY = self.scrollViewRef.contentOffset.y + tp.y;
+    
+    self.center = CGPointMake(self.center.x, newY);
+    self.indicatorRef.center = CGPointMake(self.indicatorRef.center.x, newY - INDICATOR_OFFSET_Y);
 }
 
 #pragma mark - Edit Mode Related
@@ -205,9 +205,13 @@ static int contentLastYOffset;
         
     _editMode = YES;
     [self.indicatorRef enableEditMode];
+    
+    /* change the look */
     [UIView beginAnimations:@"Enter edit mode" context:nil];
     [UIView setAnimationDuration:0.2];
-    self.alpha = 0.75;
+    self.layer.shadowOpacity = 0.5;
+    self.layer.shadowRadius = 3.;
+    self.layer.shadowOffset = CGSizeMake(2., 2.);
     self.transform = CGAffineTransformMakeScale(1.05, 1.05);
     [UIView commitAnimations];
     
@@ -223,48 +227,59 @@ static int contentLastYOffset;
         
     _editMode = NO;
     [self.indicatorRef cancelEditMode];
+    
+    /* change the look */
     [UIView beginAnimations:@"Exit edit mode" context:nil];
     [UIView setAnimationDuration:0.2];
-    self.alpha = 1;
+    self.layer.shadowOpacity = 0;
     self.transform = CGAffineTransformIdentity;
     [UIView commitAnimations];
 }
 
+#pragma mark Drag-and-move automatic scroll
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if (![keyPath isEqualToString:@"scrollSpeed"])
         return;
+    
     CGFloat old = [change[NSKeyValueChangeOldKey] floatValue];
     CGFloat new = [change[NSKeyValueChangeNewKey] floatValue];
+    
     if (old == 0 && new != 0) {
-        NSLog(@"running scrolling thread...");
-        /* create thread for scrolling */
+        NSLog(@"Detaching scrolling thread...");
+        scrollThreadShouldScroll = YES;
         scrollThread = [[NSThread alloc] initWithTarget:self selector:@selector(scrollThreadRoutine) object:nil];
         [scrollThread start];
     }
     else if (old != 0 && new == 0) {
-        NSLog(@"pausing scrolling thread...");
-        [scrollThread cancel];
+        NSLog(@"Exiting scrolling thread...");
+        scrollThreadShouldScroll = NO;
     }
 }
 
 - (void)scrollThreadRoutine
 {
-    while (1) {
-        CGFloat speed = self.scrollSpeed;
-        NSTimeInterval delay = 0.03 / speed;
-        [NSThread sleepForTimeInterval:delay];
-        
-        [self performSelectorOnMainThread:@selector(scroll) withObject:nil waitUntilDone:NO];
+    CGFloat fps = 60;
+    while (scrollThreadShouldScroll) {
+        [self performSelectorOnMainThread:@selector(scroll) withObject:nil waitUntilDone:YES];
+        [NSThread sleepForTimeInterval:1/fps];
     }
+    [NSThread exit];
 }
 
 - (void)scroll
 {
-    NSLog(@"contentOffset: %f, %f", self.scrollViewRef.contentOffset.x, self.scrollViewRef.contentOffset.y);
-    self.scrollViewRef.contentOffset = CGPointMake(self.scrollViewRef.contentOffset.x, self.scrollViewRef.contentOffset.y + 3);
-    self.center = CGPointMake(self.center.x, self.center.y + 3);
+    CGFloat dy = 3 * self.scrollSpeed;;
+    CGPoint bubbleCenter = self.center;
+    CGPoint indicatorCenter = self.indicatorRef.center;
+    CGPoint contentOffset = self.scrollViewRef.contentOffset;
+    CGSize contentSize = self.scrollViewRef.contentSize;
+    
+    self.center = CGPointMake(bubbleCenter.x, bubbleCenter.y + dy);
+    self.indicatorRef.center = CGPointMake(indicatorCenter.x, indicatorCenter.y + dy);
+    self.scrollViewRef.contentOffset = CGPointMake(contentOffset.x, contentOffset.y + dy);
+    self.scrollViewRef.contentSize = CGSizeMake(contentSize.width, contentSize.height + dy);
 }
 
 #pragma mark - UIGestureRecognizerDelegate methods
@@ -281,6 +296,7 @@ static int contentLastYOffset;
         return self.editMode;
     else if (gestureRecognizer == longPressRecognizer)
         return !self.editMode;
+    
     return YES;
 }
 
