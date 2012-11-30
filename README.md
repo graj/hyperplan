@@ -1,3 +1,5 @@
+#PLAN
+
 ##NOW
 
 ##NEXT
@@ -19,3 +21,11 @@
 1. scaling with animation
 2. other views
 3. server-side interfaces
+
+
+
+#DETAILS
+
+##Bubble stack behavior
+
+

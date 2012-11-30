@@ -10,24 +10,17 @@
 
 @implementation Task (Layout)
 
-//static int y = -40;
-
 - (CGFloat)YOffsetForScale:(HPItemBubbleScaleType)scale
 {
     if (scale == HPItemBubbleScaleExponential) {
-        //TODO:
         CGFloat y = log([self daysSinceNow] + 1) * 200 + 20;
         NSLog(@"abs time: %f, y: %f", [self daysSinceNow], y);
         return y;
-//        y += 60;
-//        
-//        return y;
     }
     else if (scale == HPItemBubbleScaleLinear) {
         
     }
 
-    
     return 0;
 }
 
@@ -48,15 +41,19 @@
     
     //FIXME: need to correct the formats
     if (mode == HPTaskTimeRepDateOnly) {
-        [df setDateStyle:NSDateFormatterMediumStyle];
+        [df setDateFormat:@"yyyy年M月d日"];
         return [df stringFromDate:self.time];
     }
     else if (mode == HPTaskTimeRepDateAndTime) {
-        [df setDateStyle:NSDateFormatterLongStyle];
+        [df setDateFormat:@"yyyy年M月d日 HH:mm"];
         return [df stringFromDate:self.time];
     }
     else if (mode == HPTaskTimeRepCompactDateAndTime) {
-        [df setDateStyle:NSDateFormatterShortStyle];
+        [df setDateFormat:@"M月d日 HH:mm"];
+        return [df stringFromDate:self.time];
+    }
+    else if (mode == HPTaskTimeRepCompactDateOnly) {
+        [df setDateFormat:@"M月d日"];
         return [df stringFromDate:self.time];
     }
     

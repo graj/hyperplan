@@ -12,9 +12,13 @@
 @interface HPItemIndicator : UIView
 {
     NSInteger _number;
+    UIImageView * _backgroundView;
+    UILabel * _label;
 }
 
 @property (nonatomic, assign) NSInteger number;
+@property (nonatomic, retain) UIImageView * backgroundView;
+@property (nonatomic, retain) UILabel * label;
 
 // Should be deprecated
 + (id)indicatorAt:(CGPoint)center;

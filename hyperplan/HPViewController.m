@@ -85,6 +85,7 @@
     [self addTaskTitled:@"毛概论文" withContent:@"毛概论文三篇" atTime:[[NSDate date] dateByAddingTimeInterval:DAY*4] andState:HPTaskStateDue];
     [self addTaskTitled:@"操统实习报告" withContent:@"操统实习报告，Lab4报告，小测" atTime:[[NSDate date] dateByAddingTimeInterval:DAY*4+HOUR*4]  andState:HPTaskStateDue];
     [self addTaskTitled:@"数理作业" withContent:@"P559 14(2 4 5)" atTime:[[NSDate date] dateByAddingTimeInterval:DAY*5]  andState:HPTaskStateDue];
+
     [self addTaskTitled:@"操统实习小测" withContent:@"" atTime:[[NSDate date] dateByAddingTimeInterval:DAY*7]  andState:HPTaskStateDue];
     [self addTaskTitled:@"一周后" withContent:@"" atTime:[[NSDate date] dateByAddingTimeInterval:DAY*8] andState:HPTaskStateDue];
     [self addTaskTitled:@"操统实习课堂报告" withContent:@"" atTime:[[NSDate date] dateByAddingTimeInterval:DAY*15]  andState:HPTaskStateDue];

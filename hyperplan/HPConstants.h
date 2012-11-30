@@ -67,7 +67,8 @@ typedef enum HPItemBubbleScaleType : NSUInteger {
 typedef enum HPTaskTimeRepMode : NSUInteger {
     HPTaskTimeRepDateOnly,
     HPTaskTimeRepDateAndTime,
-    HPTaskTimeRepCompactDateAndTime
+    HPTaskTimeRepCompactDateOnly,
+    HPTaskTimeRepCompactDateAndTime,
 } HPTaskTimeRepMode;
 
 

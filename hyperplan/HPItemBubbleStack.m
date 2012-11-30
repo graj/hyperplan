@@ -11,7 +11,7 @@
 #import "Task.h"
 #import "Task+Layout.h"
 
-#define BUBBLE_BG_IMG [UIImage imageNamed:@"bubble"]
+#define BUBBLE_BG_IMG [UIImage imageNamed:@"bubble-stack"]
 #define BUBBLE_MARGIN_TOP (10)
 #define BUBBLE_MARGIN_BOTTOM (14)
 #define BUBBLE_MARGIN_LEFT (18)
@@ -30,8 +30,8 @@
 #define LABEL_TIME_COLOR DARK_GREY_COLOR
 #define LABEL_TITLE_FONT_SIZE (14)
 #define LABEL_TIME_FONT_SIZE (12)
-#define LABEL_TITLE_FONT [UIFont fontWithName:@"STHeitiSC-Light" size:LABEL_TITLE_FONT_SIZE]
-#define LABEL_TIME_FONT [UIFont fontWithName:@"STHeitiSC-Light" size:LABEL_TIME_FONT_SIZE]
+#define LABEL_TITLE_FONT [UIFont fontWithName:@"HelveticaNeue-Light" size:LABEL_TITLE_FONT_SIZE]
+#define LABEL_TIME_FONT [UIFont fontWithName:@"HelveticaNeue-Light" size:LABEL_TIME_FONT_SIZE]
 
 #define TEXT_SIZE(string, font) [(string) sizeWithFont:(font)]
 #define TITLE_SIZE TEXT_SIZE(titleString, LABEL_TITLE_FONT)
@@ -40,15 +40,13 @@
 #define SHADOW_WIDTH (5)
 
 #define FIRST_TASK ((Task *)self.tasks[0])
+#define LAST_TASK ((Task *)[self.tasks lastObject])
 
 @implementation HPItemBubbleStack
 {
     UIImageView * backgroundImageView;
     UIImage * backgroundImage;
 
-    /* One bubble stack may have multiple instances of such subviews */
-    UILabel * labelTitle;
-    UILabel * labelTime;
     NSString * dateString;
     NSString * titleString;
 }
@@ -73,12 +71,28 @@
     return [[HPItemBubbleStack alloc] initWithTasks:tasks];
 }
 
+- (void)addTask:(Task *)task
+{
+    self.tasks = [self.tasks arrayByAddingObject:task];
+    
+    /* update the date string since task array has altered */
+    dateString = [NSString stringWithFormat:@"%@ - %@", [FIRST_TASK timeRepWithMode:HPTaskTimeRepDateOnly],
+                  [LAST_TASK timeRepWithMode:HPTaskTimeRepCompactDateOnly]];
+    if ([[FIRST_TASK timeRepWithMode:HPTaskTimeRepDateOnly] isEqualToString:
+         [LAST_TASK timeRepWithMode:HPTaskTimeRepDateOnly]]) {
+        dateString = [FIRST_TASK timeRepWithMode:HPTaskTimeRepDateAndTime];
+    }
+    self.labelTime.text = dateString;
+    self.labelTime.frame = LABEL_TIME_FRAME;
+}
+
 
 #pragma mark - View Layout
 
 - (void)initLayout
-{
+{    
     CGRect frame;
+    
     titleString = [FIRST_TASK.title stringByAppendingString:@" ..."];
     
     /* self-adaptive frame set-up */
@@ -96,7 +110,7 @@
     
     /* set up position */
     frame.origin.x = BUBBLE_OFFSET_X;
-    frame.origin.y = 0;
+    frame.origin.y = self.frame.origin.y;
     self.frame = frame;
     
     /* set up background */
@@ -108,21 +122,26 @@
     [self addSubview:backgroundImageView];
     
     /* set up title label */
-    labelTitle = [[UILabel alloc] initWithFrame:LABEL_TITLE_FRAME];
-    labelTitle.text = titleString;
-    labelTitle.textColor = LABEL_TITLE_COLOR;
-    labelTitle.font = LABEL_TITLE_FONT;
-    labelTitle.backgroundColor = CLEAR_COLOR;
-    [self addSubview:labelTitle];
+    self.labelTitle = [[UILabel alloc] initWithFrame:LABEL_TITLE_FRAME];
+    self.labelTitle.text = titleString;
+    self.labelTitle.textColor = LABEL_TITLE_COLOR;
+    self.labelTitle.font = LABEL_TITLE_FONT;
+    self.labelTitle.backgroundColor = CLEAR_COLOR;
+    [self addSubview:self.labelTitle];
     
     /* set up time label */
-    dateString = [FIRST_TASK timeRepWithMode:HPTaskTimeRepDateAndTime];
-    labelTime = [[UILabel alloc] initWithFrame:LABEL_TIME_FRAME];
-    labelTime.text = dateString;
-    labelTime.textColor = LABEL_TIME_COLOR;
-    labelTime.font = LABEL_TIME_FONT;
-    labelTime.backgroundColor = CLEAR_COLOR;
-    [self addSubview:labelTime];
+    dateString = [NSString stringWithFormat:@"%@ - %@", [FIRST_TASK timeRepWithMode:HPTaskTimeRepDateOnly],
+                  [LAST_TASK timeRepWithMode:HPTaskTimeRepCompactDateOnly]];
+    if ([[FIRST_TASK timeRepWithMode:HPTaskTimeRepDateOnly] isEqualToString:
+         [LAST_TASK timeRepWithMode:HPTaskTimeRepDateOnly]]) {
+        dateString = [FIRST_TASK timeRepWithMode:HPTaskTimeRepDateAndTime];
+    }
+    self.labelTime = [[UILabel alloc] initWithFrame:LABEL_TIME_FRAME];
+    self.labelTime.text = dateString;
+    self.labelTime.textColor = LABEL_TIME_COLOR;
+    self.labelTime.font = LABEL_TIME_FONT;
+    self.labelTime.backgroundColor = CLEAR_COLOR;
+    [self addSubview:self.labelTime];
 }
 
 - (void)longPressed:(id)sender

@@ -21,35 +21,33 @@
 
 @implementation HPItemIndicator
 {
-    UIImageView * backgroundView;
-    UILabel * label;
 }
 
 /*
  * DO NOT USE CALayer or Quartz2D drawing, they will make scrolling laggy.
  */
 
-- (id)initWithFrame:(CGRect)frame
+- (id)initWithFrame:(CGRect)frame andNumber:(NSInteger)number
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.number = 1;
+        self.number = number;
         self.backgroundColor = CLEAR_COLOR;
         
         /* set up background */
-        backgroundView = [[UIImageView alloc] initWithImage:INDICATOR_IMAGE];
-        backgroundView.frame = INDICATOR_IMAGE_FRAME;
-        [self addSubview:backgroundView];
+        self.backgroundView = [[UIImageView alloc] initWithImage:INDICATOR_IMAGE];
+        self.backgroundView.frame = INDICATOR_IMAGE_FRAME;
+        [self addSubview:self.backgroundView];
         
         /* set up label */
-        label = [[UILabel alloc] initWithFrame:INDICATOR_LABEL_FRAME];
-        label.text = [NSString stringWithFormat:@"%d", self.number];
-        label.font = [UIFont fontWithName:@"ArialRoundedMTBold" size:12];
-        label.textAlignment = NSTextAlignmentCenter;
-        label.lineBreakMode = NSLineBreakByClipping;
-        label.backgroundColor = CLEAR_COLOR;
-        label.textColor = WHITE_COLOR;
-        [self addSubview:label];
+        self.label = [[UILabel alloc] initWithFrame:INDICATOR_LABEL_FRAME];
+        self.label.text = [NSString stringWithFormat:@"%d", self.number];
+        self.label.font = [UIFont fontWithName:@"ArialRoundedMTBold" size:12];
+        self.label.textAlignment = NSTextAlignmentCenter;
+        self.label.lineBreakMode = NSLineBreakByClipping;
+        self.label.backgroundColor = CLEAR_COLOR;
+        self.label.textColor = WHITE_COLOR;
+        [self addSubview:self.label];
     }
     return self;
 }
@@ -64,7 +62,12 @@
 
 + (id)indicatorForBubble:(UIView *)bubble
 {
-    HPItemIndicator * indicator = [[HPItemIndicator alloc] initWithFrame:INDICATOR_DEFAULT_FRAME];
+    NSInteger number = 1;
+    if ([bubble respondsToSelector:@selector(tasks)]) {
+        number = [((HPItemBubbleStack *)bubble).tasks count];
+    }
+
+    HPItemIndicator * indicator = [[HPItemIndicator alloc] initWithFrame:INDICATOR_DEFAULT_FRAME andNumber:number];
     indicator.center = CGPointMake(INDICATOR_X, bubble.frame.origin.y + INDICATOR_OFFSET_Y);
  
     if ([bubble respondsToSelector:@selector(setIndicatorRef:)]) {
@@ -79,6 +82,7 @@
     [UIView beginAnimations:@"cancel edit mode" context:nil];
     [UIView setAnimationDuration:0.2];
     self.transform = CGAffineTransformMakeScale(0.4, 0.4);
+    self.label.alpha = 0;
     [UIView commitAnimations];    
 }
 
@@ -87,6 +91,7 @@
     [UIView beginAnimations:@"cancel edit mode" context:nil];
     [UIView setAnimationDuration:0.2];
     self.transform = CGAffineTransformIdentity;
+    self.label.alpha = 1;
     [UIView commitAnimations];
 }
 

@@ -24,7 +24,6 @@
 #define BUBBLE_MIN_WIDTH (180)
 #define BUBBLE_OFFSET_X (90)
 
-
 #define LABEL_TITLE_FRAME CGRectMake(BUBBLE_MARGIN_LEFT, BUBBLE_MARGIN_TOP, TITLE_SIZE.width, TITLE_SIZE.height)
 #define LABEL_TIME_FRAME CGRectMake(BUBBLE_MARGIN_LEFT, BUBBLE_MARGIN_TOP + TITLE_SIZE.height + 6,     \
                                     TIME_SIZE.width, TIME_SIZE.height)
@@ -33,8 +32,8 @@
 #define LABEL_TIME_COLOR DARK_GREY_COLOR
 #define LABEL_TITLE_FONT_SIZE (14)
 #define LABEL_TIME_FONT_SIZE (12)
-#define LABEL_TITLE_FONT [UIFont fontWithName:@"STHeitiSC-Light" size:LABEL_TITLE_FONT_SIZE]
-#define LABEL_TIME_FONT [UIFont fontWithName:@"STHeitiSC-Light" size:LABEL_TIME_FONT_SIZE]
+#define LABEL_TITLE_FONT [UIFont fontWithName:@"HelveticaNeue-Light" size:LABEL_TITLE_FONT_SIZE]
+#define LABEL_TIME_FONT [UIFont fontWithName:@"HelveticaNeue-Light" size:LABEL_TIME_FONT_SIZE]
 
 #define TEXT_SIZE(string, font) [(string) sizeWithFont:(font)]
 #define TITLE_SIZE TEXT_SIZE(self.task.title, LABEL_TITLE_FONT)
@@ -84,6 +83,13 @@
         return self;
     }
     return nil;
+}
+
+- (void)dealloc
+{
+    [self removeGestureRecognizer:panGestureRecognizer];
+    [self removeGestureRecognizer:longPressRecognizer];
+    [self removeObserver:self forKeyPath:@"scrollSpeed"];
 }
 
 + (id)bubbleWithTask:(Task *)task

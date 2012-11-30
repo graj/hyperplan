@@ -24,8 +24,8 @@
 #define LABEL_TIME_COLOR DARK_GREY_COLOR
 #define LABEL_TITLE_FONT_SIZE (14)
 #define LABEL_TIME_FONT_SIZE (12)
-#define LABEL_TITLE_FONT [UIFont fontWithName:@"STHeitiSC-Light" size:LABEL_TITLE_FONT_SIZE]
-#define LABEL_TIME_FONT [UIFont fontWithName:@"STHeitiSC-Light" size:LABEL_TIME_FONT_SIZE]
+#define LABEL_TITLE_FONT [UIFont fontWithName:@"Helvetica Neue" size:LABEL_TITLE_FONT_SIZE]
+#define LABEL_TIME_FONT [UIFont fontWithName:@"Helvetica Neue" size:LABEL_TIME_FONT_SIZE]
 #define FONT [UIFont systemFontOfSize: 14]
 #define TEXT_SIZE(string, font) [(string) sizeWithFont:(font)]
 

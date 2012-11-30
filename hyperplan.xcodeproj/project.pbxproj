@@ -74,6 +74,7 @@
 		4A96DE8816663E9A003F10F3 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A96DE8716663E9A003F10F3 /* CoreData.framework */; };
 		4A96DE8B1666F387003F10F3 /* Task+Layout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A96DE8A1666F387003F10F3 /* Task+Layout.m */; };
 		4A96DE8E16676745003F10F3 /* HPItemBubbleStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A96DE8D16676745003F10F3 /* HPItemBubbleStack.m */; };
+		4AA864AA1668AD35006575BD /* bubble-stack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AA864A91668AD35006575BD /* bubble-stack@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -191,6 +192,7 @@
 		4A96DE8A1666F387003F10F3 /* Task+Layout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Task+Layout.m"; path = "hyperplan/Task+Layout.m"; sourceTree = "<group>"; };
 		4A96DE8C16676745003F10F3 /* HPItemBubbleStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPItemBubbleStack.h; sourceTree = "<group>"; };
 		4A96DE8D16676745003F10F3 /* HPItemBubbleStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPItemBubbleStack.m; sourceTree = "<group>"; };
+		4AA864A91668AD35006575BD /* bubble-stack@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bubble-stack@2x.png"; path = "../../hyper-plan-GUI/resources/bubble-stack@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -361,6 +363,7 @@
 				4198969D1654DC1500690FBF /* menu-btn-pressed@2x.png */,
 				4198969E1654DC1500690FBF /* menu-btn@2x.png */,
 				4198969F1654DC1500690FBF /* bubble@2x.png */,
+				4AA864A91668AD35006575BD /* bubble-stack@2x.png */,
 				419896A01654DC1500690FBF /* indicator@2x.png */,
 				419896A11654DC1500690FBF /* popupmenu-hollow@2x.png */,
 				419896A21654DC1500690FBF /* splitCellButtonLeft@2x.png */,
@@ -532,6 +535,7 @@
 				419896B31654DC1500690FBF /* splitCellButtonRight@2x.png in Resources */,
 				419896B41654DC1500690FBF /* splitCellButtonLeft-pressed@2x.png in Resources */,
 				419896B51654DC1500690FBF /* splitCellButtonRight-pressed@2x.png in Resources */,
+				4AA864AA1668AD35006575BD /* bubble-stack@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
