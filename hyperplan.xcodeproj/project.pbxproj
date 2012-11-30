@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		416FC86D164BCC8000B060E4 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 416FC86B164BCC8000B060E4 /* Model.xcdatamodeld */; };
-		416FC86E164BCC8000B060E4 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 416FC86B164BCC8000B060E4 /* Model.xcdatamodeld */; };
 		4175887F166637A5002541CD /* MagicalImportFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 41758847166637A5002541CD /* MagicalImportFunctions.m */; };
 		41758880166637A5002541CD /* NSAttributeDescription+MagicalDataImport.m in Sources */ = {isa = PBXBuildFile; fileRef = 41758849166637A5002541CD /* NSAttributeDescription+MagicalDataImport.m */; };
 		41758881166637A5002541CD /* NSEntityDescription+MagicalDataImport.m in Sources */ = {isa = PBXBuildFile; fileRef = 4175884B166637A5002541CD /* NSEntityDescription+MagicalDataImport.m */; };
@@ -68,11 +67,6 @@
 		419F12E01648D76600128B26 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 419F12DF1648D76600128B26 /* Default@2x.png */; };
 		419F12E21648D76600128B26 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 419F12E11648D76600128B26 /* Default-568h@2x.png */; };
 		419F12E51648D76600128B26 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 419F12E31648D76600128B26 /* MainStoryboard.storyboard */; };
-		419F12F01648D76600128B26 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 419F12EF1648D76600128B26 /* SenTestingKit.framework */; };
-		419F12F11648D76600128B26 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 419F12CB1648D76600128B26 /* UIKit.framework */; };
-		419F12F21648D76600128B26 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 419F12CD1648D76600128B26 /* Foundation.framework */; };
-		419F12FA1648D76600128B26 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 419F12F81648D76600128B26 /* InfoPlist.strings */; };
-		419F12FD1648D76600128B26 /* hyperplanTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 419F12FC1648D76600128B26 /* hyperplanTests.m */; };
 		41F57DA4166788A300E6850E /* HPBubbleGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F57DA3166788A300E6850E /* HPBubbleGroupViewController.m */; };
 		41F57DA816678AB100E6850E /* HPBubbleGroupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F57DA716678AB100E6850E /* HPBubbleGroupView.m */; };
 		41F57DAF1667B64800E6850E /* StyleMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F57DAE1667B64800E6850E /* StyleMapper.m */; };
@@ -81,16 +75,6 @@
 		4A96DE8B1666F387003F10F3 /* Task+Layout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A96DE8A1666F387003F10F3 /* Task+Layout.m */; };
 		4A96DE8E16676745003F10F3 /* HPItemBubbleStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A96DE8D16676745003F10F3 /* HPItemBubbleStack.m */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		419F12F31648D76600128B26 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 419F12BE1648D76600128B26 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 419F12C61648D76600128B26;
-			remoteInfo = hyperplan;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		416FC86C164BCC8000B060E4 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
@@ -193,12 +177,7 @@
 		419F12DF1648D76600128B26 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		419F12E11648D76600128B26 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		419F12E41648D76600128B26 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
-		419F12EE1648D76600128B26 /* hyperplanTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = hyperplanTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		419F12EF1648D76600128B26 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		419F12F71648D76600128B26 /* hyperplanTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "hyperplanTests-Info.plist"; sourceTree = "<group>"; };
-		419F12F91648D76600128B26 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		419F12FB1648D76600128B26 /* hyperplanTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hyperplanTests.h; sourceTree = "<group>"; };
-		419F12FC1648D76600128B26 /* hyperplanTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = hyperplanTests.m; sourceTree = "<group>"; };
 		41F57DA2166788A300E6850E /* HPBubbleGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPBubbleGroupViewController.h; sourceTree = "<group>"; };
 		41F57DA3166788A300E6850E /* HPBubbleGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPBubbleGroupViewController.m; sourceTree = "<group>"; };
 		41F57DA616678AB100E6850E /* HPBubbleGroupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPBubbleGroupView.h; sourceTree = "<group>"; };
@@ -223,16 +202,6 @@
 				419F12CC1648D76600128B26 /* UIKit.framework in Frameworks */,
 				419F12CE1648D76600128B26 /* Foundation.framework in Frameworks */,
 				419F12D01648D76600128B26 /* CoreGraphics.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		419F12EA1648D76600128B26 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				419F12F01648D76600128B26 /* SenTestingKit.framework in Frameworks */,
-				419F12F11648D76600128B26 /* UIKit.framework in Frameworks */,
-				419F12F21648D76600128B26 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -421,7 +390,6 @@
 				41758843166637A5002541CD /* MagicalRecord */,
 				41F57DA91667A74000E6850E /* StyleInjection */,
 				419F12D11648D76600128B26 /* hyperplan */,
-				419F12F51648D76600128B26 /* hyperplanTests */,
 				419F12CA1648D76600128B26 /* Frameworks */,
 				419F12C81648D76600128B26 /* Products */,
 			);
@@ -431,7 +399,6 @@
 			isa = PBXGroup;
 			children = (
 				419F12C71648D76600128B26 /* hyperplan.app */,
-				419F12EE1648D76600128B26 /* hyperplanTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -480,25 +447,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		419F12F51648D76600128B26 /* hyperplanTests */ = {
-			isa = PBXGroup;
-			children = (
-				419F12FB1648D76600128B26 /* hyperplanTests.h */,
-				419F12FC1648D76600128B26 /* hyperplanTests.m */,
-				419F12F61648D76600128B26 /* Supporting Files */,
-			);
-			path = hyperplanTests;
-			sourceTree = "<group>";
-		};
-		419F12F61648D76600128B26 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				419F12F71648D76600128B26 /* hyperplanTests-Info.plist */,
-				419F12F81648D76600128B26 /* InfoPlist.strings */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 		41F57DA91667A74000E6850E /* StyleInjection */ = {
 			isa = PBXGroup;
 			children = (
@@ -531,25 +479,6 @@
 			productReference = 419F12C71648D76600128B26 /* hyperplan.app */;
 			productType = "com.apple.product-type.application";
 		};
-		419F12ED1648D76600128B26 /* hyperplanTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 419F13031648D76600128B26 /* Build configuration list for PBXNativeTarget "hyperplanTests" */;
-			buildPhases = (
-				419F12E91648D76600128B26 /* Sources */,
-				419F12EA1648D76600128B26 /* Frameworks */,
-				419F12EB1648D76600128B26 /* Resources */,
-				419F12EC1648D76600128B26 /* ShellScript */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				419F12F41648D76600128B26 /* PBXTargetDependency */,
-			);
-			name = hyperplanTests;
-			productName = hyperplanTests;
-			productReference = 419F12EE1648D76600128B26 /* hyperplanTests.octest */;
-			productType = "com.apple.product-type.bundle";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -573,7 +502,6 @@
 			projectRoot = "";
 			targets = (
 				419F12C61648D76600128B26 /* hyperplan */,
-				419F12ED1648D76600128B26 /* hyperplanTests */,
 			);
 		};
 /* End PBXProject section */
@@ -607,31 +535,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		419F12EB1648D76600128B26 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				419F12FA1648D76600128B26 /* InfoPlist.strings in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		419F12EC1648D76600128B26 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		419F12C31648D76600128B26 /* Sources */ = {
@@ -683,24 +587,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		419F12E91648D76600128B26 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				419F12FD1648D76600128B26 /* hyperplanTests.m in Sources */,
-				416FC86E164BCC8000B060E4 /* Model.xcdatamodeld in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		419F12F41648D76600128B26 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 419F12C61648D76600128B26 /* hyperplan */;
-			targetProxy = 419F12F31648D76600128B26 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		419F12D41648D76600128B26 /* InfoPlist.strings */ = {
@@ -717,14 +604,6 @@
 				419F12E41648D76600128B26 /* en */,
 			);
 			name = MainStoryboard.storyboard;
-			sourceTree = "<group>";
-		};
-		419F12F81648D76600128B26 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				419F12F91648D76600128B26 /* en */,
-			);
-			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -802,40 +681,6 @@
 			};
 			name = Release;
 		};
-		419F13041648D76600128B26 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/hyperplan.app/hyperplan";
-				FRAMEWORK_SEARCH_PATHS = (
-					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
-					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "hyperplan/hyperplan-Prefix.pch";
-				INFOPLIST_FILE = "hyperplanTests/hyperplanTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = octest;
-			};
-			name = Debug;
-		};
-		419F13051648D76600128B26 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/hyperplan.app/hyperplan";
-				FRAMEWORK_SEARCH_PATHS = (
-					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
-					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "hyperplan/hyperplan-Prefix.pch";
-				INFOPLIST_FILE = "hyperplanTests/hyperplanTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = octest;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -853,15 +698,6 @@
 			buildConfigurations = (
 				419F13011648D76600128B26 /* Debug */,
 				419F13021648D76600128B26 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		419F13031648D76600128B26 /* Build configuration list for PBXNativeTarget "hyperplanTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				419F13041648D76600128B26 /* Debug */,
-				419F13051648D76600128B26 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
