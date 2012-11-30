@@ -27,11 +27,6 @@ static NSMutableDictionary *sInjectionContext;
 
 + (void)registerClass:(Class)aClass
 {
-//    pthread_mutex_lock(&sInjectionMutex);
-//    if (aClass && [sInjectionContext objectForKey:NSStringFromClass(aClass)] == nil) {
-//        sInjectionContext setObject:<#(id)#> forKey:<#(id<NSCopying>)#>
-//    }
-//    pthread_mutex_unlock(&sInjectionContext);
     
 }
 
