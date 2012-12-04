@@ -16,6 +16,7 @@
 
 #define AXIS_IMG [UIImage imageNamed:@"axis-2"]
 #define AXIS_FRAME CGRectMake(320/5, 0, 15, 474)
+#define BACKGROUND_VIEW_FRAME CGRectMake(0, 0, 320, 474)
 
 #define BUBBLE_PADDING (5)
 
@@ -27,6 +28,11 @@
 {
     UIScrollView * scrollView;
     UIImageView * axis;
+    UIView * backgroundView;
+    UIPinchGestureRecognizer * pinchRecognizer;
+    CGFloat lastScale;
+    CGFloat scale;
+    CGFloat lastContentOffsetY;
 }
 
 - (void)initContents
@@ -36,11 +42,27 @@
     axis.frame = AXIS_FRAME;
     [self.view addSubview:axis];
     
+    pinchRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(pinched:)];
+    scale = lastScale = 1.;
+    lastContentOffsetY = 0;
+    
     /* set up scroll view */
     scrollView = [[UIScrollView alloc] initWithFrame:[self.view bounds]];
     scrollView.backgroundColor = MAIN_BG_COLOR;
     scrollView.contentSize = CGSizeMake(320, 640);
+    [scrollView addGestureRecognizer:pinchRecognizer];
+//    scrollView.delegate = self;
+//    scrollView.maximumZoomScale = 1.;
+//    scrollView.minimumZoomScale = 0.3;
+//    [scrollView setZoomScale:0.5];
+    
     [self.view addSubview:scrollView];
+    
+    /* background view */
+    backgroundView = [[UIView alloc] initWithFrame:BACKGROUND_VIEW_FRAME];
+    [scrollView addSubview:backgroundView];
+    backgroundView.backgroundColor = DEBUG_BG_COLOR;
+    backgroundView.alpha = 0.75;
     
     /* create bubbles array */
     _bubbles = [NSMutableArray array];
@@ -59,7 +81,7 @@
          
          /* set up bubble's frame */
          CGRect frame = bubble.frame;
-         frame.origin.y = [task YOffsetForScale:HPItemBubbleScaleLinear];
+         frame.origin.y = [task YOffsetForScale:scale inType:HPItemBubbleScaleLinear];
          maxHeight = MAX(maxHeight, frame.origin.y);
          [bubble setFrame:frame];
          
@@ -70,6 +92,8 @@
     
     /* detect bubble overlap and replace with bubble stack */
     for (int i = 1; i < [_bubbles count]; i++) {
+        break;
+        
         UIView * previous = _bubbles[i - 1];
         UIView * bubble = _bubbles[i];
         
@@ -102,6 +126,55 @@
         [scrollView addSubview:bubble];
         [scrollView addSubview:indicator];
     }];
+}
+
+- (void)layoutBubbles
+{
+    // 1. re-calculate the y offset for bubbles, then apply them
+    // 2. update scrollview's content offset
+    // 3. covering detect
+    // 4. animate
+    // 5. update scrollview's content size and/or offset
+    
+    [_bubbles enumerateObjectsUsingBlock:^(HPItemBubble * bubble, NSUInteger idx, BOOL * stop) {
+        CGRect bubbleFrame = bubble.frame;
+        CGFloat y = [bubble.task YOffsetForScale:scale inType:HPItemBubbleScaleLinear];
+        bubbleFrame.origin.y = y;
+        bubble.frame = bubbleFrame;
+        [bubble.indicatorRef layoutForBubble:bubble];
+    }];
+}
+
+- (void)pinched:(UIPinchGestureRecognizer *)sender
+{
+    if (sender.state == UIGestureRecognizerStateBegan) {
+        lastContentOffsetY = scrollView.contentOffset.y;
+    }
+    if (sender.state == UIGestureRecognizerStateEnded) {
+        /* commit last scale */
+        lastScale = scale;
+        lastContentOffsetY = scrollView.contentOffset.y;
+        return;
+    }
+
+    scale = lastScale - (1 - sender.scale);
+    CGFloat y = lastContentOffsetY * scale;
+    
+    /* constrain the scale in [0, 2] */
+    if (scale < 0)
+        scale = 0;
+    if (scale > 2)
+        scale = 2;
+    
+    [self layoutBubbles];
+    
+    /* to make the scrollview keep the focused area in the center by setting contentOffset */
+    if (sender.numberOfTouches > 1) {
+        CGFloat centerY = ([sender locationOfTouch:0 inView:self.view].y + [sender locationOfTouch:1 inView:self.view].y) / 2;
+//        NSLog(@"centerY: %f, contentOffset.y: %f, scale: %f", centerY, scrollView.contentOffset.y, scale);
+        scrollView.contentOffset = CGPointMake(scrollView.contentOffset.x, y);
+    }
+    NSLog(@"%f", scale);
 }
 
 @end

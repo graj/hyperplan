@@ -54,19 +54,9 @@
 {
     self = [super init];
     if (self) {
-        self.view.frame = CGRectMake(0, 0, 0, 0);
+        
     }
     return self;
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
 }
 
 #pragma mark - Computing Metrics For Multiple Tasks

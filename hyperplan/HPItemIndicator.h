@@ -24,6 +24,7 @@
 + (id)indicatorAt:(CGPoint)center;
 
 + (id)indicatorForBubble:(UIView *)bubble;
+- (void)layoutForBubble:(UIView *)bubble;
 
 - (void)enableEditMode;
 - (void)cancelEditMode;

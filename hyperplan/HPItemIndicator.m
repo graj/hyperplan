@@ -68,13 +68,18 @@
     }
 
     HPItemIndicator * indicator = [[HPItemIndicator alloc] initWithFrame:INDICATOR_DEFAULT_FRAME andNumber:number];
-    indicator.center = CGPointMake(INDICATOR_X, bubble.frame.origin.y + INDICATOR_OFFSET_Y);
+    [indicator layoutForBubble:bubble];
  
     if ([bubble respondsToSelector:@selector(setIndicatorRef:)]) {
         [bubble performSelector:@selector(setIndicatorRef:) withObject:indicator];
     }
     
     return indicator;
+}
+
+- (void)layoutForBubble:(UIView *)bubble
+{
+    self.center = CGPointMake(INDICATOR_X, bubble.frame.origin.y + INDICATOR_OFFSET_Y);
 }
 
 - (void)enableEditMode

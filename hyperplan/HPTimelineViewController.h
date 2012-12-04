@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "HPItemBubble.h"
 
-@interface HPTimelineViewController : UIViewController
+@interface HPTimelineViewController : UIViewController <UIScrollViewDelegate>
 {
     HPItemBubble * _currentActiveBubble;
     NSMutableArray * _bubbles;

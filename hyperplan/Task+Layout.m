@@ -10,14 +10,15 @@
 
 @implementation Task (Layout)
 
-- (CGFloat)YOffsetForScale:(HPItemBubbleScaleType)scale
+- (CGFloat)YOffsetForScale:(CGFloat)scale inType:(HPItemBubbleScaleType)scaleType
 {
-    if (scale == HPItemBubbleScaleExponential) {
+    if (scaleType == HPItemBubbleScaleExponential) {
+        // TODO
         CGFloat y = log([self daysSinceNow] + 1) * 200 + 20;
         return y;
     }
-    else if (scale == HPItemBubbleScaleLinear) {
-        CGFloat y = [self daysSinceNow] * 100 + 20;
+    else if (scaleType == HPItemBubbleScaleLinear) {
+        CGFloat y = [self daysSinceNow] * 100 * scale + 20;
         return y;
     }
 
