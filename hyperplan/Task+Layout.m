@@ -14,23 +14,23 @@
 {
     if (scale == HPItemBubbleScaleExponential) {
         CGFloat y = log([self daysSinceNow] + 1) * 200 + 20;
-        NSLog(@"abs time: %f, y: %f", [self daysSinceNow], y);
         return y;
     }
     else if (scale == HPItemBubbleScaleLinear) {
-        
+        CGFloat y = [self daysSinceNow] * 100 + 20;
+        return y;
     }
 
     return 0;
 }
 
 
-- (NSTimeInterval)daysSinceNow
+- (CGFloat)daysSinceNow
 {
     return [self timeSinceNow] / 3600 / 24;
 }
 
-- (NSInteger)timeSinceNow
+- (CGFloat)timeSinceNow
 {
     return [self.time timeIntervalSinceNow];
 }

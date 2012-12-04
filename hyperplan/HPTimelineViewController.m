@@ -59,7 +59,7 @@
          
          /* set up bubble's frame */
          CGRect frame = bubble.frame;
-         frame.origin.y = [task YOffsetForScale:HPItemBubbleScaleExponential];
+         frame.origin.y = [task YOffsetForScale:HPItemBubbleScaleLinear];
          maxHeight = MAX(maxHeight, frame.origin.y);
          [bubble setFrame:frame];
          
