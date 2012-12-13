@@ -65,27 +65,11 @@
     [[Task findAllSortedBy:@"time" ascending:YES] enumerateObjectsUsingBlock:
      ^(Task * task, NSUInteger idx, BOOL *stop) {
          HPItemBubble * bubble = [HPItemBubble bubbleWithTask:task];
-         
-         /* put reference into the bubbles array */
-         [_bubbles addObject:bubble];
-         
-         /* set up bubble's parent view reference */
          bubble.scrollViewRef = scrollView;
+         [_bubbles addObject:bubble];
+     }];    
          
-         
-         ///////////
-         // should move to functions
-         /* set up bubble's frame */
-         CGRect frame = bubble.frame;
-         frame.origin.y = [task YOffsetForScale:scale inType:HPItemBubbleScaleLinear];
-         maxHeight = MAX(maxHeight, frame.origin.y);
-         bubble.frame = frame;
-         bubble.standardRect = frame;
-         
-         /* dynamically set up scrollView's content size */
-         scrollView.contentSize = CGSizeMake(scrollView.contentSize.width, maxHeight + 80);
-         //TODO: should dynamically update scrollView's contentSize here.
-    }];
+    [self layoutBubbles];
     
     /* create the indicators for the bubbles and insert them as subview */
     [_bubbles enumerateObjectsUsingBlock:^(UIView * bubble, NSUInteger idx, BOOL * stop) {
@@ -93,19 +77,17 @@
         HPItemIndicator * indicator = [HPItemIndicator indicatorForBubble:bubble];
         [scrollView addSubview:bubble];
         [scrollView addSubview:indicator];
+        maxHeight = MAX(maxHeight, bubble.frame.origin.y);
     }];
+    
+    /* dynamically set up scrollView's content size */
+    scrollView.contentSize = CGSizeMake(scrollView.contentSize.width, maxHeight + 80);
     
     [self rearrangeBubbles];
 }
 
 - (void)layoutBubbles
 {
-    // 1. re-calculate the y offset for bubbles, then apply them
-    // 2. update scrollview's content offset
-    // 3. covering detect
-    // 4. animate
-    // 5. update scrollview's content size and/or offset
-    
     [_bubbles enumerateObjectsUsingBlock:^(HPItemBubble * bubble, NSUInteger idx, BOOL * stop) {
         CGRect bubbleFrame = bubble.frame;
         CGFloat y = [bubble.task YOffsetForScale:scale inType:HPItemBubbleScaleLinear];
@@ -156,6 +138,7 @@
         }
     }
     
+    // NEED to verify algorithm carefully
     pivotBubble = _bubbles[0];
     for (int i = 1; i < [_bubbles count]; i++) {
         bubble = _bubbles[i];

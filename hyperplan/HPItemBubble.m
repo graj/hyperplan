@@ -312,6 +312,7 @@
     self.frame = bubble.frame;
     [self.indicatorRef layoutForBubble:self];
     _merged = YES;
+
     ////////
     // modify indicator number
 }
