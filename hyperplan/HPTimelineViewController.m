@@ -32,7 +32,6 @@
     UIPinchGestureRecognizer * pinchRecognizer;
     CGFloat lastScale;
     CGFloat scale;
-    CGFloat lastContentOffsetY;
 }
 
 - (void)initContents
@@ -44,24 +43,18 @@
     
     pinchRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(pinched:)];
     scale = lastScale = 1.;
-    lastContentOffsetY = 0;
     
     /* set up scroll view */
     scrollView = [[UIScrollView alloc] initWithFrame:[self.view bounds]];
     scrollView.backgroundColor = MAIN_BG_COLOR;
     scrollView.contentSize = CGSizeMake(320, 640);
     [scrollView addGestureRecognizer:pinchRecognizer];
-//    scrollView.delegate = self;
-//    scrollView.maximumZoomScale = 1.;
-//    scrollView.minimumZoomScale = 0.3;
-//    [scrollView setZoomScale:0.5];
-    
+
     [self.view addSubview:scrollView];
     
     /* background view */
     backgroundView = [[UIView alloc] initWithFrame:BACKGROUND_VIEW_FRAME];
     [scrollView addSubview:backgroundView];
-    backgroundView.backgroundColor = DEBUG_BG_COLOR;
     backgroundView.alpha = 0.75;
     
     /* create bubbles array */
@@ -145,39 +138,52 @@
     }];
 }
 
-static CGFloat touch0y;
-static CGFloat touch1y;
+static CGFloat lastTouch0y;
+static CGFloat lastTouch1y;
 
 - (void)pinched:(UIPinchGestureRecognizer *)sender
 {
-    if (sender.state == UIGestureRecognizerStateBegan) {
-        lastContentOffsetY = scrollView.contentOffset.y;
-    }
-    if (sender.state == UIGestureRecognizerStateEnded) {
-        /* commit last scale */
-        lastScale = scale;
-        lastContentOffsetY = scrollView.contentOffset.y;
+    /////////////////////////////////////////////////////////////////////////
+    
+    /* filter if only one touch */
+    if (sender.numberOfTouches < 2) {
         return;
     }
-
-    scale = lastScale - (1 - sender.scale);
-    CGFloat y = lastContentOffsetY * scale;
     
-    /* constrain the scale in [0, 2] */
-    if (scale < 0)
-        scale = 0;
-    if (scale > 2)
-        scale = 2;
+    /* get touches location */
+    CGFloat touch0y = [sender locationOfTouch:0 inView:self.view].y;
+    CGFloat touch1y = [sender locationOfTouch:1 inView:self.view].y;
     
-    [self layoutBubbles];
-    
-    /* to make the scrollview keep the focused area in the center by setting contentOffset */
-    if (sender.numberOfTouches > 1) {
-        CGFloat centerY = ([sender locationOfTouch:0 inView:self.view].y + [sender locationOfTouch:1 inView:self.view].y) / 2;
-//        NSLog(@"centerY: %f, contentOffset.y: %f, scale: %f", centerY, scrollView.contentOffset.y, scale);
-        scrollView.contentOffset = CGPointMake(scrollView.contentOffset.x, y);
+    /* assign the static variables for the first time */
+    if (sender.state == UIGestureRecognizerStateBegan) {
+        lastTouch0y = touch0y;
+        lastTouch1y = touch1y;
+        return;
     }
-    NSLog(@"%f", scale);
+    
+    /* calculate scale and center-of-touches */
+    scale = lastScale * (touch1y - touch0y) / (lastTouch1y - lastTouch0y);
+    
+    if (scale > 5) scale = 5;
+    if (scale < 0.2) scale = 0.2;
+    
+    CGFloat lastTouchesCenter = (lastTouch0y + lastTouch1y) / 2;
+    CGFloat touchesCenter = (touch0y + touch1y) / 2;
+    
+    /* TangYuanchao's equation */
+    CGFloat contentOffsetY = (lastTouchesCenter + scrollView.contentOffset.y) * scale / lastScale - touchesCenter;
+    
+    /* modify scrollview's size and position */
+    scrollView.contentOffset = CGPointMake(scrollView.contentOffset.x, contentOffsetY);
+    scrollView.contentSize = CGSizeMake(scrollView.contentSize.width, scrollView.contentSize.height / lastScale * scale);
+    
+    /* move bubbles to their position */
+    [self layoutBubbles];
+
+    /* update static variables */
+    lastScale = scale;
+    lastTouch0y = touch0y;
+    lastTouch1y = touch1y;
 }
 
 @end

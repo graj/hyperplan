@@ -68,7 +68,6 @@
 		419F12E21648D76600128B26 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 419F12E11648D76600128B26 /* Default-568h@2x.png */; };
 		419F12E51648D76600128B26 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 419F12E31648D76600128B26 /* MainStoryboard.storyboard */; };
 		41F57DA4166788A300E6850E /* HPBubbleGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F57DA3166788A300E6850E /* HPBubbleGroupViewController.m */; };
-		41F57DA816678AB100E6850E /* HPBubbleGroupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F57DA716678AB100E6850E /* HPBubbleGroupView.m */; };
 		41F57DAF1667B64800E6850E /* StyleMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F57DAE1667B64800E6850E /* StyleMapper.m */; };
 		41F57DB21667B67300E6850E /* StyleInjection.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F57DB11667B67300E6850E /* StyleInjection.m */; };
 		4A96DE8816663E9A003F10F3 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A96DE8716663E9A003F10F3 /* CoreData.framework */; };
@@ -181,8 +180,6 @@
 		419F12EF1648D76600128B26 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		41F57DA2166788A300E6850E /* HPBubbleGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPBubbleGroupViewController.h; sourceTree = "<group>"; };
 		41F57DA3166788A300E6850E /* HPBubbleGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPBubbleGroupViewController.m; sourceTree = "<group>"; };
-		41F57DA616678AB100E6850E /* HPBubbleGroupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPBubbleGroupView.h; sourceTree = "<group>"; };
-		41F57DA716678AB100E6850E /* HPBubbleGroupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPBubbleGroupView.m; sourceTree = "<group>"; };
 		41F57DAD1667B64800E6850E /* StyleMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StyleMapper.h; path = StyleInjection/StyleMapper.h; sourceTree = "<group>"; };
 		41F57DAE1667B64800E6850E /* StyleMapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StyleMapper.m; path = StyleInjection/StyleMapper.m; sourceTree = "<group>"; };
 		41F57DB01667B67300E6850E /* StyleInjection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StyleInjection.h; path = StyleInjection/StyleInjection.h; sourceTree = "<group>"; };
@@ -342,8 +339,6 @@
 				419896931654DBD800690FBF /* Item */,
 				41F57DA2166788A300E6850E /* HPBubbleGroupViewController.h */,
 				41F57DA3166788A300E6850E /* HPBubbleGroupViewController.m */,
-				41F57DA616678AB100E6850E /* HPBubbleGroupView.h */,
-				41F57DA716678AB100E6850E /* HPBubbleGroupView.m */,
 				419896BB1654DF5100690FBF /* HPTimelineViewController.h */,
 				419896BC1654DF5100690FBF /* HPTimelineViewController.m */,
 			);
@@ -585,7 +580,6 @@
 				4A96DE8B1666F387003F10F3 /* Task+Layout.m in Sources */,
 				4A96DE8E16676745003F10F3 /* HPItemBubbleStack.m in Sources */,
 				41F57DA4166788A300E6850E /* HPBubbleGroupViewController.m in Sources */,
-				41F57DA816678AB100E6850E /* HPBubbleGroupView.m in Sources */,
 				41F57DAF1667B64800E6850E /* StyleMapper.m in Sources */,
 				41F57DB21667B67300E6850E /* StyleInjection.m in Sources */,
 			);

@@ -119,13 +119,13 @@
     return [itemTitles count] + 1;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)tableView:(UITableView *)theTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell * cell;
     
     /* build split button cell */
     if (indexPath.row == 0) {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"Split"];
+        cell = [theTableView dequeueReusableCellWithIdentifier:@"Split"];
         if (cell)
             return cell;
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Split"];
@@ -157,7 +157,7 @@
     }
     
     /* Hide extra cell separators */
-    [self setExtraCellLineHidden:tableView];
+    [self setExtraCellLineHidden:theTableView];
     
     return cell;
 }
@@ -168,11 +168,11 @@
 }
 
 /* self-defined method to hide extra cell lines */
-- (void)setExtraCellLineHidden: (UITableView *)tableView
+- (void)setExtraCellLineHidden: (UITableView *)theTableView
 {
     UIView * view = [UIView new];
     view.backgroundColor = CLEAR_COLOR;
-    [tableView setTableFooterView:view];
+    [theTableView setTableFooterView:view];
 }
 
 /* make sure that the table is scrolled to top everytime it shows */
@@ -184,12 +184,12 @@
 
 #pragma mark User interactive methods
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)theTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row == 0)
         return;     //splitCellBtnPressed will handle this.
     else {
-        [tableView deselectRowAtIndexPath:indexPath animated:NO];
+        [theTableView deselectRowAtIndexPath:indexPath animated:NO];
         [self.delegate menuItemPressed:indexPath.row];
     }
 }
