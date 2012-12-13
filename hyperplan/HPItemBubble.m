@@ -74,7 +74,7 @@
         [self addGestureRecognizer:panGestureRecognizer];
         
         [self initLayout];
-        
+        self.standardRect = self.frame;
         
         /* set up KVO for scrolling speed */
         [self addObserver:self forKeyPath:@"scrollSpeed" options:(NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld) context:NULL];
@@ -304,6 +304,23 @@
         return !self.editMode;
     
     return YES;
+}
+
+
+- (void)mergeToBubble:(HPItemBubble *)bubble
+{
+    self.frame = bubble.frame;
+    [self.indicatorRef layoutForBubble:self];
+    _merged = YES;
+    ////////
+    // modify indicator number
+}
+
+- (void)resumeStandardPosition
+{
+    self.frame = self.standardRect;
+    [self.indicatorRef layoutForBubble:self];
+    _merged = NO;
 }
 
 @end

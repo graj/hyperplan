@@ -72,45 +72,20 @@
          /* set up bubble's parent view reference */
          bubble.scrollViewRef = scrollView;
          
+         
+         ///////////
+         // should move to functions
          /* set up bubble's frame */
          CGRect frame = bubble.frame;
          frame.origin.y = [task YOffsetForScale:scale inType:HPItemBubbleScaleLinear];
          maxHeight = MAX(maxHeight, frame.origin.y);
-         [bubble setFrame:frame];
+         bubble.frame = frame;
+         bubble.standardRect = frame;
          
          /* dynamically set up scrollView's content size */
          scrollView.contentSize = CGSizeMake(scrollView.contentSize.width, maxHeight + 80);
          //TODO: should dynamically update scrollView's contentSize here.
     }];
-    
-    /* detect bubble overlap and replace with bubble stack */
-    for (int i = 1; i < [_bubbles count]; i++) {
-        break;
-        
-        UIView * previous = _bubbles[i - 1];
-        UIView * bubble = _bubbles[i];
-        
-        if (bubble.frame.origin.y > previous.frame.origin.y + previous.frame.size.height + BUBBLE_PADDING) {
-            continue;
-        }
-
-        if ([previous isKindOfClass:[HPItemBubble class]]) {
-            /* remove both view and create a bubble stack */
-            NSLog(@"overlap 1: %@", ((HPItemBubble *)bubble).task.title);
-            HPItemBubbleStack * stack = [HPItemBubbleStack bubbleStackWithTasks:@[((HPItemBubble *)previous).task, ((HPItemBubble *)bubble).task]];
-            [_bubbles replaceObjectAtIndex:[_bubbles indexOfObject:previous] withObject:stack];
-            stack.scrollViewRef = scrollView;
-            stack.frame = bubble.frame;
-        }
-        else if ([previous isKindOfClass:[HPItemBubbleStack class]]) {
-            /* remove this bubble and insert its task into the bubble stack */
-            NSLog(@"overlap 2: %@", ((HPItemBubble *)bubble).task.title);
-            HPItemBubbleStack * stack = (HPItemBubbleStack *)previous;
-            [stack addTask:((HPItemBubble *)bubble).task];
-        }
-        [_bubbles removeObject:bubble];
-        i--;
-    }
     
     /* create the indicators for the bubbles and insert them as subview */
     [_bubbles enumerateObjectsUsingBlock:^(UIView * bubble, NSUInteger idx, BOOL * stop) {
@@ -119,6 +94,8 @@
         [scrollView addSubview:bubble];
         [scrollView addSubview:indicator];
     }];
+    
+    [self rearrangeBubbles];
 }
 
 - (void)layoutBubbles
@@ -134,6 +111,7 @@
         CGFloat y = [bubble.task YOffsetForScale:scale inType:HPItemBubbleScaleLinear];
         bubbleFrame.origin.y = y;
         bubble.frame = bubbleFrame;
+        bubble.standardRect = bubbleFrame;
         [bubble.indicatorRef layoutForBubble:bubble];
     }];
 }
@@ -145,6 +123,8 @@
         CGRect bubbleFrame = bubble.frame;
         bubbleFrame.origin.y = y;
         bubble.frame = bubbleFrame;
+        bubbleFrame.origin.y = [bubble.task YOffsetForScale:scale inType:HPItemBubbleScaleLinear];
+        bubble.standardRect = bubbleFrame;
         [bubble.indicatorRef layoutForBubble:bubble];
     }];
 }
@@ -156,21 +136,35 @@
     }
     NSLog(@"Rearranging...");
 
+    HPItemBubble * pivotBubble, * bubble;
+    
     [UIView beginAnimations:@"Move bubbles" context:nil];
     [UIView setAnimationDuration:0.3];
 
     // detect overlay and animate to merge
-    HPItemBubble * currentBubble = _bubbles[0];
+    pivotBubble = _bubbles[0];
     for (int i = 1; i < [_bubbles count]; i++) {
-        HPItemBubble * bubble = _bubbles[i];
-        if (CGRectIntersectsRect(bubble.frame, currentBubble.frame)) {
-            bubble.frame = currentBubble.frame;
-            bubble.indicatorRef.frame = currentBubble.indicatorRef.frame;
+        bubble = _bubbles[i];
+        if (!CGRectEqualToRect(bubble.frame, pivotBubble.frame) &&
+            CGRectIntersectsRect(bubble.standardRect, pivotBubble.frame)) {
+            NSLog(@"Merging %@ & %@", pivotBubble.task.title, bubble.task.title);
+            NSLog(@"bubble frame: %f %f %f %f, bubble standardRect: %f %f %f %f, pivotBubble frame: %f %f %f %f", bubble.frame.origin.x, bubble.frame.origin.y, bubble.frame.size.width, bubble.frame.size.height, bubble.standardRect.origin.x, bubble.standardRect.origin.y, bubble.standardRect.size.width, bubble.standardRect.size.height, pivotBubble.frame.origin.x, pivotBubble.frame.origin.y, pivotBubble.frame.size.width, pivotBubble.frame.size.height);
+            [bubble mergeToBubble:pivotBubble];
         }
         else {
-            
-            currentBubble = _bubbles[i];
+            pivotBubble = bubble;
         }
+    }
+    
+    pivotBubble = _bubbles[0];
+    for (int i = 1; i < [_bubbles count]; i++) {
+        bubble = _bubbles[i];
+        if (bubble.merged && !CGRectIntersectsRect(bubble.standardRect, pivotBubble.frame)) {
+            NSLog(@"Resuming %@ from %@", bubble.task.title, pivotBubble.task.title);
+            NSLog(@"bubble frame: %f %f %f %f, bubble standardRect: %f %f %f %f, pivotBubble frame: %f %f %f %f", bubble.frame.origin.x, bubble.frame.origin.y, bubble.frame.size.width, bubble.frame.size.height, bubble.standardRect.origin.x, bubble.standardRect.origin.y, bubble.standardRect.size.width, bubble.standardRect.size.height, pivotBubble.frame.origin.x, pivotBubble.frame.origin.y, pivotBubble.frame.size.width, pivotBubble.frame.size.height);
+            [bubble resumeStandardPosition];
+        }
+        pivotBubble = bubble;
     }
     
     [UIView commitAnimations];
@@ -178,6 +172,8 @@
 
 static CGFloat lastTouch0y;
 static CGFloat lastTouch1y;
+#define TIMELINE_SCALE_MIN 0.2
+#define TIMELINE_SCALE_MAX 5
 
 - (void)pinched:(UIPinchGestureRecognizer *)sender
 {
@@ -206,8 +202,8 @@ static CGFloat lastTouch1y;
     /* calculate scale and center-of-touches */
     scale = lastScale * (touch1y - touch0y) / (lastTouch1y - lastTouch0y);
     
-    if (scale > 5) scale = 5;
-    if (scale < 0.2) scale = 0.2;
+    if (scale < TIMELINE_SCALE_MIN) scale = TIMELINE_SCALE_MIN;
+    if (scale > TIMELINE_SCALE_MAX) scale = TIMELINE_SCALE_MAX;
     
     CGFloat lastTouchesCenter = (lastTouch0y + lastTouch1y) / 2;
     CGFloat touchesCenter = (touch0y + touch1y) / 2;

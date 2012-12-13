@@ -18,6 +18,8 @@
     BOOL _editMode;
     HPItemIndicator * _indicatorRef;
     UIScrollView * _scrollViewRef;
+    CGRect _standardRect;
+    BOOL _merged;
 }
 
 @property (nonatomic, retain) Task * task;
@@ -25,10 +27,13 @@
 @property (nonatomic, retain) HPItemIndicator * indicatorRef;
 @property (nonatomic, retain) UIScrollView * scrollViewRef;
 @property (atomic, assign) CGFloat scrollSpeed;
+@property (nonatomic, assign) CGRect standardRect;
+@property (nonatomic, assign) BOOL merged;
 
 /* Preferred constructors: in consist with the data model */
 - (id)initWithTask:(Task *)task;
 + (id)bubbleWithTask:(Task *)task;
-
+- (void)resumeStandardPosition;
+- (void)mergeToBubble:(HPItemBubble *)bubble;
 
 @end
