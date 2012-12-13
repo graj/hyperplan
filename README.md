@@ -29,3 +29,7 @@
 ##Bubble stack behavior
 
 
+1. 添加缩放功能
+2. 添加bubble状态改变、隐藏功能
+3. 冲突检测
+4. 添加缩放响应

@@ -145,6 +145,9 @@
     }];
 }
 
+static CGFloat touch0y;
+static CGFloat touch1y;
+
 - (void)pinched:(UIPinchGestureRecognizer *)sender
 {
     if (sender.state == UIGestureRecognizerStateBegan) {
