@@ -138,12 +138,54 @@
     }];
 }
 
+- (void)scaleBubbles
+{
+    [_bubbles enumerateObjectsUsingBlock:^(HPItemBubble * bubble, NSUInteger idx, BOOL * stop) {
+        CGFloat y = bubble.frame.origin.y / lastScale * scale;
+        CGRect bubbleFrame = bubble.frame;
+        bubbleFrame.origin.y = y;
+        bubble.frame = bubbleFrame;
+        [bubble.indicatorRef layoutForBubble:bubble];
+    }];
+}
+
+- (void)rearrangeBubbles
+{
+    if ([_bubbles count] < 2) {
+        return;
+    }
+    NSLog(@"Rearranging...");
+
+    [UIView beginAnimations:@"Move bubbles" context:nil];
+    [UIView setAnimationDuration:0.3];
+
+    // detect overlay and animate to merge
+    HPItemBubble * currentBubble = _bubbles[0];
+    for (int i = 1; i < [_bubbles count]; i++) {
+        HPItemBubble * bubble = _bubbles[i];
+        if (CGRectIntersectsRect(bubble.frame, currentBubble.frame)) {
+            bubble.frame = currentBubble.frame;
+            bubble.indicatorRef.frame = currentBubble.indicatorRef.frame;
+        }
+        else {
+            
+            currentBubble = _bubbles[i];
+        }
+    }
+    
+    [UIView commitAnimations];
+}
+
 static CGFloat lastTouch0y;
 static CGFloat lastTouch1y;
 
 - (void)pinched:(UIPinchGestureRecognizer *)sender
 {
     /////////////////////////////////////////////////////////////////////////
+    if (sender.state == UIGestureRecognizerStateEnded) {
+        [self rearrangeBubbles];
+        return;
+    }
     
     /* filter if only one touch */
     if (sender.numberOfTouches < 2) {
@@ -178,7 +220,7 @@ static CGFloat lastTouch1y;
     scrollView.contentSize = CGSizeMake(scrollView.contentSize.width, scrollView.contentSize.height / lastScale * scale);
     
     /* move bubbles to their position */
-    [self layoutBubbles];
+    [self scaleBubbles];
 
     /* update static variables */
     lastScale = scale;
