@@ -77,6 +77,12 @@
     return indicator;
 }
 
+- (void)setNumber:(NSInteger)number
+{
+    _number = number;
+    self.label.text = [NSString stringWithFormat:@"%d", self.number];
+}
+
 - (void)layoutForBubble:(UIView *)bubble
 {
     self.center = CGPointMake(INDICATOR_X, bubble.frame.origin.y + INDICATOR_OFFSET_Y);

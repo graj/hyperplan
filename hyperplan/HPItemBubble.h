@@ -20,6 +20,7 @@
     UIScrollView * _scrollViewRef;
     CGRect _standardRect;
     BOOL _merged;
+    HPItemBubble * _nextStackBubble;
 }
 
 @property (nonatomic, retain) Task * task;
@@ -29,11 +30,14 @@
 @property (atomic, assign) CGFloat scrollSpeed;
 @property (nonatomic, assign) CGRect standardRect;
 @property (nonatomic, assign) BOOL merged;
+@property (nonatomic, retain) HPItemBubble * nextStackBubble;
+
 
 /* Preferred constructors: in consist with the data model */
 - (id)initWithTask:(Task *)task;
 + (id)bubbleWithTask:(Task *)task;
 - (void)resumeStandardPosition;
 - (void)mergeToBubble:(HPItemBubble *)bubble;
+- (void)resumeStandardPositionFrom:(HPItemBubble *)bubble;
 
 @end

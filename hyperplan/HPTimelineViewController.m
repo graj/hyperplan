@@ -145,7 +145,7 @@
         if (bubble.merged && !CGRectIntersectsRect(bubble.standardRect, pivotBubble.frame)) {
             NSLog(@"Resuming %@ from %@", bubble.task.title, pivotBubble.task.title);
             NSLog(@"bubble frame: %f %f %f %f, bubble standardRect: %f %f %f %f, pivotBubble frame: %f %f %f %f", bubble.frame.origin.x, bubble.frame.origin.y, bubble.frame.size.width, bubble.frame.size.height, bubble.standardRect.origin.x, bubble.standardRect.origin.y, bubble.standardRect.size.width, bubble.standardRect.size.height, pivotBubble.frame.origin.x, pivotBubble.frame.origin.y, pivotBubble.frame.size.width, pivotBubble.frame.size.height);
-            [bubble resumeStandardPosition];
+            [bubble resumeStandardPositionFrom:pivotBubble];
         }
         pivotBubble = bubble;
     }

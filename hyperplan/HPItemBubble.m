@@ -311,17 +311,23 @@
 {
     self.frame = bubble.frame;
     [self.indicatorRef layoutForBubble:self];
-    _merged = YES;
-
-    ////////
-    // modify indicator number
+    self.merged = YES;
+//    bubble.merged = YES;
+    
+    self.nextStackBubble = bubble;
+    self.indicatorRef.number += bubble.indicatorRef.number;
+    bubble.indicatorRef.alpha = 0;
 }
 
-- (void)resumeStandardPosition
+- (void)resumeStandardPositionFrom:(HPItemBubble *)bubble
 {
     self.frame = self.standardRect;
     [self.indicatorRef layoutForBubble:self];
-    _merged = NO;
+    self.merged = NO;
+    NSLog(@"bubbleNum: %d, selfNum: %d", bubble.indicatorRef.number, self.indicatorRef.number);
+    self.indicatorRef.number -= bubble.indicatorRef.number;
+    self.nextStackBubble = nil;
+    bubble.indicatorRef.alpha = 1;
 }
 
 @end
