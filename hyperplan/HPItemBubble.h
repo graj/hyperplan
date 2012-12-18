@@ -11,6 +11,13 @@
 #import "HPConstants.h"
 
 @class HPItemIndicator;
+@class HPItemBubble;
+
+@protocol HPItemBubbleDelegate <NSObject>
+
+- (void)bubbleDidMove:(HPItemBubble *)bubble;
+
+@end
 
 @interface HPItemBubble : UIView <UIGestureRecognizerDelegate>
 {
@@ -31,7 +38,7 @@
 @property (nonatomic, assign) CGRect standardRect;
 @property (nonatomic, assign) BOOL merged;
 @property (nonatomic, retain) HPItemBubble * nextStackBubble;
-
+@property (nonatomic, retain) id <HPItemBubbleDelegate> delegate;
 
 /* Preferred constructors: in consist with the data model */
 - (id)initWithTask:(Task *)task;

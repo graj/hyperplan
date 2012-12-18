@@ -155,6 +155,9 @@
 {
     if (((UIGestureRecognizer *)sender).state == UIGestureRecognizerStateEnded) {
         [self cancelEditMode];
+        [self.delegate bubbleDidMove:self];
+        self.standardRect = self.frame;
+        // should update database time
     }
     else if (((UIGestureRecognizer *)sender).state == UIGestureRecognizerStateBegan) {
         [self enableEditMode];

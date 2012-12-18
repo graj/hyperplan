@@ -66,6 +66,7 @@
      ^(Task * task, NSUInteger idx, BOOL *stop) {
          HPItemBubble * bubble = [HPItemBubble bubbleWithTask:task];
          bubble.scrollViewRef = scrollView;
+         bubble.delegate = self;
          [_bubbles addObject:bubble];
      }];    
          
@@ -105,7 +106,7 @@
         CGRect bubbleFrame = bubble.frame;
         bubbleFrame.origin.y = y;
         bubble.frame = bubbleFrame;
-        bubbleFrame.origin.y = [bubble.task YOffsetForScale:scale inType:HPItemBubbleScaleLinear];
+        bubbleFrame.origin.y = bubble.standardRect.origin.y / lastScale * scale;//[bubble.task YOffsetForScale:scale inType:HPItemBubbleScaleLinear];
         bubble.standardRect = bubbleFrame;
         [bubble.indicatorRef layoutForBubble:bubble];
     }];
@@ -205,6 +206,17 @@ static CGFloat lastTouch1y;
     lastScale = scale;
     lastTouch0y = touch0y;
     lastTouch1y = touch1y;
+}
+
+
+- (void)bubbleDidMove:(HPItemBubble *)bubble
+{
+    /* sort _bubbles array by their frame */
+    [_bubbles sortUsingComparator:^NSComparisonResult(HPItemBubble * obj1, HPItemBubble * obj2) {
+        return [[NSNumber numberWithFloat:obj1.frame.origin.y] compare:[NSNumber numberWithFloat:obj2.frame.origin.y]];
+    }];
+    /* detect overlay and rearrange */
+    [self rearrangeBubbles];
 }
 
 @end
