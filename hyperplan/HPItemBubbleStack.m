@@ -30,8 +30,8 @@
 #define LABEL_TIME_COLOR DARK_GREY_COLOR
 #define LABEL_TITLE_FONT_SIZE (14)
 #define LABEL_TIME_FONT_SIZE (12)
-#define LABEL_TITLE_FONT [UIFont fontWithName:@"HelveticaNeue-Light" size:LABEL_TITLE_FONT_SIZE]
-#define LABEL_TIME_FONT [UIFont fontWithName:@"HelveticaNeue-Light" size:LABEL_TIME_FONT_SIZE]
+#define LABEL_TITLE_FONT [UIFont fontWithName:@"HiraginoSansGB-W3" size:LABEL_TITLE_FONT_SIZE]
+#define LABEL_TIME_FONT [UIFont fontWithName:@"HiraginoSansGB-W3" size:LABEL_TIME_FONT_SIZE]
 
 #define TEXT_SIZE(string, font) [(string) sizeWithFont:(font)]
 #define TITLE_SIZE TEXT_SIZE(titleString, LABEL_TITLE_FONT)

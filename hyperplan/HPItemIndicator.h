@@ -14,11 +14,13 @@
     NSInteger _number;
     UIImageView * _backgroundView;
     UILabel * _label;
+    NSDate * _date;
 }
 
 @property (nonatomic, assign) NSInteger number;
 @property (nonatomic, retain) UIImageView * backgroundView;
 @property (nonatomic, retain) UILabel * label;
+@property (nonatomic, retain) NSDate * date;
 
 // Should be deprecated
 + (id)indicatorAt:(CGPoint)center;

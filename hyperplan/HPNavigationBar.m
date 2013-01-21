@@ -8,27 +8,25 @@
 
 #import "HPConstants.h"
 #import "HPNavigationBar.h"
+#import "QuartzCore/CALayer.h"
 #import "HPAppDelegate.h"
 #import "Task.h"
 
-#define NAV_BG_COLOR (WHITE_COLOR)
-#define NAV_BG_IMG [UIImage imageNamed:@"navbar-background-2"]
+#define NAV_BG_IMG [UIImage imageNamed:@"navbar_bg"]
 #define NAV_BTN_MENU_IMG [UIImage imageNamed:@"menu-btn"]
 #define NAV_BTN_MENU_PRESSED_IMG [UIImage imageNamed:@"menu-btn-pressed"]
 #define NAV_BTN_ADD_IMG [UIImage imageNamed:@"navbar-btn-add"]
 
-#define NAV_BG_FRAME CGRectMake(0, 0, SCREEN_WIDTH, 47)  /* According to the exported png */
-#define NAV_BTN_MENU_FRAME CGRectMake(253, 8, 30, 30)  /* Obtained by tweaking */
-#define NAV_BTN_ADD_FRAME CGRectMake(294, 16, 15, 15)
+#define NAV_BG_FRAME CGRectMake(0, 0, SCREEN_WIDTH, 45)  /* According to the exported png */
+#define NAV_BTN_MENU_FRAME CGRectMake(253, 6, 30, 30)  /* Obtained by tweaking */
+#define NAV_BTN_ADD_FRAME CGRectMake(294, 14, 15, 15)
 
-#define NAV_HINT_FONT_SIZE (14)
+#define NAV_HINT_UPPER_SIZE [hintUpperText sizeWithFont:NAV_HINT_FONT]
+#define NAV_HINT_FONT_SIZE (18)
 #define NAV_HINT_NUM_CHARS (11)
-#define NAV_HINT_UPPER_FRAME CGRectMake(88, 8, NAV_HINT_FONT_SIZE*NAV_HINT_NUM_CHARS, NAV_HINT_FONT_SIZE)
-#define NAV_HINT_LOWER_FRAME CGRectMake(88, 8+NAV_HINT_FONT_SIZE+4, NAV_HINT_FONT_SIZE*NAV_HINT_NUM_CHARS, NAV_HINT_FONT_SIZE)
-#define NAV_HINT_FONT [UIFont fontWithName:@"HelveticaNeue-Light" size:NAV_HINT_FONT_SIZE]
-#define NAV_HINT_COLOR (DARK_GREY_COLOR)
-#define NAV_HINT_SHADOW_COLOR (WHITE_COLOR)
-#define NAV_HINT_SHADOW_OFFSET CGSizeMake(0, 1)
+#define NAV_HINT_UPPER_FRAME CGRectMake(0, 0, NAV_HINT_UPPER_SIZE.width, NAV_HINT_UPPER_SIZE.height)
+#define NAV_HINT_FONT [UIFont fontWithName:@"HiraginoSansGB-W3" size:NAV_HINT_FONT_SIZE]
+#define NAV_HINT_COLOR (WHITE_COLOR)
 
 
 @implementation HPNavigationBar
@@ -163,31 +161,36 @@
         hintUpperText = @"没有未完成的任务";
     }
     
+    
     hintUpper = [[UILabel alloc] initWithFrame:NAV_HINT_UPPER_FRAME];
+    hintUpper.center = CGPointMake(160, 26);    /* due to font line height */
     hintUpper.text = hintUpperText;
     hintUpper.font = NAV_HINT_FONT;
     hintUpper.textColor = NAV_HINT_COLOR;
-    hintUpper.shadowColor = NAV_HINT_SHADOW_COLOR;
-    hintUpper.shadowOffset = NAV_HINT_SHADOW_OFFSET;
     hintUpper.backgroundColor = CLEAR_COLOR;
+    hintUpper.layer.shadowColor = [BLACK_COLOR CGColor];
+    hintUpper.layer.shadowOpacity = 0.38;
+    hintUpper.layer.shadowOffset = CGSizeMake(0, 1);
+    hintUpper.layer.shadowRadius = 0.5;
+    
     [self addSubview:hintUpper];
-    
-    NSArray * allTasks = [Task findAllWithPredicate:[NSPredicate predicateWithFormat:@"state == %d", HPTaskStateDue]];
-    int weekCount = [[allTasks filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(Task * task, NSDictionary * bindings) {
-        return [task.time timeIntervalSinceNow] < 86400 * 7;
-    }]] count];
-    int monthCount = [[allTasks filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(Task * task, NSDictionary * bindings) {
-        return [task.time timeIntervalSinceNow] < 86400 * 30;
-    }]] count];
-    
-    hintLower = [[UILabel alloc] initWithFrame:NAV_HINT_LOWER_FRAME];
-    hintLower.text = [NSString stringWithFormat:@"本周：%d  | 本月：%d", weekCount, monthCount];
-    hintLower.font = NAV_HINT_FONT;
-    hintLower.textColor = NAV_HINT_COLOR;
-    hintLower.shadowColor = NAV_HINT_SHADOW_COLOR;
-    hintLower.shadowOffset = NAV_HINT_SHADOW_OFFSET;
-    hintLower.backgroundColor = CLEAR_COLOR;
-    [self addSubview:hintLower];
+
+//    NSArray * allTasks = [Task findAllWithPredicate:[NSPredicate predicateWithFormat:@"state == %d", HPTaskStateDue]];
+//    int weekCount = [[allTasks filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(Task * task, NSDictionary * bindings) {
+//        return [task.time timeIntervalSinceNow] < 86400 * 7;
+//    }]] count];
+//    int monthCount = [[allTasks filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(Task * task, NSDictionary * bindings) {
+//        return [task.time timeIntervalSinceNow] < 86400 * 30;
+//    }]] count];
+//    
+//    hintLower = [[UILabel alloc] initWithFrame:NAV_HINT_LOWER_FRAME];
+//    hintLower.text = [NSString stringWithFormat:@"本周：%d  | 本月：%d", weekCount, monthCount];
+//    hintLower.font = NAV_HINT_FONT;
+//    hintLower.textColor = NAV_HINT_COLOR;
+//    hintLower.shadowColor = NAV_HINT_SHADOW_COLOR;
+//    hintLower.shadowOffset = NAV_HINT_SHADOW_OFFSET;
+//    hintLower.backgroundColor = CLEAR_COLOR;
+//    [self addSubview:hintLower];
 }
 
 @end

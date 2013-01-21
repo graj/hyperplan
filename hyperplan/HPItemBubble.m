@@ -13,41 +13,49 @@
 #import "Task+Layout.h"
 #import <QuartzCore/QuartzCore.h>
 
-/* decided by the png's shadow width */
-#define BUBBLE_BG_IMG [UIImage imageNamed:@"bubble"]
-#define BUBBLE_MARGIN_TOP (10)
+#define BUBBLE_BG_IMG [UIImage imageNamed:@"paper_bg"]
+#define BUBBLE_EDIT_BG_IMG [UIImage imageNamed:@"paper_multi_bg"]
+#define PAPER_FRAME CGRectMake(0, 0, 230, 79)
+#define PAPER_EDIT_FRAME CGRectMake(0, 0, 230, 82)
+
+#define BUBBLE_MARGIN_TOP (14)
 #define BUBBLE_MARGIN_BOTTOM (14)
-#define BUBBLE_MARGIN_LEFT (18)
+#define BUBBLE_MARGIN_LEFT (22)
 #define BUBBLE_MARGIN_RIGHT (14)
 
-#define BUBBLE_MAX_WIDTH (225)
-#define BUBBLE_MIN_WIDTH (180)
-#define BUBBLE_OFFSET_X (90)
+#define BUBBLE_OFFSET_X (70)
 
 #define LABEL_TITLE_FRAME CGRectMake(BUBBLE_MARGIN_LEFT, BUBBLE_MARGIN_TOP, TITLE_SIZE.width, TITLE_SIZE.height)
-#define LABEL_TIME_FRAME CGRectMake(BUBBLE_MARGIN_LEFT, BUBBLE_MARGIN_TOP + TITLE_SIZE.height + 6,     \
-                                    TIME_SIZE.width, TIME_SIZE.height)
+#define LABEL_CONTENT_FRAME CGRectMake(BUBBLE_MARGIN_LEFT, BUBBLE_MARGIN_TOP + TITLE_SIZE.height, TIME_SIZE.width, TIME_SIZE.height)
 
-#define LABEL_TITLE_COLOR BLACK_COLOR
-#define LABEL_TIME_COLOR DARK_GREY_COLOR
-#define LABEL_TITLE_FONT_SIZE (14)
-#define LABEL_TIME_FONT_SIZE (12)
-#define LABEL_TITLE_FONT [UIFont fontWithName:@"HelveticaNeue-Light" size:LABEL_TITLE_FONT_SIZE]
-#define LABEL_TIME_FONT [UIFont fontWithName:@"HelveticaNeue-Light" size:LABEL_TIME_FONT_SIZE]
+#define LABEL_TITLE_COLOR [UIColor colorWithRed:58/255. green:61/255. blue:61/255. alpha:1]
+#define LABEL_CONTENT_COLOR [UIColor colorWithRed:126/255. green:131/255. blue:132/255. alpha:1]
+#define LABEL_TITLE_FONT_SIZE (18)
+#define LABEL_CONTENT_FONT_SIZE (12)
+#define LABEL_TITLE_FONT [UIFont fontWithName:@"HiraginoSansGB-W3" size:LABEL_TITLE_FONT_SIZE]
+#define LABEL_CONTENT_FONT [UIFont fontWithName:@"HiraginoSansGB-W3" size:LABEL_CONTENT_FONT_SIZE]
+//#define LABEL_TITLE_FONT [UIFont fontWithName:@"HelveticaNeue" size:LABEL_TITLE_FONT_SIZE]
+//#define LABEL_CONTENT_FONT [UIFont fontWithName:@"HelveticaNeue" size:LABEL_CONTENT_FONT_SIZE]
 
 #define TEXT_SIZE(string, font) [(string) sizeWithFont:(font)]
 #define TITLE_SIZE TEXT_SIZE(self.task.title, LABEL_TITLE_FONT)
-#define TIME_SIZE TEXT_SIZE([self.task.time description], LABEL_TIME_FONT)
+#define TIME_SIZE TEXT_SIZE([self.task.time description], LABEL_CONTENT_FONT)
 
-#define SHADOW_WIDTH (5)
+#define INDICATOR_COLOR_GREEN [UIColor colorWithRed:39/255. green:151/255. blue:0 alpha:0.8]
+#define INDICATOR_COLOR_RED [UIColor colorWithRed:151/255. green:0 blue:28/255. alpha:0.8]
+#define INDICATOR_COLOR_YELLOW [UIColor colorWithRed:151/255. green:110/255. blue:0 alpha:0.8]
+#define INDICATOR_COLOR_BLUE [UIColor colorWithRed:0 green:124/255. blue:151/255. alpha:0.8]
+
+#define LIGHTBAR_FRAME CGRectMake(223, 0.5, 5, 73)
 
 @implementation HPItemBubble
 {
     UIImageView * backgroundImageView;
-    UIImage * backgroundImage;
+//    UIImage * backgroundImage;
     UILabel * labelTitle;
-    UILabel * labelTime;
-    NSString * dateString;
+    UILabel * labelContent;
+    
+    UIView * lightBar;
 
     UIPanGestureRecognizer * panGestureRecognizer;
     UILongPressGestureRecognizer * longPressRecognizer;
@@ -64,9 +72,11 @@
         self.task = theTask;
         _editMode = NO;
         
+        self.color = @[INDICATOR_COLOR_GREEN, INDICATOR_COLOR_RED, INDICATOR_COLOR_BLUE, INDICATOR_COLOR_YELLOW][arc4random() % 4];
+        
         longPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressed:)];
         longPressRecognizer.delegate = self;
-        longPressRecognizer.minimumPressDuration = 0.5;
+        longPressRecognizer.minimumPressDuration = 0.3;
         [self addGestureRecognizer:longPressRecognizer];
         
         panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(dragged:)];
@@ -102,20 +112,7 @@
 
 - (void)initLayout
 {
-    CGRect frame;
-    
-    /* self-adaptive frame set-up */
-    bool max_width = NO;    //REFACTOR:
-    frame.size.width = TITLE_SIZE.width + BUBBLE_MARGIN_LEFT + BUBBLE_MARGIN_RIGHT + SHADOW_WIDTH;
-    frame.size.height = TITLE_SIZE.height * 2 + BUBBLE_MARGIN_TOP + BUBBLE_MARGIN_BOTTOM;
-    
-    if (frame.size.width > BUBBLE_MAX_WIDTH) {
-        frame.size.width = BUBBLE_MAX_WIDTH;
-        max_width = YES;
-    }
-    if (frame.size.width < BUBBLE_MIN_WIDTH) {
-        frame.size.width = BUBBLE_MIN_WIDTH;
-    }
+    CGRect frame = PAPER_FRAME;
     
     /* set up position */
     frame.origin.x = BUBBLE_OFFSET_X;
@@ -124,10 +121,8 @@
 
     /* set up background */
     self.backgroundColor = CLEAR_COLOR;
-    // The cell image must be named "***@2x.png", otherwise will be regarded as half resolution.
-    backgroundImage = [BUBBLE_BG_IMG resizableImageWithCapInsets:UIEdgeInsetsMake(20, 16, 12, 12) resizingMode:UIImageResizingModeTile];
-    backgroundImageView = [[UIImageView alloc] initWithImage:backgroundImage];
-    backgroundImageView.frame = CGRectMake(0, 0, frame.size.width, frame.size.height);
+    backgroundImageView = [[UIImageView alloc] initWithImage:BUBBLE_BG_IMG];
+    backgroundImageView.frame = PAPER_FRAME;
     [self addSubview:backgroundImageView];
     
     /* set up title label */
@@ -138,14 +133,19 @@
     labelTitle.backgroundColor = CLEAR_COLOR;
     [self addSubview:labelTitle];
     
-    /* set up time label */
-    dateString = [self.task timeRepWithMode:HPTaskTimeRepDateAndTime];
-    labelTime = [[UILabel alloc] initWithFrame:LABEL_TIME_FRAME];
-    labelTime.text = dateString;
-    labelTime.textColor = LABEL_TIME_COLOR;
-    labelTime.font = LABEL_TIME_FONT;
-    labelTime.backgroundColor = CLEAR_COLOR;
-    [self addSubview:labelTime];
+    /* set up content label */
+    labelContent = [[UILabel alloc] initWithFrame:LABEL_CONTENT_FRAME];
+    labelContent.text = self.task.content;
+    labelContent.textColor = LABEL_CONTENT_COLOR;
+    labelContent.font = LABEL_CONTENT_FONT;
+    labelContent.backgroundColor = CLEAR_COLOR;
+    [self addSubview:labelContent];
+    
+    /* set up light bar */
+    lightBar = [[UIView alloc] initWithFrame:LIGHTBAR_FRAME];
+    lightBar.backgroundColor = self.color;
+    lightBar.alpha = 0;
+    [self addSubview:lightBar];
 }
 
 
@@ -169,8 +169,8 @@
     [self cancelEditMode];
 }
 
-#define SCROLLING_DOWN_THRESHOLD (340)
-#define SCROLLING_UP_THRESHOLD (80)
+#define SCROLLING_DOWN_THRESHOLD (380)
+#define SCROLLING_UP_THRESHOLD (120)
 #define INDICATOR_OFFSET_Y (14)
 
 - (void)dragged:(id)sender
@@ -202,7 +202,7 @@
     CGFloat newY = self.scrollViewRef.contentOffset.y + tp.y;
     
     self.center = CGPointMake(self.center.x, newY);
-    self.indicatorRef.center = CGPointMake(self.indicatorRef.center.x, newY - INDICATOR_OFFSET_Y);
+    [self.indicatorRef layoutForBubble:self];
 }
 
 #pragma mark - Edit Mode Related
@@ -211,17 +211,15 @@
 {
     NSLog(@"Enabling edit mode");
     [self.scrollViewRef setScrollEnabled:NO];
-        
-    _editMode = YES;
+
+    self.editMode = YES;
     [self.indicatorRef enableEditMode];
     
     /* change the look */
     [UIView beginAnimations:@"Enter edit mode" context:nil];
-    [UIView setAnimationDuration:0.2];
-    self.layer.shadowOpacity = 0.5;
-    self.layer.shadowRadius = 3.;
-    self.layer.shadowOffset = CGSizeMake(2., 2.);
-    self.transform = CGAffineTransformMakeScale(1.05, 1.05);
+    [UIView setAnimationDuration:0.1];
+//    self.transform = CGAffineTransformMakeScale(1.05, 1.05);
+    lightBar.alpha = 1;
     [UIView commitAnimations];
     
     /* bring to front */
@@ -234,14 +232,14 @@
     NSLog(@"Canceling edit mode");
     [self.scrollViewRef setScrollEnabled:YES];
         
-    _editMode = NO;
+    self.editMode = NO;
     [self.indicatorRef cancelEditMode];
     
     /* change the look */
     [UIView beginAnimations:@"Exit edit mode" context:nil];
-    [UIView setAnimationDuration:0.2];
-    self.layer.shadowOpacity = 0;
-    self.transform = CGAffineTransformIdentity;
+    [UIView setAnimationDuration:0.1];
+//    self.transform = CGAffineTransformIdentity;
+    lightBar.alpha = 0;
     [UIView commitAnimations];
 }
 
@@ -331,6 +329,19 @@
     self.indicatorRef.number -= bubble.indicatorRef.number;
     self.nextStackBubble = nil;
     bubble.indicatorRef.alpha = 1;
+}
+
+- (void)setMerged:(BOOL)merged
+{
+    _merged = merged;
+    if (merged) {
+        backgroundImageView.image = BUBBLE_EDIT_BG_IMG;
+        backgroundImageView.frame = PAPER_EDIT_FRAME;
+    }
+    else {
+        backgroundImageView.image = BUBBLE_BG_IMG;
+        backgroundImageView.frame = PAPER_FRAME;
+    }
 }
 
 @end

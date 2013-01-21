@@ -37,7 +37,7 @@
 #define MENU_TABLE_FRAME CGRectMake(MENU_MARGIN_LEFT, MENU_MARGIN_TOP,MENU_TABLE_WIDTH, MENU_TABLE_HEIGHT) //9, 9, 181, 181
 
 #define MENU_PHOTOFRAME_IMG [UIImage imageNamed:@"popupmenu-hollow"]
-#define MENU_TABLE_CELL_FONT [UIFont fontWithName:@"HelveticaNeue-Light" size:16]
+#define MENU_TABLE_CELL_FONT [UIFont fontWithName:@"HiraginoSansGB-W3" size:16]
 #define MENU_SPLIT_CELL_BTN_LEFT_IMG [UIImage imageNamed:@"splitCellButtonLeft"]
 #define MENU_SPLIT_CELL_BTN_RIGHT_IMG [UIImage imageNamed:@"splitCellButtonRight"]
 #define MENU_SPLIT_CELL_BTN_LEFT_PRESSED_IMG [UIImage imageNamed:@"splitCellButtonLeft-pressed"]

@@ -67,13 +67,18 @@
 		419F12E01648D76600128B26 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 419F12DF1648D76600128B26 /* Default@2x.png */; };
 		419F12E21648D76600128B26 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 419F12E11648D76600128B26 /* Default-568h@2x.png */; };
 		419F12E51648D76600128B26 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 419F12E31648D76600128B26 /* MainStoryboard.storyboard */; };
-		41F57DA4166788A300E6850E /* HPBubbleGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F57DA3166788A300E6850E /* HPBubbleGroupViewController.m */; };
 		41F57DAF1667B64800E6850E /* StyleMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F57DAE1667B64800E6850E /* StyleMapper.m */; };
 		41F57DB21667B67300E6850E /* StyleInjection.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F57DB11667B67300E6850E /* StyleInjection.m */; };
+		4A76C0C8168EE3E9008A6930 /* drawer_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A76C0C7168EE3E9008A6930 /* drawer_bg.png */; };
+		4A76C0CB168EE4C6008A6930 /* navbar_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A76C0CA168EE4C6008A6930 /* navbar_bg.png */; };
+		4A76C0CE168EEF69008A6930 /* Hiragino Sans GB W3.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4A76C0CC168EEF69008A6930 /* Hiragino Sans GB W3.otf */; };
+		4A76C0CF168EEF69008A6930 /* Hiragino Sans GB W6.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4A76C0CD168EEF69008A6930 /* Hiragino Sans GB W6.otf */; };
+		4A76C0D1168EF48C008A6930 /* paper_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A76C0D0168EF48C008A6930 /* paper_bg.png */; };
+		4A76C0D3169083DF008A6930 /* paper_multi_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A76C0D2169083DE008A6930 /* paper_multi_bg.png */; };
 		4A96DE8816663E9A003F10F3 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A96DE8716663E9A003F10F3 /* CoreData.framework */; };
 		4A96DE8B1666F387003F10F3 /* Task+Layout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A96DE8A1666F387003F10F3 /* Task+Layout.m */; };
-		4A96DE8E16676745003F10F3 /* HPItemBubbleStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A96DE8D16676745003F10F3 /* HPItemBubbleStack.m */; };
 		4AA864AA1668AD35006575BD /* bubble-stack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AA864A91668AD35006575BD /* bubble-stack@2x.png */; };
+		4ACD92A8168EE203005236A9 /* HPDrawerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ACD92A7168EE203005236A9 /* HPDrawerViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -178,18 +183,22 @@
 		419F12E11648D76600128B26 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		419F12E41648D76600128B26 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		419F12EF1648D76600128B26 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		41F57DA2166788A300E6850E /* HPBubbleGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPBubbleGroupViewController.h; sourceTree = "<group>"; };
-		41F57DA3166788A300E6850E /* HPBubbleGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPBubbleGroupViewController.m; sourceTree = "<group>"; };
 		41F57DAD1667B64800E6850E /* StyleMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StyleMapper.h; path = StyleInjection/StyleMapper.h; sourceTree = "<group>"; };
 		41F57DAE1667B64800E6850E /* StyleMapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StyleMapper.m; path = StyleInjection/StyleMapper.m; sourceTree = "<group>"; };
 		41F57DB01667B67300E6850E /* StyleInjection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StyleInjection.h; path = StyleInjection/StyleInjection.h; sourceTree = "<group>"; };
 		41F57DB11667B67300E6850E /* StyleInjection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StyleInjection.m; path = StyleInjection/StyleInjection.m; sourceTree = "<group>"; };
+		4A76C0C7168EE3E9008A6930 /* drawer_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = drawer_bg.png; path = ../../design/resources/drawer_bg.png; sourceTree = "<group>"; };
+		4A76C0CA168EE4C6008A6930 /* navbar_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = navbar_bg.png; path = ../../design/resources/navbar_bg.png; sourceTree = "<group>"; };
+		4A76C0CC168EEF69008A6930 /* Hiragino Sans GB W3.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Hiragino Sans GB W3.otf"; sourceTree = "<group>"; };
+		4A76C0CD168EEF69008A6930 /* Hiragino Sans GB W6.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Hiragino Sans GB W6.otf"; sourceTree = "<group>"; };
+		4A76C0D0168EF48C008A6930 /* paper_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = paper_bg.png; path = ../../design/resources/paper_bg.png; sourceTree = "<group>"; };
+		4A76C0D2169083DE008A6930 /* paper_multi_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = paper_multi_bg.png; path = ../../design/resources/paper_multi_bg.png; sourceTree = "<group>"; };
 		4A96DE8716663E9A003F10F3 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		4A96DE891666F387003F10F3 /* Task+Layout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Task+Layout.h"; path = "hyperplan/Task+Layout.h"; sourceTree = "<group>"; };
 		4A96DE8A1666F387003F10F3 /* Task+Layout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Task+Layout.m"; path = "hyperplan/Task+Layout.m"; sourceTree = "<group>"; };
-		4A96DE8C16676745003F10F3 /* HPItemBubbleStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPItemBubbleStack.h; sourceTree = "<group>"; };
-		4A96DE8D16676745003F10F3 /* HPItemBubbleStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPItemBubbleStack.m; sourceTree = "<group>"; };
 		4AA864A91668AD35006575BD /* bubble-stack@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bubble-stack@2x.png"; path = "../../hyper-plan-GUI/resources/bubble-stack@2x.png"; sourceTree = "<group>"; };
+		4ACD92A6168EE203005236A9 /* HPDrawerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPDrawerViewController.h; sourceTree = "<group>"; };
+		4ACD92A7168EE203005236A9 /* HPDrawerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPDrawerViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -320,25 +329,20 @@
 			name = Navigation;
 			sourceTree = "<group>";
 		};
-		419896931654DBD800690FBF /* Item */ = {
+		419896931654DBD800690FBF /* Item Bubble */ = {
 			isa = PBXGroup;
 			children = (
 				4198968D1654DBD200690FBF /* HPItemBubble.h */,
 				4198968E1654DBD200690FBF /* HPItemBubble.m */,
-				4A96DE8C16676745003F10F3 /* HPItemBubbleStack.h */,
-				4A96DE8D16676745003F10F3 /* HPItemBubbleStack.m */,
 				4198968F1654DBD200690FBF /* HPItemIndicator.h */,
 				419896901654DBD200690FBF /* HPItemIndicator.m */,
 			);
-			name = Item;
+			name = "Item Bubble";
 			sourceTree = "<group>";
 		};
 		419896941654DBE100690FBF /* Timeline View */ = {
 			isa = PBXGroup;
 			children = (
-				419896931654DBD800690FBF /* Item */,
-				41F57DA2166788A300E6850E /* HPBubbleGroupViewController.h */,
-				41F57DA3166788A300E6850E /* HPBubbleGroupViewController.m */,
 				419896BB1654DF5100690FBF /* HPTimelineViewController.h */,
 				419896BC1654DF5100690FBF /* HPTimelineViewController.m */,
 			);
@@ -422,9 +426,12 @@
 				4198967F1654DB4200690FBF /* HPViewController.h */,
 				419896801654DB4200690FBF /* HPViewController.m */,
 				419896BA1654DE9800690FBF /* Model */,
+				419896931654DBD800690FBF /* Item Bubble */,
 				419896941654DBE100690FBF /* Timeline View */,
 				419896891654DB4600690FBF /* Navigation */,
 				419896B61654DC1B00690FBF /* Resources */,
+				4ACD92A5168EE1DE005236A9 /* Drawer View */,
+				4ACD92A3168EDDCA005236A9 /* New Resources */,
 				419F12D21648D76600128B26 /* Supporting Files */,
 			);
 			path = hyperplan;
@@ -455,6 +462,28 @@
 			);
 			name = StyleInjection;
 			path = hyperplan;
+			sourceTree = "<group>";
+		};
+		4ACD92A3168EDDCA005236A9 /* New Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4A76C0D2169083DE008A6930 /* paper_multi_bg.png */,
+				4A76C0CC168EEF69008A6930 /* Hiragino Sans GB W3.otf */,
+				4A76C0CD168EEF69008A6930 /* Hiragino Sans GB W6.otf */,
+				4A76C0CA168EE4C6008A6930 /* navbar_bg.png */,
+				4A76C0C7168EE3E9008A6930 /* drawer_bg.png */,
+				4A76C0D0168EF48C008A6930 /* paper_bg.png */,
+			);
+			name = "New Resources";
+			sourceTree = "<group>";
+		};
+		4ACD92A5168EE1DE005236A9 /* Drawer View */ = {
+			isa = PBXGroup;
+			children = (
+				4ACD92A6168EE203005236A9 /* HPDrawerViewController.h */,
+				4ACD92A7168EE203005236A9 /* HPDrawerViewController.m */,
+			);
+			name = "Drawer View";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -531,6 +560,12 @@
 				419896B41654DC1500690FBF /* splitCellButtonLeft-pressed@2x.png in Resources */,
 				419896B51654DC1500690FBF /* splitCellButtonRight-pressed@2x.png in Resources */,
 				4AA864AA1668AD35006575BD /* bubble-stack@2x.png in Resources */,
+				4A76C0C8168EE3E9008A6930 /* drawer_bg.png in Resources */,
+				4A76C0CB168EE4C6008A6930 /* navbar_bg.png in Resources */,
+				4A76C0CE168EEF69008A6930 /* Hiragino Sans GB W3.otf in Resources */,
+				4A76C0CF168EEF69008A6930 /* Hiragino Sans GB W6.otf in Resources */,
+				4A76C0D1168EF48C008A6930 /* paper_bg.png in Resources */,
+				4A76C0D3169083DF008A6930 /* paper_multi_bg.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -578,10 +613,9 @@
 				41758897166637A5002541CD /* MagicalRecord+ShorthandSupport.m in Sources */,
 				41758898166637A5002541CD /* MagicalRecord.m in Sources */,
 				4A96DE8B1666F387003F10F3 /* Task+Layout.m in Sources */,
-				4A96DE8E16676745003F10F3 /* HPItemBubbleStack.m in Sources */,
-				41F57DA4166788A300E6850E /* HPBubbleGroupViewController.m in Sources */,
 				41F57DAF1667B64800E6850E /* StyleMapper.m in Sources */,
 				41F57DB21667B67300E6850E /* StyleInjection.m in Sources */,
+				4ACD92A8168EE203005236A9 /* HPDrawerViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

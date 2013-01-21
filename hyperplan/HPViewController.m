@@ -10,16 +10,17 @@
 #import "HPViewController.h"
 #import "HPNavigationBar.h"
 #import "HPTimelineViewController.h"
+#import "HPDrawerViewController.h"
 #import "Task.h"
 #import "CoreData+MagicalRecord.h"
 
-#define NAV_FRAME CGRectMake(0, 0, 320, 47)
-#define MAIN_FRAME CGRectMake(0,44, 320, 416)
+#define NAV_FRAME CGRectMake(0, 0, 320, 44)
+#define MAIN_FRAME CGRectMake(0, 0, 320, 460)
 
 @implementation HPViewController
 {
     HPNavigationBar * navigationBar;
-    HPTimelineViewController * timelineViewController;
+    HPDrawerViewController * drawerViewController;
 }
 
 #pragma mark Lifecycle
@@ -32,11 +33,11 @@
     self.view.backgroundColor = MAIN_VIEW_TEXTURE;
 
     /* add HPTimelineViewController */
-    timelineViewController = [[HPTimelineViewController alloc] init];
-    [timelineViewController.view setFrame:MAIN_FRAME];
-    [self.view addSubview:timelineViewController.view];
+    drawerViewController = [[HPDrawerViewController alloc] init];
+    [drawerViewController.view setFrame:MAIN_FRAME];
+    [self.view addSubview:drawerViewController.view];
     
-    [timelineViewController initContents];
+    [drawerViewController initContents];
     
     /* set up navigation bar */
     navigationBar = [[HPNavigationBar alloc] initWithFrame:NAV_FRAME];
@@ -60,6 +61,12 @@
 - (void)menuItemPressed:(NSInteger)index
 {
     NSLog(@"menu item %d pressed FROM viewController", index);
+    if (index == 1) {
+        [drawerViewController hidePastTasks];
+    }
+    if (index == 2) {
+        [drawerViewController showPastTasks];
+    }
 }
 
 - (void)splitButtonPressed:(NSInteger)index
@@ -81,15 +88,17 @@
 
 - (void)initTestData
 {
-    [self addTaskTitled:@"Web作业" withContent:@"第十次" atTime:[[NSDate date] dateByAddingTimeInterval:DAY] andState:HPTaskStateDue];
-    [self addTaskTitled:@"毛概论文" withContent:@"毛概论文三篇" atTime:[[NSDate date] dateByAddingTimeInterval:DAY*4] andState:HPTaskStateDue];
-    [self addTaskTitled:@"操统实习报告" withContent:@"操统实习报告，Lab4报告，小测" atTime:[[NSDate date] dateByAddingTimeInterval:DAY*4+HOUR*4]  andState:HPTaskStateDue];
-    [self addTaskTitled:@"数理作业" withContent:@"P559 14(2 4 5)" atTime:[[NSDate date] dateByAddingTimeInterval:DAY*5]  andState:HPTaskStateDue];
+    NSDate * today = [NSDate date];
+    
+    [self addTaskTitled:@"数理考试" withContent:@"提前刷题" atTime:[today dateByAddingTimeInterval:-DAY*1-HOUR*16] andState:HPTaskStateDue];
+    [self addTaskTitled:@"体系考试" withContent:@"只考讲过的，有少量期中前内容" atTime:[today dateByAddingTimeInterval:-HOUR*22] andState:HPTaskStateDue];
+    [self addTaskTitled:@"毛概考试" withContent:@"二教101，刘志光" atTime:[today dateByAddingTimeInterval:-HOUR*2]  andState:HPTaskStateDue];
+    [self addTaskTitled:@"操统考试" withContent:@"魏豪调成绩" atTime:[today dateByAddingTimeInterval:DAY*14+HOUR*22]  andState:HPTaskStateDue];
 
-    [self addTaskTitled:@"操统实习小测" withContent:@"" atTime:[[NSDate date] dateByAddingTimeInterval:DAY*7]  andState:HPTaskStateDue];
-    [self addTaskTitled:@"一周后" withContent:@"" atTime:[[NSDate date] dateByAddingTimeInterval:DAY*8] andState:HPTaskStateDue];
-    [self addTaskTitled:@"操统实习课堂报告" withContent:@"" atTime:[[NSDate date] dateByAddingTimeInterval:DAY*15]  andState:HPTaskStateDue];
-    [self addTaskTitled:@"一个月后" withContent:@"" atTime:[[NSDate date] dateByAddingTimeInterval:DAY*32] andState:HPTaskStateDue];
+    [self addTaskTitled:@"概统考试" withContent:@"内容待定" atTime:[today dateByAddingTimeInterval:DAY*15+HOUR*16]  andState:HPTaskStateDue];
+    [self addTaskTitled:@"Web考试" withContent:@"见课程网" atTime:[today dateByAddingTimeInterval:DAY*15+HOUR*22] andState:HPTaskStateDue];
+    [self addTaskTitled:@"SICP考试" withContent:@"待定" atTime:[today dateByAddingTimeInterval:DAY*16+HOUR*22]  andState:HPTaskStateDue];
+    [self addTaskTitled:@"JOS面测" withContent:@"待定" atTime:[today dateByAddingTimeInterval:DAY*17+HOUR*16] andState:HPTaskStateDue];
 }
 
 @end

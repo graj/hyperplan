@@ -28,10 +28,11 @@
     CGRect _standardRect;
     BOOL _merged;
     HPItemBubble * _nextStackBubble;
+    UIColor * _color;
 }
 
 @property (nonatomic, retain) Task * task;
-@property (nonatomic, readonly) BOOL editMode;
+@property (nonatomic, assign) BOOL editMode;
 @property (nonatomic, retain) HPItemIndicator * indicatorRef;
 @property (nonatomic, retain) UIScrollView * scrollViewRef;
 @property (atomic, assign) CGFloat scrollSpeed;
@@ -39,6 +40,7 @@
 @property (nonatomic, assign) BOOL merged;
 @property (nonatomic, retain) HPItemBubble * nextStackBubble;
 @property (nonatomic, retain) id <HPItemBubbleDelegate> delegate;
+@property (nonatomic, retain) UIColor * color;
 
 /* Preferred constructors: in consist with the data model */
 - (id)initWithTask:(Task *)task;
