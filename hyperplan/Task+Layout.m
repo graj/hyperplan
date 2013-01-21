@@ -61,4 +61,20 @@
     return @"";
 }
 
+//appended by Tang Yuanchao
+//calculate whether two dates are too close.
+- (Boolean) tooClose:(NSDate *)time2 scale:(CGFloat)scale
+{
+    NSDate * time1 = self.time;
+    NSTimeInterval tempInterval = [time1 timeIntervalSinceDate: time2];
+    CGFloat leastIntervalSeconds = LEAST_PIXEL_INTERVAL * ( DAYS_PER_SCREEN * DAY / SCREEN_HEIGHT );
+    CGFloat secondsInterval = fabsf(tempInterval * scale);
+//    NSLog(@"secondsInterval: %f\n", secondsInterval);
+//    NSLog(@"leastIntervalSeconds: %f\n", leastIntervalSeconds);
+    if (secondsInterval <= leastIntervalSeconds)
+        return true;
+    else
+        return false;
+}
+
 @end

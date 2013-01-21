@@ -8,6 +8,7 @@
 
 #import "HPTimelineViewController.h"
 #import "HPItemBubble.h"
+#import "HPBubbleSetList.h"
 #import "HPItemBubbleStack.h"
 #import "HPItemIndicator.h"
 #import "HPConstants.h"
@@ -32,6 +33,11 @@
     UIPinchGestureRecognizer * pinchRecognizer;
     CGFloat lastScale;
     CGFloat scale;
+    CGFloat oldestScale;//  appended by Tang Yuanchao
+    CGFloat justScale;  //  appended by Tang Yuanchao
+    CGFloat justOffsetY;//  appended by Tang Yuanchao
+    HPBubbleSetList * mySetList;//  appended by Tang Yuanchao
+    Boolean isDoubleTapped; //  appended by Tang Yuanchao
 }
 
 - (void)initContents
@@ -42,7 +48,7 @@
     [self.view addSubview:axis];
     
     pinchRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(pinched:)];
-    scale = lastScale = 1.;
+    scale = lastScale = oldestScale = 1.;
     
     /* set up scroll view */
     scrollView = [[UIScrollView alloc] initWithFrame:[self.view bounds]];
@@ -84,7 +90,13 @@
     /* dynamically set up scrollView's content size */
     scrollView.contentSize = CGSizeMake(scrollView.contentSize.width, maxHeight + 80);
     
-    [self rearrangeBubbles];
+    //  appended by Tangyuanchao
+    //  setList init
+    mySetList = [[HPBubbleSetList alloc] init];
+    [self rearrangeBubbles:1];
+    
+    //  double tap flag init
+    isDoubleTapped = false;
 }
 
 - (void)layoutBubbles
@@ -112,46 +124,92 @@
     }];
 }
 
-- (void)rearrangeBubbles
-{
+//  new implementation by Tang Yuanchao
+//  2013.1.1
+
+- (void)rearrangeBubbles:(NSInteger)cases
+{    
     if ([_bubbles count] < 2) {
         return;
     }
     NSLog(@"Rearranging...");
+    NSInteger i;
 
-    HPItemBubble * pivotBubble, * bubble;
-    
-    [UIView beginAnimations:@"Move bubbles" context:nil];
-    [UIView setAnimationDuration:0.3];
-
-    // detect overlay and animate to merge
-    pivotBubble = _bubbles[0];
-    for (int i = 1; i < [_bubbles count]; i++) {
-        bubble = _bubbles[i];
-        if (!CGRectEqualToRect(bubble.frame, pivotBubble.frame) &&
-            CGRectIntersectsRect(bubble.standardRect, pivotBubble.frame)) {
-            NSLog(@"Merging %@ & %@", pivotBubble.task.title, bubble.task.title);
-            NSLog(@"bubble frame: %f %f %f %f, bubble standardRect: %f %f %f %f, pivotBubble frame: %f %f %f %f", bubble.frame.origin.x, bubble.frame.origin.y, bubble.frame.size.width, bubble.frame.size.height, bubble.standardRect.origin.x, bubble.standardRect.origin.y, bubble.standardRect.size.width, bubble.standardRect.size.height, pivotBubble.frame.origin.x, pivotBubble.frame.origin.y, pivotBubble.frame.size.width, pivotBubble.frame.size.height);
-            [bubble mergeToBubble:pivotBubble];
+    //  judge the cases and process.
+    //  case 1: method called by [init]
+    if (cases == 1) {
+        //  step 1: make sets with _bubbles[], add them into setList. _bubbles[] are already sorted.
+        HPBubbleSet * tempSet;
+        HPItemBubble * tempBubble;
+        for ( i = 0 ; i < [_bubbles count]; i++) {
+            tempBubble = _bubbles[i];
+            tempSet = [mySetList makeSet:tempBubble];
+            [mySetList.setList addObject:tempSet];
+            //  modify the pointers
+//            if (i != 0) {
+//                tempSet2.next = tempSet;
+//                tempSet2 = tempSet;
+//            }
+//            else
+//                tempSet2 = tempSet;
         }
-        else {
-            pivotBubble = bubble;
+        
+        //  step 2: check and process the union needs.        
+        HPBubbleSet * pivotSet = mySetList.setList[0];
+        for (i = 1; i < [mySetList.setList count]; i++) {
+            tempSet = (HPBubbleSet *)mySetList.setList[i];
+            //  union
+            if ([pivotSet.bubble.task tooClose:tempSet.bubble.task.time scale:scale]) {
+                [mySetList unionSet:pivotSet secondSet:tempSet];
+            }
+            else
+                pivotSet = tempSet;
+        }        
+    }
+    
+    //  case 2: method called by pinched.
+    if (cases == 2) {
+        //  if zoom in, that means only splitSet will be called
+        if (oldestScale < scale)
+        {
+            //  scan the setList to find the split point.
+            for (i=0; i<[mySetList.setList count]; i++) {
+                HPBubbleSet * tempSet = (HPBubbleSet *)(mySetList.setList[i]);
+                if (tempSet.count > 1) {//  need to check
+                    [mySetList splitSet:tempSet firstSetIndex:i scale:scale];
+                }
+            }
+        }
+        
+        //  if zoom out, that means only unionSet will be called
+        if (oldestScale > scale)
+        {
+            HPBubbleSet * pivotSet = mySetList.setList[0];
+            for (i = 1; i < [mySetList.setList count]; i++) {
+                HPBubbleSet * tempSet = (HPBubbleSet *)mySetList.setList[i];
+                //  union
+                if ([pivotSet.bubble.task tooClose:tempSet.bubble.task.time scale:scale]) {
+                    //NSLog(@"union~");
+                    [mySetList unionSet:pivotSet secondSet:tempSet];
+                    i--;
+                }
+                else
+                    pivotSet = tempSet;
+            }
         }
     }
     
-    // NEED to verify algorithm carefully
-    pivotBubble = _bubbles[0];
-    for (int i = 1; i < [_bubbles count]; i++) {
-        bubble = _bubbles[i];
-        if (bubble.merged && !CGRectIntersectsRect(bubble.standardRect, pivotBubble.frame)) {
-            NSLog(@"Resuming %@ from %@", bubble.task.title, pivotBubble.task.title);
-            NSLog(@"bubble frame: %f %f %f %f, bubble standardRect: %f %f %f %f, pivotBubble frame: %f %f %f %f", bubble.frame.origin.x, bubble.frame.origin.y, bubble.frame.size.width, bubble.frame.size.height, bubble.standardRect.origin.x, bubble.standardRect.origin.y, bubble.standardRect.size.width, bubble.standardRect.size.height, pivotBubble.frame.origin.x, pivotBubble.frame.origin.y, pivotBubble.frame.size.width, pivotBubble.frame.size.height);
-            [bubble resumeStandardPositionFrom:pivotBubble];
-        }
-        pivotBubble = bubble;
-    }
+//    for (i = 0; i < [mySetList.setList count]; i++) {
+//        HPBubbleSet * tempSet = (HPBubbleSet *)(mySetList.setList[i]);
+//        NSLog(@"setList: %@\n", tempSet.bubble.task.title);
+//        if (tempSet.count > 1) {
+//            for (int j=0; j<tempSet.count; j++) {
+//                HPBubbleSet * tempSet2 = (HPBubbleSet *)(tempSet.setArray[j]);
+//                NSLog(@"--setArray: %@\n", tempSet2.bubble.task.title);
+//            }
+//        }
+//    }
     
-    [UIView commitAnimations];
 }
 
 static CGFloat lastTouch0y;
@@ -163,7 +221,8 @@ static CGFloat lastTouch1y;
 {
     /////////////////////////////////////////////////////////////////////////
     if (sender.state == UIGestureRecognizerStateEnded) {
-        [self rearrangeBubbles];
+        [self rearrangeBubbles:2];
+        oldestScale = scale;
         return;
     }
     
@@ -180,6 +239,7 @@ static CGFloat lastTouch1y;
     if (sender.state == UIGestureRecognizerStateBegan) {
         lastTouch0y = touch0y;
         lastTouch1y = touch1y;
+        oldestScale = scale;
         return;
     }
     
@@ -198,7 +258,7 @@ static CGFloat lastTouch1y;
     /* modify scrollview's size and position */
     scrollView.contentOffset = CGPointMake(scrollView.contentOffset.x, contentOffsetY);
     scrollView.contentSize = CGSizeMake(scrollView.contentSize.width, scrollView.contentSize.height / lastScale * scale);
-    
+//    NSLog(@"bounds: %f, %f", scrollView.bounds.origin.x, scrollView.bounds.origin.y);
     /* move bubbles to their position */
     [self scaleBubbles];
 
@@ -216,7 +276,100 @@ static CGFloat lastTouch1y;
         return [[NSNumber numberWithFloat:obj1.frame.origin.y] compare:[NSNumber numberWithFloat:obj2.frame.origin.y]];
     }];
     /* detect overlay and rearrange */
-    [self rearrangeBubbles];
+    [self rearrangeBubbles:3];
+}
+
+- (void)bubbleDidDoubleTapped:(HPItemBubble *)bubble
+{
+    //  now zoom in
+    if (isDoubleTapped == false) {
+        isDoubleTapped = true;
+        justScale = scale;
+        justOffsetY = scrollView.contentOffset.y;
+        
+        HPBubbleSet * tempSet = bubble.mySet.setHead;
+        if (tempSet.count < 2) {
+            return;
+        }
+        //  calculate new scale
+        [self getNewScale:bubble];
+        
+        //  modify scrollview's size and position
+        CGFloat contentOffsetY = bubble.standardRect.origin.y * scale / lastScale - bubble.standardRect.origin.y + scrollView.contentOffset.y;
+
+        scrollView.contentOffset = CGPointMake(scrollView.contentOffset.x, contentOffsetY);
+        scrollView.contentSize = CGSizeMake(scrollView.contentSize.width, scrollView.contentSize.height / lastScale * scale);
+        
+        //  scale the bubbles, remember lastScale
+        [self scaleBubbles];
+        lastScale = scale;
+        
+        [scrollView scrollRectToVisible:bubble.standardRect animated:YES];
+        
+        //  split the set
+        NSInteger i;
+        for (i=0; i<[mySetList.setList count]; i++) {
+            HPBubbleSet * tempSet = (HPBubbleSet *)(mySetList.setList[i]);
+            if (tempSet.count > 1) {//  need to check
+                [mySetList splitSet:tempSet firstSetIndex:i scale:scale];
+            }
+        }
+        
+    }
+    //  now resume
+    else{
+        isDoubleTapped = false;
+        //  get back to the old scale
+        scale = justScale;
+        
+        
+        //  modify scrollview's size and position        
+        scrollView.contentOffset = CGPointMake(scrollView.contentOffset.x, justOffsetY);
+        scrollView.contentSize = CGSizeMake(scrollView.contentSize.width, scrollView.contentSize.height / lastScale * scale);
+
+        //  scale the bubbles, remember lastScale
+        [self scaleBubbles];
+        lastScale = scale;
+        
+        [scrollView scrollRectToVisible:bubble.standardRect animated:YES];
+
+
+        //  union the sets
+        NSInteger i;
+        HPBubbleSet * pivotSet = mySetList.setList[0];
+        for (i = 1; i < [mySetList.setList count]; i++) {
+            HPBubbleSet * tempSet = (HPBubbleSet *)mySetList.setList[i];
+            //  union
+            if ([pivotSet.bubble.task tooClose:tempSet.bubble.task.time scale:scale]) {
+                //NSLog(@"union~");
+                [mySetList unionSet:pivotSet secondSet:tempSet];
+                i--;
+            }
+            else
+                pivotSet = tempSet;
+        }
+    }
+}
+
+- (void)getNewScale:(HPItemBubble *)bubble
+{
+    HPBubbleSet * tempSet = bubble.mySet.setHead;
+    if (tempSet.count < 2) {
+        return;
+    }
+    CGFloat minInterval = 1000.;
+    NSInteger i;
+    for (i=0;i<tempSet.count-1;i++){
+        HPBubbleSet * tempSet1 = (HPBubbleSet *)(tempSet.setArray[i]);
+        HPBubbleSet * tempSet2 = (HPBubbleSet *)(tempSet.setArray[i+1]);
+        CGFloat tempInterval = fabsf(tempSet1.bubble.standardRect.origin.y - tempSet2.bubble.standardRect.origin.y);
+        if (tempInterval < minInterval)
+            minInterval = tempInterval;
+    }
+    scale = scale * LEAST_PIXEL_INTERVAL / minInterval;
+    if (scale < TIMELINE_SCALE_MIN) scale = TIMELINE_SCALE_MIN;
+    if (scale > TIMELINE_SCALE_MAX) scale = TIMELINE_SCALE_MAX;
+
 }
 
 @end

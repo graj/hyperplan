@@ -13,5 +13,6 @@
 
 - (CGFloat)YOffsetForScale:(CGFloat)scale inType:(HPItemBubbleScaleType)scaleType;
 - (NSString *)timeRepWithMode:(HPTaskTimeRepMode)mode;
+- (Boolean)tooClose:(NSDate *)time2 scale:(CGFloat)scale;//appended by Tang Yuanchao
 
 @end

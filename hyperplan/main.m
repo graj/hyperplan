@@ -1,3 +1,5 @@
+
+
 //
 //  main.m
 //  hyperplan
@@ -13,6 +15,16 @@
 int main(int argc, char *argv[])
 {
     @autoreleasepool {
-        return UIApplicationMain(argc, argv, nil, NSStringFromClass([HPAppDelegate class]));
+        @try {
+            return UIApplicationMain(argc, argv, nil, NSStringFromClass([HPAppDelegate class]));
+        }
+        @catch (NSException *exception) {
+            
+            NSLog(@"caught");
+        }
+        @finally {
+            ;
+        }
+        
     }
 }

@@ -72,7 +72,7 @@ typedef enum HPTaskTimeRepMode : NSUInteger {
 } HPTaskTimeRepMode;
 
 
-/*
+/*h
  * Time related
  */
 
@@ -83,3 +83,8 @@ typedef enum HPTaskTimeRepMode : NSUInteger {
 #define WEEK (DAY * 7)
 #define MONTH (DAY * 30)
 #define YEAR (DAY * 365)
+
+//appended by Tang Yuanchao
+//build relations between screen pixels and time interval to display
+#define DAYS_PER_SCREEN (4)
+#define LEAST_PIXEL_INTERVAL (80)

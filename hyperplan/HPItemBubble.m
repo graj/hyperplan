@@ -9,6 +9,7 @@
 #import "HPConstants.h"
 #import "HPItemBubble.h"
 #import "HPItemIndicator.h"
+#import "HPBubbleSet.h"
 #import "Task.h"    
 #import "Task+Layout.h"
 #import <QuartzCore/QuartzCore.h>
@@ -51,6 +52,7 @@
 
     UIPanGestureRecognizer * panGestureRecognizer;
     UILongPressGestureRecognizer * longPressRecognizer;
+    UITapGestureRecognizer * doubleTapRegognizer;   //  appended by Tang Yuanchao
     
     NSThread * scrollThread;
     BOOL scrollThreadShouldScroll;
@@ -72,6 +74,13 @@
         panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(dragged:)];
         panGestureRecognizer.delegate = self;
         [self addGestureRecognizer:panGestureRecognizer];
+        
+        //  appended by Tang Yuanchao
+        //  double tap recognizer
+        doubleTapRegognizer= [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapped:)];
+        doubleTapRegognizer.delegate = self;
+        doubleTapRegognizer.numberOfTapsRequired = 2;
+        [self addGestureRecognizer:doubleTapRegognizer];
         
         [self initLayout];
         self.standardRect = self.frame;
@@ -153,6 +162,7 @@
 
 - (void)longPressed:(id)sender
 {
+    return;  //temporary disable edit mode
     if (((UIGestureRecognizer *)sender).state == UIGestureRecognizerStateEnded) {
         [self cancelEditMode];
         [self.delegate bubbleDidMove:self];
@@ -203,6 +213,15 @@
     
     self.center = CGPointMake(self.center.x, newY);
     self.indicatorRef.center = CGPointMake(self.indicatorRef.center.x, newY - INDICATOR_OFFSET_Y);
+}
+
+//  appended by Tang Yuanchao
+//  control double tap action.
+- (void)doubleTapped:(id)sender
+{
+    if (((UIGestureRecognizer *)sender).state == UIGestureRecognizerStateEnded) {
+        [self.delegate bubbleDidDoubleTapped:self];
+    }
 }
 
 #pragma mark - Edit Mode Related
@@ -307,30 +326,6 @@
         return !self.editMode;
     
     return YES;
-}
-
-
-- (void)mergeToBubble:(HPItemBubble *)bubble
-{
-    self.frame = bubble.frame;
-    [self.indicatorRef layoutForBubble:self];
-    self.merged = YES;
-//    bubble.merged = YES;
-    
-    self.nextStackBubble = bubble;
-    self.indicatorRef.number += bubble.indicatorRef.number;
-    bubble.indicatorRef.alpha = 0;
-}
-
-- (void)resumeStandardPositionFrom:(HPItemBubble *)bubble
-{
-    self.frame = self.standardRect;
-    [self.indicatorRef layoutForBubble:self];
-    self.merged = NO;
-    NSLog(@"bubbleNum: %d, selfNum: %d", bubble.indicatorRef.number, self.indicatorRef.number);
-    self.indicatorRef.number -= bubble.indicatorRef.number;
-    self.nextStackBubble = nil;
-    bubble.indicatorRef.alpha = 1;
 }
 
 @end

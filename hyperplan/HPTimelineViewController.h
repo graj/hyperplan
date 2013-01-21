@@ -13,6 +13,7 @@
 {
     HPItemBubble * _currentActiveBubble;
     NSMutableArray * _bubbles;
+    
 }
 
 - (void)initContents;

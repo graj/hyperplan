@@ -74,6 +74,8 @@
 		4A96DE8B1666F387003F10F3 /* Task+Layout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A96DE8A1666F387003F10F3 /* Task+Layout.m */; };
 		4A96DE8E16676745003F10F3 /* HPItemBubbleStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A96DE8D16676745003F10F3 /* HPItemBubbleStack.m */; };
 		4AA864AA1668AD35006575BD /* bubble-stack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AA864A91668AD35006575BD /* bubble-stack@2x.png */; };
+		F1EF6EA1168EBE500003107B /* HPBubbleSet.m in Sources */ = {isa = PBXBuildFile; fileRef = F1EF6EA0168EBE500003107B /* HPBubbleSet.m */; };
+		F1EF6EA8168EE6BE0003107B /* HPBubbleSetList.m in Sources */ = {isa = PBXBuildFile; fileRef = F1EF6EA7168EE6BE0003107B /* HPBubbleSetList.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -165,7 +167,7 @@
 		419896B81654DE8500690FBF /* Task.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Task.m; path = hyperplan/Task.m; sourceTree = "<group>"; };
 		419896BB1654DF5100690FBF /* HPTimelineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPTimelineViewController.h; sourceTree = "<group>"; };
 		419896BC1654DF5100690FBF /* HPTimelineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPTimelineViewController.m; sourceTree = "<group>"; };
-		419F12C71648D76600128B26 /* hyperplan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hyperplan.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		419F12C71648D76600128B26 /* hyperplan_test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hyperplan_test.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		419F12CB1648D76600128B26 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		419F12CD1648D76600128B26 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		419F12CF1648D76600128B26 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -190,6 +192,10 @@
 		4A96DE8C16676745003F10F3 /* HPItemBubbleStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPItemBubbleStack.h; sourceTree = "<group>"; };
 		4A96DE8D16676745003F10F3 /* HPItemBubbleStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPItemBubbleStack.m; sourceTree = "<group>"; };
 		4AA864A91668AD35006575BD /* bubble-stack@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bubble-stack@2x.png"; path = "../../hyper-plan-GUI/resources/bubble-stack@2x.png"; sourceTree = "<group>"; };
+		F1EF6E9F168EBE500003107B /* HPBubbleSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPBubbleSet.h; sourceTree = "<group>"; };
+		F1EF6EA0168EBE500003107B /* HPBubbleSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPBubbleSet.m; sourceTree = "<group>"; };
+		F1EF6EA6168EE6BE0003107B /* HPBubbleSetList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPBubbleSetList.h; sourceTree = "<group>"; };
+		F1EF6EA7168EE6BE0003107B /* HPBubbleSetList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPBubbleSetList.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -329,6 +335,10 @@
 				4A96DE8D16676745003F10F3 /* HPItemBubbleStack.m */,
 				4198968F1654DBD200690FBF /* HPItemIndicator.h */,
 				419896901654DBD200690FBF /* HPItemIndicator.m */,
+				F1EF6E9F168EBE500003107B /* HPBubbleSet.h */,
+				F1EF6EA0168EBE500003107B /* HPBubbleSet.m */,
+				F1EF6EA6168EE6BE0003107B /* HPBubbleSetList.h */,
+				F1EF6EA7168EE6BE0003107B /* HPBubbleSetList.m */,
 			);
 			name = Item;
 			sourceTree = "<group>";
@@ -396,7 +406,7 @@
 		419F12C81648D76600128B26 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				419F12C71648D76600128B26 /* hyperplan.app */,
+				419F12C71648D76600128B26 /* hyperplan_test.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -460,9 +470,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		419F12C61648D76600128B26 /* hyperplan */ = {
+		419F12C61648D76600128B26 /* hyperplan_test */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 419F13001648D76600128B26 /* Build configuration list for PBXNativeTarget "hyperplan" */;
+			buildConfigurationList = 419F13001648D76600128B26 /* Build configuration list for PBXNativeTarget "hyperplan_test" */;
 			buildPhases = (
 				419F12C31648D76600128B26 /* Sources */,
 				419F12C41648D76600128B26 /* Frameworks */,
@@ -472,9 +482,9 @@
 			);
 			dependencies = (
 			);
-			name = hyperplan;
+			name = hyperplan_test;
 			productName = hyperplan;
-			productReference = 419F12C71648D76600128B26 /* hyperplan.app */;
+			productReference = 419F12C71648D76600128B26 /* hyperplan_test.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -499,7 +509,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				419F12C61648D76600128B26 /* hyperplan */,
+				419F12C61648D76600128B26 /* hyperplan_test */,
 			);
 		};
 /* End PBXProject section */
@@ -582,6 +592,8 @@
 				41F57DA4166788A300E6850E /* HPBubbleGroupViewController.m in Sources */,
 				41F57DAF1667B64800E6850E /* StyleMapper.m in Sources */,
 				41F57DB21667B67300E6850E /* StyleInjection.m in Sources */,
+				F1EF6EA1168EBE500003107B /* HPBubbleSet.m in Sources */,
+				F1EF6EA8168EE6BE0003107B /* HPBubbleSetList.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -691,7 +703,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		419F13001648D76600128B26 /* Build configuration list for PBXNativeTarget "hyperplan" */ = {
+		419F13001648D76600128B26 /* Build configuration list for PBXNativeTarget "hyperplan_test" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				419F13011648D76600128B26 /* Debug */,

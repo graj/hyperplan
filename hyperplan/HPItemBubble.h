@@ -12,10 +12,12 @@
 
 @class HPItemIndicator;
 @class HPItemBubble;
+@class HPBubbleSet;
 
 @protocol HPItemBubbleDelegate <NSObject>
 
 - (void)bubbleDidMove:(HPItemBubble *)bubble;
+- (void)bubbleDidDoubleTapped:(HPItemBubble *)bubble;
 
 @end
 
@@ -28,6 +30,7 @@
     CGRect _standardRect;
     BOOL _merged;
     HPItemBubble * _nextStackBubble;
+    HPBubbleSet * _mySet;
 }
 
 @property (nonatomic, retain) Task * task;
@@ -38,13 +41,12 @@
 @property (nonatomic, assign) CGRect standardRect;
 @property (nonatomic, assign) BOOL merged;
 @property (nonatomic, retain) HPItemBubble * nextStackBubble;
+@property (nonatomic, retain) HPBubbleSet * mySet;
 @property (nonatomic, retain) id <HPItemBubbleDelegate> delegate;
 
 /* Preferred constructors: in consist with the data model */
 - (id)initWithTask:(Task *)task;
 + (id)bubbleWithTask:(Task *)task;
 - (void)resumeStandardPosition;
-- (void)mergeToBubble:(HPItemBubble *)bubble;
-- (void)resumeStandardPositionFrom:(HPItemBubble *)bubble;
 
 @end
